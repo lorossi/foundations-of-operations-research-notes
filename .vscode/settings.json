@@ -58,12 +58,15 @@
     "editor.formatOnSave": false
   },
   "cSpell.words": [
+    "argmin",
     "auxlock",
+    "cleanstyle",
+    "deletetemp",
+    "pred",
     "tikzit",
     "tikzstyle",
     "tikzstyles",
     "tikztemp",
-    "deletetemp",
-    "cleanstyle"
+    "Warshall's"
   ]
 }

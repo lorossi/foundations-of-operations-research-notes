@@ -1,0 +1,22 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (0) at (0, 0) {};
+		\node [style=none] (1) at (0, -10) {};
+		\node [style=none] (2) at (14, -10) {};
+		\node [style=left align] (4) at (14.25, -10) {\(n\)};
+		\node [style=none] (5) at (14, 0) {};
+		\node [style=none] (6) at (10.9, -5.65) {};
+		\node [style=none] (7) at (10.9, -10) {};
+		\node [style=none] (8) at (10.9, -10.5) {\(n_0\)};
+		\node [style=none] (9) at (14, -3) {};
+		\node [style=none, color={rgb,255: red,0; green,128; blue,128}] (10) at (14.25, 0.5) {\(c \cdot g(n)\)};
+		\node [style=none, color={rgb,255: red,191; green,0; blue,64}] (11) at (14.25, -2.5) {\(f(n)\)};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=big arrow] (1.center) to (0.center);
+		\draw [style=big arrow] (1.center) to (2.center);
+		\draw [style=green line, in=240, out=0, looseness=1.50] (1.center) to (5.center);
+		\draw [style=dashed] (7.center) to (6.center);
+		\draw [style=red line, in=-135, out=0, looseness=0.75] (1.center) to (9.center);
+	\end{pgfonlayer}
+\end{tikzpicture}
