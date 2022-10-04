@@ -36,7 +36,6 @@ Proposed by \textit{Richard Bellman} in \(1950\), \textbf{dynamic programming} \
 \DP is applicable to any sequential decision problem, for which the optimality property is satisfied;
 as such, it has a wide range of applications, including scheduling, transportation, and assignment problems.
 
-
 \subsection{Complexity of algorithms}
 
 In order analyze an algorithm, it's necessary to consider its complexity as a function of the size of the instance \textit{(the size of the input)}, independently of the computer;
@@ -1357,14 +1356,14 @@ construct the graph \(G\) representing the project.
 \begin{enumerate}
   \item Find a topological order of the nodes
   \item Consider the nodes by increasing indices and for each \(h \in N\) find the earliest time \(T_{min_h}\) at which the event associated to node \(h\) can occur
-  \begin{itemize}[label = \(\rightarrow\)]
-    \item \(T_{min_h}\) corresponds to the minimum project duration
-  \end{itemize}
+        \begin{itemize}[label = \(\rightarrow\)]
+          \item \(T_{min_h}\) corresponds to the minimum project duration
+        \end{itemize}
   \item Consider the nodes by decreasing indices and for each \(h \in N\) find the latest time \(T_{max_h}\) at which the event associated to node \(h\) can occur without delaying the project completion date beyond \(T_{min_n}\)
   \item For each activity \(\left( i, j \right) \in A\) find the slack
-  \begin{itemize}[label = \(\rightarrow\)]
-    \item the slack is calculated as \(\sigma{ij} - T_{max_j}  - T_{min_i} - d_{ij}\)
-  \end{itemize}
+        \begin{itemize}[label = \(\rightarrow\)]
+          \item the slack is calculated as \(\sigma{ij} = T_{max_j} - T_{min_i} - d_{ij}\)
+        \end{itemize}
 \end{enumerate}
 
 \bigskip
@@ -1379,7 +1378,7 @@ graph \(G = (N, A)\) with \(n = |N|\) and the duration \(d_{ij}\) associated to 
 finally, the algorithm is shown in pseudocode in Algorithm~\ref{lst:critical-path-method}.
 
 \begin{lstlisting}[style=custom, language=pseudocode, caption={Critical path method}, label={lst:critical-path-method}]
-Sort the nodes topologically
+sort the nodes topologically
 T_min_i := 0
 for j = 2 to n do
   T_min_j := max{T_min_i + d_ij | (i, j) $\in \delta^- (\texttt{j})$}
@@ -1390,15 +1389,14 @@ for i = n-1 to 1 do
 end for
 \end{lstlisting}
 
-
 \bigskip
 \textbf{Complexity}:
-the overall complexity is \(\bigO(n+m) \approx \bigO(m)\), due to the sum of
+the overall complexity is \(\bigO{n+m} \approx \bigO{m}\), due to the sum of
 
 \begin{itemize}
-  \item complexity of the topological sort - \(\bigO(n+m)\)
-  \item complexity of the first loop - \(\bigO(n+m)\)
-  \item complexity of the second loop - \(\bigO(n+m)\)
+  \item complexity of the topological sort - \(\bigO{n+m}\)
+  \item complexity of the first loop - \(\bigO{n+m}\)
+  \item complexity of the second loop - \(\bigO{n+m}\)
 \end{itemize}
 
 \paragraph{Critical paths}
@@ -1416,8 +1414,8 @@ It was introduced in 1896 by Henry Gantt, an American mechanical engineer and ma
 There are two types of Gantt charts:
 
 \begin{itemize}
-  \item Gantt chart at earliest - each activity \(\left( i, j \right)\) starts at \(T_{min_i}\) and ends at \(T_{min_i} + d_{ij}\)
-  \item Gantt chart at latest - each activity \(\left( i, j \right)\) starts at \(T_{max_i}\) and ends at \(T_{max_i} + d_{ij}\)
+  \item Gantt chart at \textbf{earliest} - each activity \(\left( i, j \right)\) starts at \(T_{min_i}\) and ends at \(T_{min_i} + d_{ij}\)
+  \item Gantt chart at \textbf{latest} - each activity \(\left( i, j \right)\) starts at \(T_{max_i}\) and ends at \(T_{max_i} + d_{ij}\)
 \end{itemize}
 
 \end{document}
