@@ -64,8 +64,8 @@ An illustration of the big-O notation is shown in Figure~\ref{fig:big-o-notation
 Two classes of algorithms are considered, according to their worst case order of complexity:
 
 \begin{itemize}
-  \item \textbf{Polynomial}: \(\bigO{n^d}\) for a constant \(d > 0, d \in \mathbb{R}\)
-  \item \textbf{Exponential}: \(\bigO{d^n}\) for a constant \(d > 0, d \in \mathbb{R}\)
+  \item \textbf{Polynomial}: \(\bigO{n^d}\) for a constant \(d > 0, d \in \R\)
+  \item \textbf{Exponential}: \(\bigO{d^n}\) for a constant \(d > 0, d \in \R\)
 \end{itemize}
 
 Algorithms with a hight order Polynomial complexity are not considered efficient.
@@ -585,7 +585,7 @@ Let \(f \in \delta(S) \cap C\):
 
 \bigskip
 \textbf{Model}:
-an undirected graph \(G = (N, E), \, n = |N|, \, m = |E|\) and a cost function \(c: E \rightarrow \mathbb{R}\), that assigns a cost to each edge, with \(e = \{u, v\} \in E\).
+an undirected graph \(G = (N, E), \, n = |N|, \, m = |E|\) and a cost function \(c: E \rightarrow \R\), that assigns a cost to each edge, with \(e = \{u, v\} \in E\).
 
 \bigskip
 \textbf{Required properties}
@@ -596,7 +596,7 @@ an undirected graph \(G = (N, E), \, n = |N|, \, m = |E|\) and a cost function \
 
 \bigskip
 \textbf{Formalized problem}:
-given an undirected graph \(G = (N, E)\) and a cost function \(c: E \rightarrow \mathbb{R}\), find a spanning tree \(G_T(N, T)\) of \(G\) of minimum, total cost.
+given an undirected graph \(G = (N, E)\) and a cost function \(c: E \rightarrow \R\), find a spanning tree \(G_T(N, T)\) of \(G\) of minimum, total cost.
 
 The objective is finding:
 \[ \displaystyle \min_{T \in X} \sum_{e \in T} c_e \qquad X = \text{ set of all spanning trees of } G \]
@@ -773,7 +773,7 @@ A tree \(T\) is of minimum total cost if and only if no cost decreasing edge exi
 
 \bigskip
 \textbf{Model}:
-Given a directed graph \(G = (N, A)\) with a cost \(c_{ij} \in \mathbb{R}\) associated to each arc \((i, j) \in A\), and two nodes \(s\) and \(t\), determine a minimum cost \textit{(shortest)} path from \(s\) to \(t\).
+Given a directed graph \(G = (N, A)\) with a cost \(c_{ij} \in \R\) associated to each arc \((i, j) \in A\), and two nodes \(s\) and \(t\), determine a minimum cost \textit{(shortest)} path from \(s\) to \(t\).
 
 \begin{itemize}
   \item Each value \(c_{i, j}\) represents the cost \textit{(or length, travel time, \ldots)} of arc \((i, j) \in A\)
@@ -1124,7 +1124,7 @@ A directed acyclic graph \(G\) is then referred to as a \textbf{\DAG}.
 Property of \textit{\DAGs}: the nodes of any directed acyclic graph \(G\) can be ordered topologically, i.e. indexed so that for each arc \((i, j) \in A\) the index of \(i\) is less than the index of \(j\) \textit{(\(i \leq j\))}.
 The topological order can be exploited by dynamic programming algorithms to compute efficiently the shortest paths in a \DAG.
 
-\textbf{Problem}: given a \DAG \(G = (N, A)\) with a cost \(c_{ij} \in \mathbb{R}\) and nodes \(s, t\), determine the shortest (or longest) path from \(s\) to \(t\).
+\textbf{Problem}: given a \DAG \(G = (N, A)\) with a cost \(c_{ij} \in \R\) and nodes \(s, t\), determine the shortest (or longest) path from \(s\) to \(t\).
 
 \subsubsection{Topological ordering method}
 
@@ -1417,5 +1417,478 @@ There are two types of Gantt charts:
   \item Gantt chart at \textbf{earliest} - each activity \(\left( i, j \right)\) starts at \(T_{min_i}\) and ends at \(T_{min_i} + d_{ij}\)
   \item Gantt chart at \textbf{latest} - each activity \(\left( i, j \right)\) starts at \(T_{max_i}\) and ends at \(T_{max_i} + d_{ij}\)
 \end{itemize}
+
+\clearpage
+
+\section{Linear Programming}
+
+A linear programming \textit{(or \LP)} problem is an optimization problem such as
+
+\begin{gather}
+  \begin{aligned}
+    \min \         & f(x)                                  \\
+    \text{s.t.} \  & x \in X \subseteq \R^n \rightarrow \R
+  \end{aligned}
+  \label{eq:linear-programming}
+\end{gather}
+
+where:
+
+\begin{itemize}
+  \item the objective function \(f: X \rightarrow \R\) is linear
+  \item the feasible ragion \(X \left\{ x \in \R^n \, | \, g_i(x) \, r_i \, 0 \land i \in \left\{ 1, \ldots, m \right\}\right\}\) with \(r_i \in \left\{ =, \geq, \leq \right\}\) and \(g_i: \R^n \rightarrow \R\) are linear functions for \(i \in \left\{ 1, \ldots, m \right\}\)
+  \item \(x^\ast \in \R^n\) is an optimal solution of the \LP \ref{eq:linear-programming} if \(f(x^\ast) \leq f(x) \, \forall \, x \in X\)
+\end{itemize}
+
+A wide variety of decision making problems can be formulated or approximated as \LP, as they often involve the optimal allocation of a given set of limited resources to different activities.
+
+\begin{itemize}
+  \item General form of a linear programming problem:
+        \begin{gather}
+          \begin{aligned}
+            \min \         & z = c_1 x^1 + \cdot + c_n x_n                                    \\
+            \text{s.t.} \  & a_{11} x^1 + \cdot + a_{1n} x_n \left( \leq, =, \geq \right) b_1 \\
+                           & \vdots                                                           \\
+                           & a_{m1} x^1 + \cdot + a_{mn} x_n \left( \leq, =, \geq \right) b_m \\
+                           & x^1, \ldots, x_n \geq 0
+          \end{aligned}
+        \end{gather}
+
+  \item Matrix notation of a linear programming problem:
+        \begin{gather}
+          \begin{aligned}
+            \min \         & z = \begin{bmatrix}
+                                   c1 & c2 & \cdots & cn
+                                 \end{bmatrix}
+            \begin{bmatrix}
+              x1     \\
+              x2     \\
+              \vdots \\
+              xn
+            \end{bmatrix}                                              \\
+            \text{s.t.} \  & \begin{bmatrix}
+                               a_{11} & a_{12} & \cdots & a_{1n} \\
+                               a_{21} & a_{22} & \cdots & a_{2n} \\
+                               \vdots & \vdots & \ddots & \vdots \\
+                               a_{m1} & a_{m2} & \cdots & a_{mn}
+                             \end{bmatrix}
+            \begin{bmatrix}
+              x^1    \\
+              x^2    \\
+              \vdots \\
+              x_n
+            \end{bmatrix} \left( \leq, =, \geq \right) \begin{bmatrix}
+                                                         b_1    \\
+                                                         b_2    \\
+                                                         \vdots \\
+                                                         b_m
+                                                       \end{bmatrix}   \\
+                           & \begin{bmatrix}
+                               x^1 \\ \vdots \\ x_n
+                             \end{bmatrix}
+            \geq 0
+          \end{aligned}
+        \end{gather}
+\end{itemize}
+
+\subsection{Assumptions of \LP models}
+
+The \LP model is based on the following assumptions:
+
+\begin{itemize}
+  \item Linearity (proportionality and additivity) of the objective function and constraints
+        \begin{itemize}[label=\(\rightarrow\)]
+          \item proportionality: \( \textit{contribution of each variable} \ = \ \textit{constant} \ \times \ \textit{variable} \). It does not account for economies of scale
+          \item additivity: \(\textit{total contribution} \ =\sum_i \textit{contribution of each variable} \ i\). It does not account for competing activities (their sum is not necessarily the total contribution)
+        \end{itemize}
+  \item Divisibility of the variables, as they can assume fractional (rational) values
+  \item Parameters are assumed to be constants which can be estimated with a sufficient degree of accuracy
+        \begin{itemize}[label=\(\rightarrow\)]
+          \item more complex mathematical programs are needed to account for uncertainty in the parameter values
+        \end{itemize}
+\end{itemize}
+
+\LP \textbf{sensitivity analysis} allows to evaluate how \inlinequote{sensitive} an optimal solution is with respect to small changes in the parameters of the model. % TODO add reference
+
+\subsection{Equivalent Forms}
+
+The general form (\ref{eq:linear-programming-general-form}) of a \LP can be expressed in the equivalent standard form (\ref{eq:linear-programming-standard-form}).
+
+\begin{gather}
+  \begin{aligned}
+    \min (\max) \  & z = c^T x                                                                                                \\
+    \text{s.t.} \  & A_1 x \geq b_1 \quad                                                 & \text{inequality constraints}     \\
+                   & A_2 x \leq b_2 \quad                                                 & \text{inequality constraints}     \\
+                   & A_3 x = b_3 \quad                                                    & \text{equality constraints}       \\
+                   & x_j \geq 0,\ j \in J \subseteq \left\{ 1, \ldots, n \right\} \quad   & \text{non-negativity constraints} \\
+                   & x_j \ \text{free} \, j \in \left\{ 1, \ldots, n \right\} \setminus J & \text{free variables}
+  \end{aligned}
+  \label{eq:linear-programming-general-form}
+\end{gather}
+
+\begin{gather}
+  \begin{aligned}
+    \min \         & z = c^T x &                               \\
+    \text{s.t.} \  & Ax \leq b & \text{equality constraints}   \\
+                   & x \geq 0  & \text{non negative variables}
+  \end{aligned}
+  \label{eq:linear-programming-standard-form}
+\end{gather}
+
+The two forms are equivalent, as simple transportation rules allow to pass from one form to the other;
+the transformation may involve adding and or deleting variables and constraints, as the next Section shows.
+
+\subsubsection{Transformation rules}
+
+\begin{itemize}[parsep=1.25ex]
+  \item \(\max c^T x \Rightarrow \min -c^T x\)
+  \item \(a^T x \leq b \Rightarrow \begin{cases}
+          a^T + x = b \\
+          s \geq 0
+        \end{cases}\) s is a slack variable
+  \item \(a^T x \geq b \Rightarrow \begin{cases}
+          a^T + x = b \\
+          s \geq 0
+        \end{cases}\) s is a surplus variable
+  \item \(x_j\) unrestricted in sign \(\Rightarrow \begin{cases}
+          x_j = x_j^+ - x_j^- \\
+          x_j^+ \geq 0        \\
+          x_j^- \geq 0
+        \end{cases}\)
+        \begin{itemize}[label=\(\rightarrow\)]
+          \item after the substitution, \(x_j\) is deleted from the problem
+        \end{itemize}
+  \item \(a^T x \leq q \Leftrightarrow - a^T x \geq -b\)
+  \item \(a^T x \geq q \Leftrightarrow - a^T x \leq -b\)
+  \item \(a^T x = b \Leftrightarrow \begin{cases}
+          a^T x \leq b \\
+          a^T x \geq b
+        \end{cases} \Leftrightarrow \begin{cases}
+          a^T x \leq b \geq b \\
+          -  a^T x \geq - b
+        \end{cases}\)
+\end{itemize}
+
+\subsection{Graphical solutions}
+
+A level curve of value \(z\) of a function \(f\) is the set of points in \(\R^n\) where \(f\) is constant and takes value \(z\).
+
+\bigskip
+Consider a \LP with inequality constraints \textit{(as it's easier to visualize)}.
+
+\begin{itemize}
+  \item A hyperplane is the set of points that satisfies the constraint
+        \( H = \left\{ x \in \R^n \, | \, a^T x = b \right\} \)
+  \item An affine half space is the set of points that satisfies the constraint
+        \(H = \left\{ x \in \R^n \, | \, a^T x \leq b \right\} \)
+        \begin{itemize}[label=\(\rightarrow\)]
+          \item each inequality constraint \(a^T x \leq b\) defines an affine half space in the variable space
+        \end{itemize}
+\end{itemize}
+
+\bigskip
+Definitions relative to the geometry of \LP:
+
+\begin{itemize}
+  \item The feasible region \(X\) of any \LP is a polyhedron \(P\) defined by the intersection of a finite number of affine half spaces
+        \begin{itemize}[label=\(\rightarrow\)]
+          \item \(P\) can be empty or unbounded
+        \end{itemize}
+  \item A subset \(S \subseteq \R^n\) is convex if for each pair of points \(y^1, y^2 \in S\) the line segment between \(y^1\) and \(y^2\) is contained in \(S\)
+  \item The segment defined by \(y^1, y^2 \in S\) defined by all the convex combinations of \(y^1\) and \(y^2\) is called a convex hull
+        \begin{itemize}[label=\(\rightarrow\)]
+          \item \(\left[ y^1, y^2 \right] = \left\{ x \in \R^n \, | \, x = \alpha y^1 + \left( 1-\alpha \right) y^2 \land \alpha \in \left[ 0, 1 \right] \right\}\)
+        \end{itemize}
+  \item A polyhedron \(P\) is a convex set of \(\R^n\)
+        \begin{itemize}
+          \item any half space is convex
+          \item the intersection of a finite number of convex sets is also a convex set
+        \end{itemize}
+  \item A vertex of polyhedron \(P\) is a point op \(P\) that cannot be expressed as a convex combination of other points of \(P\)
+        \begin{itemize}
+          \item mathematically, \(x\) is a vertex \(P\) iff
+                \[ x = \alpha y^1 + (1 - \alpha) y^2, \alpha \in \left[ 0, 1 \right] \quad y^1, y^2 \in P \Rightarrow x = y^1 \lor x = y^2 \]
+          \item a non empty polyhedron \(P = \left\{ x \in \R^n \, | \,Ax = b, x \geq 0 \right\}\) has a finite number (\(n >1\)) of vertices
+        \end{itemize}
+  \item Given a polyhedron \(P\), a vector \(d \in \R^n, d \neq \overline{0}\) is an unbounded feasible direction of \(P\) if, for every point \(x^0 \in P\), the ray \(\left\{ x \in \R^n \, | \, x = x^0 + \lambda d, \lambda \geq 0 \right\}\) is contained in \(P\)
+\end{itemize}
+
+\begin{figure}[htbp]
+  \bigskip
+  \centering
+  \begin{subfigure}[b]{0.495\textwidth}
+    \centering
+    \bigskip
+    \tikzfig{figure-3.tikz}
+    \caption{Hyperplane}
+    \label{subfig:hyperplane}
+    \bigskip
+  \end{subfigure}
+  \bigskip
+  \begin{subfigure}[b]{0.495\textwidth}
+    \centering
+    \bigskip
+    \tikzfig{figure-2.tikz}
+    \caption{Affine half space}
+    \label{subfig:affine-half-space}
+    \bigskip
+  \end{subfigure}
+  \begin{subfigure}[h]{0.495\textwidth}
+    \centering
+    \bigskip
+    \tikzfig{figure-4.tikz}
+    \caption{Convex polyhedron}
+    \label{subfig:convex-hull}
+    \bigskip
+  \end{subfigure}
+  \begin{subfigure}[h]{0.495\textwidth}
+    \centering
+    \bigskip
+    \tikzfig{figure-5.tikz}
+    \caption{Not convex polyhedron}
+    \label{subfig:not-convex-hull}
+    \bigskip
+  \end{subfigure}
+  \caption{Illustrations of \LP geometry definitions}
+  \label{fig:lp-geometry}
+  \bigskip
+\end{figure}
+
+\subsubsection{Theorem - representation of polyhedra}
+
+The \textit{Weyl-Minkoswki} theorem on the representation of polyhedra states that:
+
+Every point \(x\) of a polyhedron \(P\) can be expressed as a convex combination of its vertices \(x^1, \ldots, x^k\) plus \textit{(if needed)} an unbounded feasible direction \(d\) of \(P\):
+\[ x = \alpha_1 x^1 + \ldots + \alpha_k x^k + d \]
+where the multipliers \(\alpha_1 \geq 0\) satisfy the constraint \(\displaystyle\sum_{i=1} \alpha_i = 1\).
+
+\bigskip
+The unbounded feasible direction is needed if the polyhedron is unbounded; Figure~\ref{fig:weyl-minkowski-theorem} represent the cases of a bounded and unbounded polyhedron.
+
+\begin{figure}
+  \centering
+  \bigskip
+  \begin{subfigure}[h]{0.495\textwidth}
+    \centering
+    \bigskip
+    \tikzfig{figure-6.tikz}
+    \caption{Unbounded polyhedron}
+    \label{subfig:unbounded-polyhedron}
+    \bigskip
+  \end{subfigure}
+  \begin{subfigure}[h]{0.495\textwidth}
+    \centering
+    \bigskip
+    \tikzfig{figure-7.tikz}
+    \caption{Bounded polyhedron}
+    \label{subfig:bounded-polyhedron}
+    \bigskip
+  \end{subfigure}
+  \caption{Illustration of the Weyl-Minkowski theorem}
+  \label{fig:weyl-minkowski-theorem}
+  \bigskip
+\end{figure}
+
+\bigskip
+A polytope is a bounded polyhedron; it has the only unbounded feasible direction \(d = 0\).
+
+\textbf{Consequence:}
+every point \(x\) of polytope \(P\) can be expressed as a convex combination of its vertices.
+
+Then the \textit{Weyl-Minkowski theorem} can be used to describe any point.
+An example of this is shown in Figure~\ref{fig:polytope-example}.
+
+\begin{figure}[htbp]
+  \bigskip
+  \centering
+  \tikzfig[0.7]{figure-8.tikz}
+  \caption{Example of polytope. \(x = \alpha_1 x^1 + \alpha_1 x^2 + \alpha_3 x^3\) with \(\alpha_1 + \alpha_2 + \alpha_3 = 1, \alpha_i \geq 0, d = 0\)}
+  \label{fig:polytope-example}
+  \bigskip
+\end{figure}
+
+\subsubsection{Geometry of \LP}
+
+Geometrically:
+
+\begin{itemize}
+  \item An interior point \(x \in P\) cannot be an optimal solution of the problem
+        \begin{itemize}
+          \item it always exists an improving direction
+          \item consider Figure~\ref{subfig:interior-point-solution} where \(c\) represents the direction of fastest increase in \(z\) \textit{(constant gradient)}
+        \end{itemize}
+  \item In an optimal vertex, all feasible direction are worsening directions
+        \begin{itemize}
+          \item consider Figure~\ref{subfig:worsening-point-direction} where \(c\) represents the direction of fastest increase in \(z\) \textit{(constant gradient)}
+        \end{itemize}
+  \item The Weyl-Minkowski theorem implies that, although the variables can assume fractional values, \LP can be seen as combinatorial problems
+        \begin{itemize}
+          \item only the vertices of the polyhedron have to be considered in order to find the feasible solutions
+          \item the graphical method in only applicable for \(n \leq 3\)
+          \item the number of vertices often grows exponentially with respect to the number of variables
+        \end{itemize}
+\end{itemize}
+
+\begin{figure}[htbp]
+  \bigskip
+  \centering
+  \begin{subfigure}[b]{0.495\textwidth}
+    \bigskip
+    \centering
+    \tikzfig{figure-9.tikz}
+    \caption{Interior point of polyhedron \(P\)}
+    \label{subfig:interior-point-solution}
+    \bigskip
+  \end{subfigure}
+  \begin{subfigure}[b]{0.495\textwidth}
+    \bigskip
+    \centering
+    \tikzfig{figure-10.tikz}
+    \caption{Worsening directions of polyhedron \(P\)}
+    \label{subfig:worsening-point-direction}
+    \bigskip
+  \end{subfigure}
+  \bigskip
+\end{figure}
+
+\subsubsection{Four types of \LP}
+
+There are four types of \LP, depending on the number of solutions; all are illustrated in Figure~\ref{fig:lp-types}.
+Since the objective of the problem is to minimize \(f(x)\) \textit{(as it's in form \(\min c^T x\))}, better solutions are found by moving along the direction \(-c\) \textit{(the opposite of the gradient \(\nabla f(x)\))}.
+
+\begin{enumerate}
+  \item A unique optimal solution, Figure~\ref{subfig:unique-solution}
+  \item Multiple (infinitely many) optimal solutions, Figure~\ref{subfig:multiple-solutions}
+  \item Unbounded \LP, Figure~\ref{subfig:unbounded-lp}
+        \begin{itemize}
+          \item this type of problem has unbounded polyhedron and unlimited objective function values
+        \end{itemize}
+  \item Infeasible \LP, Figure~\ref{subfig:infeasible-lp}
+        \begin{itemize}
+          \item this type of problem has an empty polyhedron and no feasible solution
+        \end{itemize}
+\end{enumerate}
+
+\begin{figure}[htbp]
+  \bigskip
+  \centering
+  \begin{subfigure}[b]{0.495\textwidth}
+    \bigskip
+    \centering
+    \tikzfig{figure-11.tikz}
+    \caption{A unique optimal solution}
+    \label{subfig:unique-solution}
+    \bigskip
+  \end{subfigure}
+  \begin{subfigure}[b]{0.495\textwidth}
+    \bigskip
+    \centering
+    \tikzfig{figure-12.tikz}
+    \caption{Multiple optimal solutions}
+    \label{subfig:multiple-solutions}
+    \bigskip
+  \end{subfigure}
+  \bigskip
+  \begin{subfigure}[b]{0.495\textwidth}
+    \bigskip
+    \centering
+    \tikzfig{figure-13.tikz}
+    \caption{Unbounded \LP}
+    \label{subfig:unbounded-lp}
+    \bigskip
+  \end{subfigure}
+  \begin{subfigure}[b]{0.495\textwidth}
+    \bigskip
+    \centering
+    \tikzfig{figure-14.tikz}
+    \caption{Infeasible \LP}
+    \label{subfig:infeasible-lp}
+    \bigskip
+  \end{subfigure}
+  \caption{Four types of \LP}
+  \label{fig:lp-types}
+  \bigskip
+\end{figure}
+
+\subsubsection{Basic feasible solutions and polihedra vertices}
+
+Due to the fundamental theorem of Linear Programming, to solve any \LP problem it suffices to consider the (finitely many) vertices of the polyhedron \(P\) of feasible solutions.
+Since the geometrical definition of vertex cannot be exploited algorithmically, an algebraic definition is needed.
+
+A vertex corresponds to the intersection of the hyperplanes associated to \(n\) inequalities.
+If a polyhedra is expressed in standard form
+\[ P = \left\{ x \in \R^n \, | \, Ax = b, x \geq 0 \right\}\]
+it is possible to transform it into a inequality
+\[ P = \left\{ x \in \R^n \, | \, Ax \leq b, x \geq 0 \right\}\]
+and later transform it into standard form
+\[ P^\prime = \left\{ x \in \R^n \, | \, Ax = b, x \geq 0 \right\} \]
+where \(P^\prime\) is the polyhedron of feasible solutions of the original problem.
+
+Finally, by renaming
+\[ A \coloneq \left[ A | I \right] \quad x \coloneq \left( x^T | s^T \right) \]
+the system of equation is represented in matrix form, where \(A\) has \(m\) rows.
+
+\paragraph{Property - vertices of polyhedra}
+
+For any polyhedron \(P = \left\{ x \in \R^n \, | \, Ax = b, x \geq 0 \right\}\), where \(A\) has \(m\) rows:
+
+\begin{itemize}
+  \item the facets (edges in \(\R^2\)) are obtained by setting one variable to \(0\)
+  \item the vertices are obtained by settings \(n-m\) variables to \(0\)
+\end{itemize}
+
+\subsubsection{Algebraic characterization of vertices}
+
+Consider any polyhedron \(P = \left\{ x \in \R^n \, | \, Ax = b, x \geq 0 \right\}\), in standard form.
+
+\textbf{Assumption:}
+\(A \in \R^{m \times n}\) is such that \(m \leq n\) of rank \(m\) (i.e. \(A\) is full rank).
+This is equivalent to assume that there are no redundant constraints.
+
+\textbf{Solutions:}
+\begin{itemize}
+  \item If \(m = n\), there is a unique solution of \(Ax = b\) \textit{(\(x = A^{-1} b)\)}
+  \item If \(m \leq n\), there are \(\infty^{m-n}\) solutions of \(Ax= b\)
+        \begin{itemize}
+          \item the system has \(n-m\) degrees of freedom
+          \item by fixing the degrees of freedom to \(0\), a vertex is obtained
+        \end{itemize}
+\end{itemize}
+
+\bigskip
+The basis of matrix \(A\) is a subset of \(m\) columns of \(A\) that are linearly independent and form an \(m \times m\) non singular matrix \(B\).
+\[ A = [ \overbrace{B}^n | \overbrace{N}^{n-m} ] \]
+
+\paragraph{Basic solutions}
+
+Let \(x^T = [ \overbrace{x_B^T}^{m\textit{ components}} |  \overbrace{x_N^T}^{n-m\textit{ components}}]\).
+Then any system \(Ax = b\) can be written as \(B _{x_B} + N_{x_N} = b\), and for any set of values of \(x_N\), if \(B\) is not singular, then \(x_B = B^{-1} (b - N_{x_N})\).
+
+\textbf{Definitions:}
+\begin{itemize}
+  \item A basic solution is a solution obtained by setting \(x_N = 0\) and, consequently, \(x_B = B^{-1} b\)
+  \item A basic solution with \(x_B \geq 0\) is a basic feasible solution
+  \item The variables in \(x_B\) are the basic variables and those in \(x_N\) are non basic variables
+  \item By construction, \(\left( x_B^T, x_N^T \right)\) satisfy \(Ax = b\)
+\end{itemize}
+
+\paragraph{Theorem of basic feasible solution}
+
+\(x \in \R^n\) is a basic feasible solution if and only if \(x\) is a vertex of the polyhedron \(P = \left\{ x \in \R^n \, | \, Ax = b, x \geq 0 \right\}\)
+
+\paragraph{Number of basic feasible solutions}
+
+At most, there exists one basic feasible solution for each choice of the \(n-m\) non basic variables out of the \(n\) variables:
+\[\text{\# basic feasible solutions} \leq
+  \begin{pmatrix}
+    n \\ n-m
+  \end{pmatrix}
+  = \dfrac{n!}{\left( n - m \right)! \left( n - \left( n-m \right) \right)!} =
+  \begin{pmatrix}
+    n \\ m
+  \end{pmatrix}
+\]
+
+% FOR2022_3LPVerticesBFS
 
 \end{document}

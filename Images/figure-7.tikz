@@ -1,0 +1,20 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (0) at (-0.5, 2) {};
+		\node [style=none] (1) at (2, -5) {};
+		\node [style=none] (2) at (7, -3.75) {};
+		\node [style=none] (3) at (7.5, 2) {};
+		\node [style=none] (7) at (-0.5, 2) {};
+		\node [style=bottom align] (9) at (2, -5.25) {\(x^1\)};
+		\node [style=bottom align] (10) at (7, -4) {\(x^2\)};
+		\node [style=top align] (11) at (7.5, 2.25) {\(x^3\)};
+		\node [style=top align] (12) at (-0.5, 2.25) {\(x^4\)};
+		\node [style=right align] (13) at (0, -1) {\(P\)};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=light fill] (0.center) to (1.center);
+		\draw [style=light fill] (1.center) to (2.center);
+		\draw [style=light fill] (2.center) to (3.center);
+		\draw [style=light fill] (3.center) to (7.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

@@ -1,0 +1,19 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (0) at (0, 0) {};
+		\node [style=none] (1) at (0, 10) {};
+		\node [style=none] (2) at (8, 0) {};
+		\node [style=bottom align] (3) at (0, -0.25) {\(x^1\)};
+		\node [style=bottom align] (4) at (8, -0.25) {\(x^2\)};
+		\node [style=top align] (5) at (0, 10.25) {\(x^3\)};
+		\node [style=none] (6) at (-0.75, 4.5) {\(P\)};
+		\node [style=top align] (7) at (4.5, 2) {\(x\)};
+		\node [shape=circle, fill=black, inner sep=0pt, minimum width=4pt, style=small black] (8) at (4.5, 1.75) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=light fill] (1.center)
+			 to (0.center)
+			 to (2.center)
+			 to cycle;
+	\end{pgfonlayer}
+\end{tikzpicture}

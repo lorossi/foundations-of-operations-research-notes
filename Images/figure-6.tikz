@@ -1,0 +1,22 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (0) at (-0.5, 2) {};
+		\node [style=none] (1) at (2, -5) {};
+		\node [style=none] (2) at (7, -3.75) {};
+		\node [style=none] (3) at (7.5, 2) {};
+		\node [style=left align, text={rgb,255: red,191; green,0; blue,64}] (5) at (4.25, 0) {\(d\)};
+		\node [style=none] (6) at (4, 0) {};
+		\node [style=right align] (7) at (-0.75, 2) {\(P\)};
+		\node [style=none] (8) at (4, 3.5) {};
+		\node [style=bottom align] (9) at (2, -5.25) {\(x^1\)};
+		\node [style=bottom align] (10) at (7, -4) {\(x^2\)};
+		\node [style=small black] (11) at (4, -3) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=light fill] (0.center) to (1.center);
+		\draw [style=light fill] (1.center) to (2.center);
+		\draw [style=light fill] (2.center) to (3.center);
+		\draw [style=dashed] (8.center) to (6.center);
+		\draw [style=red arrow] (11) to (6.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

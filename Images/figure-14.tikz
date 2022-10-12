@@ -1,0 +1,38 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (0) at (0, 0) {};
+		\node [style=none] (1) at (0, -6) {};
+		\node [style=none] (2) at (6, -6) {};
+		\node [style=none] (3) at (0, -6) {};
+		\node [style=right align] (4) at (-0.5, -0.25) {\(x^2\)};
+		\node [style=bottom align] (5) at (5.75, -6.25) {\(x^1\)};
+		\node [style=none] (8) at (3, -6) {};
+		\node [style=none] (15) at (0, -3) {};
+		\node [style=none] (16) at (4, -6) {};
+		\node [style=none] (17) at (5, -6) {};
+		\node [style=none] (18) at (5, 0) {};
+		\node [style=none] (19) at (4, 0) {};
+		\node [style=none] (20) at (0, -1) {};
+		\node [style=none] (21) at (0, -2) {};
+		\node [style=none] (22) at (6, -2) {};
+		\node [style=none] (23) at (6, -1) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=light fill, opacity=0.8] (8.center)
+			 to (15.center)
+			 to (3.center)
+			 to cycle;
+		\draw [style=light fill, opacity=0.8] (19.center)
+			 to (16.center)
+			 to (17.center)
+			 to (18.center)
+			 to cycle;
+		\draw [style=light fill, opacity=0.8] (23.center)
+			 to (20.center)
+			 to (21.center)
+			 to (22.center)
+			 to cycle;
+		\draw [style=big arrow, in=270, out=90, looseness=0.75] (3.center) to (0.center);
+		\draw [style=big arrow] (3.center) to (2.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

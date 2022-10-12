@@ -1,0 +1,36 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (0) at (0, 0) {};
+		\node [style=none] (1) at (0, -5) {};
+		\node [style=none] (2) at (6, -5) {};
+		\node [style=none] (3) at (6, -2) {};
+		\node [style=small black] (4) at (4, 0) {};
+		\node [style=none] (5) at (7, 1) {};
+		\node [style=none] (6) at (5.5, -0.5) {};
+		\node [style=none, text={rgb,255: red,191; green,0; blue,64}] (7) at (7.25, 1.25) {\(c\)};
+		\node [style=top align] (8) at (2, 3) {optimal solution};
+		\node [style=none] (9) at (4, 0.5) {};
+		\node [style=small black] (10) at (1, -1) {};
+		\node [style=small black] (11) at (3, -2) {};
+		\node [style=small black] (12) at (4, -4) {};
+		\node [style=none] (13) at (1, -2) {};
+		\node [style=none] (14) at (2.25, -2.75) {};
+		\node [style=none] (15) at (3, -4) {};
+		\node [style=bottom align] (16) at (-4, -2.75) {worsening directions};
+		\node [style=none] (17) at (0.5, -1.5) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=light fill] (4.center)
+			 to (0.center)
+			 to (1.center)
+			 to (2.center)
+			 to (3.center)
+			 to cycle;
+		\draw [style=solid arrow, bend left] (8) to (9.center);
+		\draw [style=red arrow] (12) to (15.center);
+		\draw [style=red arrow] (11) to (14.center);
+		\draw [style=red arrow] (10) to (13.center);
+		\draw [style=solid arrow, bend left] (16) to (17.center);
+		\draw [style=red arrow] (5.center) to (6.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

@@ -1,0 +1,20 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (0) at (0, 0) {};
+		\node [style=none] (1) at (9, 0) {};
+		\node [style=none] (2) at (4, 8) {};
+		\node [draw=none, shape=circle, fill=black, inner sep=1pt, minimum size=5pt, style=small black] (3) at (2, 1.5) {};
+		\node [draw=none, shape=circle, fill=black, inner sep=1pt, minimum size=5pt, style=small black] (4) at (6.25, 2.25) {};
+		\node [style=top align, text=black] (5) at (2, 1.75) {\(y^1\)};
+		\node [style=top align, text=black] (6) at (6.25, 2.5) {\(y^2\)};
+		\node [style=none] (7) at (4.5, 2.5) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=light fill] (1.center)
+			 to (2.center)
+			 to (0.center)
+			 to [in=210, out=30] (7.center)
+			 to cycle;
+		\draw [style=solid] (3) to (4);
+	\end{pgfonlayer}
+\end{tikzpicture}
