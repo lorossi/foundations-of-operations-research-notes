@@ -6,7 +6,8 @@
 
 \makecover{Foundation of Operations Research}{2022/2023}
 
-% TODO find a title for all the properties
+% TODO find a title for all the properties OR use a environment for each
+% https://www.overleaf.com/learn/latex/Theorems_and_proofs#Reference_guide
 
 \section{Introduction}
 
@@ -113,8 +114,17 @@ A \textbf{graph} is a pair \(G = (N, E)\) with:
   \item \(N\) a set of \textbf{nodes} or \textbf{vertices}
   \item \(E \subseteq N \times N\) a set of \textbf{edges} or arcs connecting them pairwise
         \begin{itemize}
-          \item an edge connecting nodes \(i\) and \(j\) is represented by \(\{i, j\}\) if the graph is \textbf{undirected}
-          \item an edge connecting nodes \(i\) and \(j\) is represented by \((i, j)\) if the graph is \textbf{directed}
+          \item A \textbf{directed} graph is a graph in which set set \(E\) is composed by ordered pairs of distinct nodes
+                \begin{itemize}[label=\(\rightarrow\)]
+                  \item an edge connecting nodes \(i\) and \(j\) is represented by \(\{i, j\}\)
+                  \item the flow is permitted only in the direction of the arrow \textit{(from \(i\) to \(j\))}
+                  \item \(i\) is the head of the arc and \(j\) is the tail
+                \end{itemize}
+          \item A \textbf{undirected} graph is a graph in which set set \(E\) is composed by unordered pairs of distinct nodes
+                \begin{itemize}[label=\(\rightarrow\)]
+                  \item an edge connecting nodes \(i\) and \(j\) is represented by \((i, j)\)
+                  \item since all edges are undirected, \((i, j)\) is equivalent to \((j, i)\)
+                \end{itemize}
         \end{itemize}
 \end{itemize}
 
@@ -122,44 +132,46 @@ A \textbf{graph} is a pair \(G = (N, E)\) with:
 \textbf{Properties}:
 
 \begin{itemize}
-  \item Two \textbf{nodes} are \textbf{adjacent} if they are connected by an edge
+  \item Two \textbf{nodes} \(i\) and \(j\) are \textbf{adjacent} if they are connected by an edge \((i, j)\) or \(\{i, j\}\)
   \item An \textbf{edge} \(e\) is \textbf{incident} in a node \(v\) if \(v\) is an \textbf{endpoint} of \(e\)
         \begin{itemize}
           \item \textbf{undirected} graphs: the degree of a node is the number of incident edges
           \item \textbf{directed} graphs: the in-degree \textit{(out-degree)} of a node is the number of arcs that have it as successor \textit{(predecessor)}
         \end{itemize}
-  \item A \textbf{path} from \(i \in N \text{ to } j \in N\) is a sequence of edges
+  \item A \textbf{path} from \(i \in N \text{ to } j \in N\) is a sequence of edges in a undirected graph
         \[ p = \left\langle \{v_1, v_2\}, \{v_2, v_3\}, \ldots, \{v_{k-1}, v_k\}\right\rangle \]
         connecting nodes \(v_1, \ldots, v_k\), with \(\{v_i, v_{i+1} \in E\}\) for \(i = 1, \ldots, k-1\)
-  \item A \textbf{directed path} \(i \in N \text{ to } j \in N\) is a sequence of arcs
+  \item A \textbf{directed path} \(i \in N \text{ to } j \in N\) is a sequence of arcs in a directed graph
         \[ p = \left\langle (v_1, v_2), (v_2, v_3), \ldots, (v_{k-1}, v_k)\right\rangle \]
         connecting nodes, with  \((v_i, v_{i+1} \in E)\)  for \(i = 1, \ldots, k-1\)
+  \item A \textbf{cycle} is a path \[ \left\langle v_1, v_2, \ldots, v_1 \right\rangle \] where the first and last nodes are the same
+  \item A \textbf{directed cycle} is path \[ \left\langle \{v_1, v_2\}, \{v_2, v_3\}, \ldots, \{v_{k-1}, v_k\}, \{v_k, v_1\}\right\rangle \]
+        where the first and the last nodes are the same
   \item Nodes \(u\) and \(v\) are \textbf{connected} if exists a path connecting them
   \item A graph \((N, E)\) is \textbf{connecting} if \(u, v\) are connecting \(\forall \, u, v \in N\)
-  \item A graph \((N, E)\) is \textbf{strongly connected} if \(u, v\) are connected by a directed path \(\forall \, u, v \in N\)
+  \item A graph \((N, E)\) is \textbf{strongly connected} if \(u, v\) are connected by a \textbf{directed} path \(\forall \, u, v \in N\)
   \item A graph is \textbf{bipartite} if there is a partition \(N = N_1 \cup N_2, \, N_1 \cap N_2 = \emptyset\) such that \(\forall \, (u, v) \in E, u \in N_1 \text{ and } v \in N_2\)
   \item A graph is \textbf{complete} if \(E = \left\{\{v_i, v_j\} \,|\, v_i, v_j \in N \land i \leq j \right\}\)
   \item Given a directed graph \(G = (N, A)\) and \(S \subseteq N\), the \textbf{outgoing cut} induced by \(S\) is the set of arcs:
         \[\delta^+(S) = \left\{ (u, v) \in A \,|\, u \in S \land v \in N \setminus S \right\}\]
         the \textbf{incoming cut} induced by \(S\) is the set of arcs:
         \[\delta^-(S) = \left\{ (u, v) \in A \,|\, v \in S \land u \in N \setminus S \right\}\]
+        \begin{itemize}
+          \item A graph with \(n\) \textbf{nodes} has at most \(m = \dfrac{n(n-1)}{2}\) \textbf{edges}
+          \item A \textbf{directed} graph with \(n\) \textbf{nodes} has at most \(m = n(n-1)\) \textbf{arcs}
+                \begin{itemize}
+                  \item a graph is \textbf{dense} if \(m \approx n^2\)
+                  \item a graph is \textbf{sparse} if \(m \ll n\)
+                \end{itemize}
+        \end{itemize}
+  \item The adjacency list \(A(i)\) of a node \(i\) is the set of arcs emanating from that node
+        \[ A(i) = \left\{ j \in N \, | \, (i, j) \in A  \right\} \]
 \end{itemize}
 
 \bigskip
 Some examples are shown in Figure \ref{fig:examples-of-graphs}.
 
-\bigskip
-\textbf{Properties of graphs}:
-\begin{itemize}
-  \item A graph with \(n\) \textbf{nodes} has at most \(m = \dfrac{n(n-1)}{2}\) \textbf{edges}
-  \item A \textbf{directed} graph with \(n\) \textbf{nodes} has at most \(m = n(n-1)\) \textbf{arcs}
-        \begin{itemize}
-          \item a graph is \textbf{dense} if \(m \approx n^2\)
-          \item a graph is \textbf{sparse} if \(m \ll n\)
-        \end{itemize}
-\end{itemize}
-
-\begin{figure}
+\begin{figure}[htbp]
   \centering
   \begin{subfigure}[t]{0.495\textwidth}
     \centering
@@ -320,7 +332,7 @@ the adjacency matrix for an undirected graph is \textbf{symmetric}.
 \bigskip
 An example of a graph representation is shown in Figure~\ref{fig:graph-representation}.
 
-\begin{figure}
+\begin{figure}[htbp]
   \begin{subfigure}{0.33\textwidth}
     \centering
     \begin{tikzpicture}[circle, node distance = 2cm, minimum size = 0.75cm]
@@ -365,8 +377,9 @@ An example of a graph representation is shown in Figure~\ref{fig:graph-represent
 
 \subsubsection{Graph reachability problem}
 
-\textbf{Definition}:
-given a directed graph \(G = (N, A)\) and a node \(s \in N\), find all nodes reachable from \(s\)
+\begin{definition}[Graph reachability problem]
+  Given a directed graph \(G = (N, A)\) and a node \(s \in N\), find all nodes reachable from \(s\).
+\end{definition}
 
 \bigskip
 \textbf{Goal}
@@ -386,7 +399,7 @@ The goal is reached by an \textit{efficient} algorithm to solve the problem, wit
 \textbf{Algorithm}
 The algorithm pseudocode is shown in Code~\ref{lst:graph-reachability}.
 
-\begin{lstlisting}[style=custom, language=pseudocode, caption={Graph reachability}, label={lst:graph-reachability}]
+\begin{lstlisting}[style=custom, language=pseudocode, caption={Graph reachability}, label={lst:graph-reachability}, float]
 Q := {s}
 M := {}
 while Q is not empty do
@@ -432,7 +445,7 @@ Then:
 \bigskip
 A representation of these concepts is shown in Figure~\ref{fig:subgraphs-trees}.
 
-\begin{figure}
+\begin{figure}[htbp]
   \centering
   \begin{subfigure}[t]{0.995\textwidth}
     \centering
@@ -488,40 +501,39 @@ A representation of these concepts is shown in Figure~\ref{fig:subgraphs-trees}.
 
 \subsection{Properties of trees}
 
-\subsubsection{Property 1 - number of edges}
+\begin{property}[Number of edges]
+  Every tree with \(n\) nodes has \(n-1\) edges.
+\end{property}
 
-Every tree with \(n\) nodes has \(n-1\) edges.
+\begin{proof}
+  \hfill
+  \begin{itemize}
+    \item \textbf{Base case}: the claim holds for \(n=1\) \textit{(a tree with a single node has no edges)}
+    \item \textbf{Inductive steps}: show that the claim is valid for for any tree with \(n + 1\) nodes
+          \begin{itemize}
+            \item let \(T_1\) be a tree with \(n+1\) and recall with any tree with \(n \geq 2\) nodes has at least \(2\) leaves
+            \item by deleting one of the leaves and its incident edge, a tree \(T_2\) with \(n\) nodes is obtained
+            \item by induction hypothesis, \(T_2\) has \(n-1\) edges; therefore, \(T_1\) has \(n-1+1=n\) edges
+          \end{itemize}
+  \end{itemize}
+\end{proof}
 
-\paragraph{Proof}
+\begin{property}
+  Any pair of nodes in a tree is connected via a unique path.
+  Otherwise, the tree would contain a cycle.
+  \label{prop:number-of-paths}
+\end{property}
 
-\begin{itemize}
-  \item \textbf{Base case}: the claim holds for \(n=1\) \textit{(a tree with a single node has no edges)}
-  \item \textbf{Inductive steps}: show that the claim is valid for for any tree with \(n + 1\) nodes
-        \begin{itemize}
-          \item let \(T_1\) be a tree with \(n+1\) and recall with any tree with \(n \geq 2\) nodes has at least \(2\) leaves
-          \item by deleting one of the leaves and its incident edge, a tree \(T_2\) with \(n\) nodes is obtained
-          \item by induction hypothesis, \(T_2\) has \(n-1\) edges; therefore, \(T_1\) has \(n-1+1=n\) edges
-        \end{itemize}
-\end{itemize}
+\begin{property}
+  By adding a new edge to a tree, a new unique cycle is created.
+  This cycle consists of the path created in Property~\ref{prop:number-of-paths} and the new edge.
+\end{property}
 
-\subsubsection{Property 2 - number of paths}
-\label{sec:property-2}
-
-Any pair of nodes in a tree is connected via a unique path.
-
-Otherwise, the tree would contain a cycle.
-
-\subsubsection{Property 3 - new cycles}
-
-By adding a new edge to a tree, a new unique cycle is created.
-This cycle consists of the path in \nameref{sec:property-2} and the new edge.
-
-\subsubsection{Property 4 - exchange property}
-
-Let \(G_T = (N, T)\) be a spanning tree of \(G = (N, E)\).
-Consider an edge \(e \notin T\) and the unique cycle \(C\) of \(T \cup \{e\}\).
-
-For each edge \(f \in C \setminus \{e\}\), the subgraph \(T \cup \{e\} \setminus \{f\}\) is a spanning tree of \(G\).
+\begin{property}
+  Let \(G_T = (N, T)\) be a spanning tree of \(G = (N, E)\).
+  Consider an edge \(e \notin T\) and the unique cycle \(C\) of \(T \cup \{e\}\).
+  For each edge \(f \in C \setminus \{e\}\), the subgraph \(T \cup \{e\} \setminus \{f\}\) is a spanning tree of \(G\).
+\end{property}
 
 \begin{figure}[htbp]
   \centering
@@ -555,32 +567,34 @@ For each edge \(f \in C \setminus \{e\}\), the subgraph \(T \cup \{e\} \setminus
   \bigskip
 \end{figure}
 
-\subsubsection{Property 5 - cut property}
+\begin{property}
+  Let \(F\) be a partial tree \textit{(spanning nodes in \(S \subseteq N\))} contained in a optimal spanning tree of \(G = (N, E)\).
+  Consider \(e = \left\{u, v\right\} \in \delta(S)\) of minimum cost, then there exists a minimum cost spanning tree of \(G\) containing \(e\).
+\end{property}
 
-Let \(F\) be a partial tree \textit{(spanning nodes in \(S \subseteq N\))} contained in a optimal spanning tree of \(G = (N, E)\).
-Consider \(e = \left\{u, v\right\} \in \delta(S)\) of minimum cost, then there exists a minimum cost spanning tree of \(G\) containing \(e\).
+\begin{proof}
+  By contradiction, assume \(T^\ast \subseteq E\) is a minimum cost spanning tree with \(F \subseteq T^\ast\) and \(e \notin T^\ast\).
 
-\paragraph{Proof}
+  Adding an edge \(e\) to \(T^\ast\) creates the cycle \(C\).
+  Let \(f \in \delta(S) \cap C\):
 
-By contradiction, assume \(T^\ast \subseteq E\) is a minimum cost spanning tree with \(F \subseteq T^\ast\) and \(e \notin T^\ast\).
+  \begin{itemize}
+    \item If \(c_e = c_f\), then \(T^\ast \cup \{e\}\setminus \{f\}\) is a minimum cost spanning tree of \(G\) as it has the same cost as \(T^\ast\)
+    \item If \(c_e < c_f\), then \(c \left( T^\ast \cup \{e\} \setminus \{f\} \right) < c \left(T^\ast\right)\), hence \(T^\ast\) is not optimal
+  \end{itemize}
 
-Adding an edge \(e\) to \(T^\ast\) creates the cycle \(C\).
-Let \(f \in \delta(S) \cap C\):
+\end{proof}
 
-\begin{itemize}
-  \item If \(c_e = c_f\), then \(T^\ast \cup \{e\}\setminus \{f\}\) is a minimum cost spanning tree of \(G\) as it has the same cost as \(T^\ast\)
-  \item If \(c_e < c_f\), then \(c \left( T^\ast \cup \{e\} \setminus \{f\} \right) < c \left(T^\ast\right)\), hence \(T^\ast\) is not optimal
-\end{itemize}
+\newpage
 
 \subsection{Optimal cost spanning tree}
 
-\textbf{Spanning trees} have a number of applications:
+\textbf{Spanning trees} have a number of applications, including:
 
 \begin{itemize}
   \item \textbf{network} design
   \item \textbf{IP network} protocols
   \item \textbf{compact memory} storage
-  \item \ldots
 \end{itemize}
 
 \bigskip
@@ -590,22 +604,31 @@ an undirected graph \(G = (N, E), \, n = |N|, \, m = |E|\) and a cost function \
 \bigskip
 \textbf{Required properties}
 \begin{enumerate}
-  \item Each \textbf{pair of nodes} must be in a \textbf{path} \(\Rightarrow\) the output must be a \textbf{connected subgraph} containing all the nodes \(N\) of \(G\)
-  \item The \textbf{subgraph} must have \textbf{no cycles} \(\Rightarrow\) the output must be a \textbf{tree}
+  \item Each \textbf{pair of nodes} must be in a \textbf{path}
+        \begin{itemize}[label= \(\Rightarrow\)]
+          \item the output must be a \textbf{connected subgraph} containing all the nodes \(N\) of \(G\)
+        \end{itemize}
+  \item The \textbf{subgraph} must have \textbf{no cycles}
+        \begin{itemize}[label= \(\Rightarrow\)]
+          \item the output must be a \textbf{tree}
+        \end{itemize}
 \end{enumerate}
 
 \bigskip
-\textbf{Formalized problem}:
-given an undirected graph \(G = (N, E)\) and a cost function \(c: E \rightarrow \R\), find a spanning tree \(G_T(N, T)\) of \(G\) of minimum, total cost.
+\begin{definition}[Problem definition]
+  Given an undirected graph \(G = (N, E)\) and a cost function \(c: E \rightarrow \R\), find a spanning tree \(G_T(N, T)\) of \(G\) of minimum, total cost.
+\end{definition}
 
 The objective is finding:
 \[ \displaystyle \min_{T \in X} \sum_{e \in T} c_e \qquad X = \text{ set of all spanning trees of } G \]
 
-\subsubsection{Theorem 1 - number of nodes in spanning trees}
+\begin{theorem}
+  A complete graph with \(n\) nodes (\(n \geq 1\)) has \(n^{n-2}\) spanning trees.
+\end{theorem}
 
-The \textbf{Theorem 1}, formulated by \textit{Cayley} in \(1889\), states that:
-
-A complete graph with \(n\) nodes (\(n \geq 1\)) has \(n^{n-2}\) spanning trees.
+\begin{property}
+  Every spanning tree of a connected \(n\)-node graph has \(n-1\) edges.
+\end{property}
 
 \subsubsection{Prim's algorithm}
 
@@ -615,7 +638,7 @@ A complete graph with \(n\) nodes (\(n \geq 1\)) has \(n^{n-2}\) spanning trees.
 \textbf{Method}
 \begin{enumerate}
   \item Start from initial tree \((S, T)\) with \(S = \{u\}, S \subseteq N\) and \(T = \emptyset\)
-  \item At each ste, add to the current partial tree \((S, T)\) an edge of minimum cost among those which connect a node in \(S\) to a node in \(N \setminus S\)
+  \item At each step, add to the current partial tree \((S, T)\) an edge of minimum cost among those which connect a node in \(S\) to a node in \(N \setminus S\)
 \end{enumerate}
 
 \bigskip
@@ -632,41 +655,37 @@ if all edges are scanned at each iteration, the complexity order is \(\bigO{nm}\
 \bigskip
 \textbf{Algorithm}
 the pseudocode of the algorithm is shown in Code~\ref{lst:prims-algorithm}.
+Prim's algorithm is \textbf{greedy}:
+at each step a minimum cost edge is selected among those in the cut \(\delta(S)\) induced by the current set of nodes \(S\).
 
-\begin{lstlisting}[style=custom, language=pseudocode, caption={Prim's algorithm}, label={lst:prims-algorithm}]
+\begin{lstlisting}[style=custom, language=pseudocode, caption={Prim's algorithm}, label={lst:prims-algorithm}, float]
 S := {u}
 T := {}
 while |T| < n - 1 do
-  {u, v} := edge $\in\ \delta(S)$ with minimum cost // $u \in S, v \in N \setminus S$
+  {u, v} := edge $\in \delta(\texttt{S})$ with minimum cost // $u \in S, v \in N \setminus S$
   S := S $\cup$ {v}
   T := T $\cup$ {{u, v}}
 end
 \end{lstlisting}
 
-\bigskip
-Prim's algorithm is \textbf{greedy}:
-at each step a minimum cost edge is selected among those in the cut \(\delta(S)\) induced by the current set of nodes \(S\).
-
 \paragraph{Correcteness of Prim's algorithm}
 
-\textbf{Proposition}: Prim's algorithm is exact.
+\begin{proposition}
+  Prim's algorithm is exact.
+\end{proposition}
 
 The exactness does not depend on the choice of the first node nor on the selected edge of minimum cost \(\delta(S)\).
 Each selected edge is part of the optimal solution as it belongs to a minimum spanning tree.
-
-\paragraph{Optimality test}
 
 The optimality condition allows to verify whether a spanning tree \(T\) is optimal or not;
 it suffices to check that each \(e \in E \setminus T\) is not a cost decreasing edge.
 
 \paragraph{Implementation in quadratic time}
 
-The Prim's algorithm can be implemented in quadratic time \textit{(\(\bigO{n^2}\))}.
+The Prim's algorithm can be implemented in quadratic time, i.e. \(\bigO{n^2}\).
 
-\bigskip
 \textbf{Data structure}
-
-\begin{itemize}
+\begin{itemize}[itemsep=0.25ex]
   \item \(k\) number of edges selected so far
   \item Subset \(S \subseteq N\) of nodes incident to the selected edges
   \item Subset \(T \subseteq E\) of selected edges
@@ -705,7 +724,7 @@ The spanning tree is built is built by selecting the node \(j\) with minimum cos
 \bigskip
 The code for this algorithm is shown in Code~\ref{lst:prim-quadratic}.
 
-\begin{lstlisting}[style=custom, language=pseudocode, caption={Prim's algorithm in quadratic time}, label={lst:prim-quadratic}]
+\begin{lstlisting}[style=custom, language=pseudocode, caption={Prim's algorithm in quadratic time}, label={lst:prim-quadratic}, float]
 T := {}
 S := {u}
 // initialization
@@ -738,57 +757,57 @@ end
 
 \bigskip
 The complexity of this algorithm is \(\bigO{n^2}\).
-For sparse graphs, where \(m \ll \dfrac{n(n-1)}{2}\), a more efficient implementation (\(\bigO{m \log{(2)}}\)) \textit{(using priority queues)} is possible.
+For sparse graphs, where \(m \ll \dfrac{n(n-1)}{2}\), a more efficient implementation (\(\bigO{m \log{(n)}}\)) \textit{(using priority queues)} is possible.
 
 \subsubsection{Optimality condition}
 
-Given a spanning tree \(T\), an edge \(e \notin T\) is cost decreasing if when added to \(T\), it creates a cycle \(C\) with \(C \subseteq T \cup \{e\}\) and \(\exists \, f \in C \setminus \{e\} \ \text{such that} \  c_e < c_f\).
+Given a spanning tree \(T\), an edge \(e \notin T\) is \textbf{cost decreasing} if when added to \(T\), it creates a cycle \(C\) with \(C \subseteq T \cup \{e\}\) and \(\exists \, f \in C \setminus \{e\} \ \text{such that} \  c_e < c_f\).
 
-\subsubsection{Theorem 2 - Tree optimality condition}
+\begin{theorem}
+  A tree \(T\) is of minimum total cost if and only if no cost decreasing edge exists.
+\end{theorem}
 
-A tree \(T\) is of minimum total cost if and only if no cost decreasing edge exists.
+\begin{proof}
+  \hfill
+  \begin{itemize}
+    \item[\(\Rightarrow\)] If a \textbf{cost decreasing edge exists}, then \(T\) is \textbf{not of minimum total cost}
+    \item[\(\Leftarrow\)] If \textbf{no cost decreasing edge exists}, then \(T\) is \textbf{of minimum total cost}
+      \begin{itemize}
+        \item let \(T^\ast\) be a minimum cost spanning tree of graph \(G\), found via by Prim's algorithm
+        \item it can be verified that \(T^\ast\) can be iteratively \textit{(changing one edge at a time)} transformed into \(T\) without changing the total cost
+        \item thus, \(T\) is also optimal
+      \end{itemize}
+  \end{itemize}
 
-\paragraph{Proof}
-
-\begin{itemize}
-  \item[\(\Rightarrow\)] If a \textbf{cost decreasing edge exists}, then \(T\) is \textbf{not of minimum total cost}
-  \item[\(\Leftarrow\)] If \textbf{no cost decreasing edge exists}, then \(T\) is \textbf{of minimum total cost}
-    \begin{itemize}
-      \item let \(T^\ast\) be a minimum cost spanning tree of graph \(G\), found via by Prim's algorithm
-      \item it can be verified that \(T^\ast\) can be iteratively (changing one edge at a time) transformed into \(T\) without changing the total cost
-      \item thus, \(T\) is also optimal
-    \end{itemize}
-\end{itemize}
+\end{proof}
 
 \subsection{Optimal paths}
 
-\textbf{Optimal} (shortest, longest, \ldots) paths have a wide range of applications:
+\textbf{Optimal} \textit{(shortest, longest, \ldots)} paths have a wide range of applications, including:
 
 \begin{itemize}
   \item \textbf{Google Maps}, \textbf{GPS} navigators
   \item Planning and management of \textbf{transportation}, \textbf{electrical}, and \textbf{telecommunication} \textbf{networks}
   \item \textbf{Problem} planning
-  \item \ldots
 \end{itemize}
 
 \bigskip
-\textbf{Model}:
+\textbf{Model}
+
 Given a directed graph \(G = (N, A)\) with a cost \(c_{ij} \in \R\) associated to each arc \((i, j) \in A\), and two nodes \(s\) and \(t\), determine a minimum cost \textit{(shortest)} path from \(s\) to \(t\).
 
 \begin{itemize}
-  \item Each value \(c_{i, j}\) represents the cost \textit{(or length, travel time, \ldots)} of arc \((i, j) \in A\)
-  \item Node \(s\) is the origin \textit{(or source)}, node \(t\) is the destination \textit{(or sink)}
+  \item Each \textbf{value} \(c_{i, j}\) represents the \textbf{cost} \textit{(or length, travel time, \ldots)} of arc \((i, j) \in A\)
+  \item Node \(s\) is the \textbf{origin} \textit{(or source)}, node \(t\) is the \textbf{destination} \textit{(or sink)}
 \end{itemize}
 
-\bigskip
-\textbf{Properties} of optimal paths:
-\begin{itemize}
-  \item A path \(\langle (i_1, i_2), (i_2, i_3), \ldots, (i_{k-1}, i_k)  \rangle\) is simple if no node is visited more than once
-\end{itemize}
+\begin{property}
+  A path \(\langle (i_1, i_2), (i_2, i_3), \ldots, (i_{k-1}, i_k)  \rangle\) is \textbf{simple} if no node is visited more than once
+\end{property}
 
-\subsubsection{Property 6 - shortest path}
-
-If \(c_{ij} \geq 0\) for all \((i, j) \in A\), there is at least one shortest path that is simple.
+\begin{property}
+  If \(c_{ij} \geq 0\) for all \((i, j) \in A\), there is at least one shortest path that is simple.
+\end{property}
 
 \subsubsection{Dijkstra's algorithm}
 
@@ -848,7 +867,7 @@ the complexity of the algorithm depends on the how the arc \((u, v)\) is selecte
 \bigskip
 The code for this algorithm is shown in Code~\ref{lst:dijkstras-algorithm}.
 
-\begin{lstlisting}[style=custom, language=pseudocode, caption={Dijkstra's algorithm}, label={lst:dijkstras-algorithm}]
+\begin{lstlisting}[style=custom, language=pseudocode, caption={Dijkstra's algorithm}, label={lst:dijkstras-algorithm}, float]
 S := {}
 X := {s}
 for u $\in$ N do
@@ -871,35 +890,39 @@ end
 
 \paragraph{Correcteness of Dijkstra's algorithm}
 
-Dijkstra's algorithm is correct.
+\begin{proposition}
+  Dijkstra's algorithm is correct.
+\end{proposition}
 
-\textbf{Proof}:
-\begin{enumerate}
-  \item A the \(k\)-th step:
-        \begin{itemize}
-          \item \(S = \{s, i_1, \ldots, i_{k-1}\}\)
-          \item \(\begin{cases}\text{cost of a minimum cost path from } s \text{ to } j & j \in S \\ \text{cost of a minimum cost path with all intermediate nodes in } S \quad & j \notin S\end{cases}\)
-        \end{itemize}
-  \item By induction on the number \(k\) of steps:
-        \begin{itemize}
-          \item base case: for \(k = 1\) the statement holds, since
-                \[S = \{s\}, \quad L_s = 0, \quad L_j = +\infty, \quad \forall \, j \notin S \]
-          \item inductive step: assume that the statement holds for \(k+1\)
-                \begin{itemize}
-                  \item let \(u \notin S\) be the node that is inserted in \(S\) and \(\phi\) the path from \(s\) to \(u\) such that:
-                        \[ L_v + c_{vu} \leq L_i + c_{iu}, \quad \forall \, (i, v) \in \delta^+(S) \]
-                  \item every path \(\pi\) from \(s\) to \(u\) has \(c(\pi) \geq c(\phi)\), as there exists \(i \in S\) and \(j \notin S\) such that:
-                        \[ \pi = \pi_1 \cup \left\{ \left( i, j \right)  \right\} \cup \pi_2 \]
-                        where \((i, j)\) is the first arc in \(\pi \cap \delta^+(S)\)
-                  \item it holds that
-                        \[ c(\pi) = c(\pi_1) + c_{ij} + c(\pi_2) \geq L_i + c_{ij} \]
-                        because \(c_{ij} \geq 0 \Rightarrow c(\pi_2) \geq 0\) and by the choice of \((v, u)\), \(c(\pi_1) \geq L_i\)
-                  \item finally, by induction assumption:
-                        \[ L_i + c_{ij} \geq L_v + c_{vu} = c(\phi) \]
-                  \item a visualization of this step of the proof is shown in Figure~\ref{fig:proof-of-the-induction-step}
-                \end{itemize}
-        \end{itemize}
-\end{enumerate}
+\begin{proof}
+  \hfill
+  \begin{enumerate}
+    \item A the \(k\)-th step:
+          \begin{itemize}
+            \item \(S = \{s, i_1, \ldots, i_{k-1}\}\)
+            \item \(\begin{cases}\text{cost of a minimum cost path from } s \text{ to } j & j \in S \\ \text{cost of a minimum cost path with all intermediate nodes in } S \quad & j \notin S\end{cases}\)
+          \end{itemize}
+    \item By induction on the number \(k\) of steps:
+          \begin{itemize}
+            \item base case: for \(k = 1\) the statement holds, since
+                  \[S = \{s\}, \quad L_s = 0, \quad L_j = +\infty, \quad \forall \, j \notin S \]
+            \item inductive step: assume that the statement holds for \(k+1\)
+                  \begin{itemize}
+                    \item let \(u \notin S\) be the node that is inserted in \(S\) and \(\phi\) the path from \(s\) to \(u\) such that:
+                          \[ L_v + c_{vu} \leq L_i + c_{iu}, \quad \forall \, (i, v) \in \delta^+(S) \]
+                    \item every path \(\pi\) from \(s\) to \(u\) has \(c(\pi) \geq c(\phi)\), as there exists \(i \in S\) and \(j \notin S\) such that:
+                          \[ \pi = \pi_1 \cup \left\{ \left( i, j \right)  \right\} \cup \pi_2 \]
+                          where \((i, j)\) is the first arc in \(\pi \cap \delta^+(S)\)
+                    \item it holds that
+                          \[ c(\pi) = c(\pi_1) + c_{ij} + c(\pi_2) \geq L_i + c_{ij} \]
+                          because \(c_{ij} \geq 0 \Rightarrow c(\pi_2) \geq 0\) and by the choice of \((v, u)\), \(c(\pi_1) \geq L_i\)
+                    \item finally, by induction assumption:
+                          \[ L_i + c_{ij} \geq L_v + c_{vu} = c(\phi) \]
+                    \item a visualization of this step of the proof is shown in Figure~\ref{fig:proof-of-the-induction-step}
+                  \end{itemize}
+          \end{itemize}
+  \end{enumerate}
+\end{proof}
 
 \begin{figure}[htbp]
   \centering
@@ -1080,8 +1103,7 @@ An example of Dijkstra's algorithm is shown in Figure~\ref{fig:dijkstra-example}
 \bigskip
 The code for this algorithm is shown in Code~\ref{lst:floyd-warshall-algorithm}.
 
-\begin{lstlisting}[style=custom, language=pseudocode, caption={Floyd-Warshall's algorithm}, label={lst:floyd-warshall-algorithm}]
-for i := 1 to n do
+\begin{lstlisting}[style=custom, language=pseudocode, caption={Floyd-Warshall's algorithm}, label={lst:floyd-warshall-algorithm}, float]
   for j := 1 to n do
     p_id := i
 
@@ -1111,10 +1133,14 @@ end
 
 \paragraph{Correctness of Floyd-Warshall's algorithm}
 
-Floyd-Warshall's algorithm is correct.
+\begin{proposition}
+  Floyd-Warshall's algorithm is correct.
+\end{proposition}
 
-\textbf{Proof}: assume that the nodes of \(G\) are numbered from \(1\) to \(n\).
-Verify that, if the node index order is followed, after the \(u\)-th cycle the value \(d_{ij}\) \textit{(for any \(i, j\))} corresponds to the cost of a shortest path from \(i\) to \(j\) with at most \(u\) intermediate nodes (\(\left\{ 1, \ldots, u \right\}\))
+\begin{proof}
+  assume that the nodes of \(G\) are numbered from \(1\) to \(n\).
+  Verify that, if the node index order is followed, after the \(u\)-th cycle the value \(d_{ij}\) \textit{(for any \(i, j\))} corresponds to the cost of a shortest path from \(i\) to \(j\) with at most \(u\) intermediate nodes (\(\left\{ 1, \ldots, u \right\}\))
+\end{proof}
 
 \subsection{Optimal paths in directed, acyclic graphs}
 
@@ -1241,14 +1267,15 @@ which can be solved in reversed order
 
 \bigskip
 \textbf{Algorithm}:
-finally, the algorithm is shown in pseudocode in Algorithm~\ref{lst:shortest-path-in-DAG}.
+finally, the algorithm is shown in pseudocode in Code~\ref{lst:shortest-path-in-DAG}.
 
-\begin{lstlisting}[style=custom, language=pseudocode, caption={Shortest path in \DAG}, label={lst:shortest-path-in-DAG}]
+\begin{lstlisting}[style=custom, language=pseudocode, caption={Shortest path in \DAG}, label={lst:shortest-path-in-DAG}, float]
 sort the nodes of G topologically
 L_1 := 0
 for j := 2 to n do
   L_j := min{L_i + c_{ij} | (i, j) $\in \delta^-(\texttt{j}) \land \texttt{i} < \texttt{j}$}
   pred_j := v such that (v, j) = argmin{L_i + c_{ij} | (i, j) $\in \delta^-(\texttt{j}) \land \texttt{i} < \texttt{j}$}
+end
 \end{lstlisting}
 
 \bigskip
@@ -1306,14 +1333,17 @@ Such notation is shown in Figure \ref{fig:precedence-relation-in-project-plannin
   \label{fig:precedence-relation-in-project-planning}
 \end{figure}
 
-Therefore, a nove \(v\) marks an event corresponding to the end fo all the activities \(\left( i, v \right) \in \delta^-(v)\) and the (possible) start of all the activities \(\left( v, j \right) \in \delta^+(v)\).
+Therefore, a nove \(v\) marks an event corresponding to the end fo all the activities \(\left( i, v \right) \in \delta^-(v)\) and the \textit{(possible)} start of all the activities \(\left( v, j \right) \in \delta^+(v)\).
 
-\subsubsection{Property 7}
+\bigskip
 
-The directed graph \(G\) representing a project is acyclic \textit{(is a \DAG)}.
+\begin{property}
+  The directed graph \(G\) representing a project is acyclic \textit{(is a \DAG)}.
+\end{property}
 
-Proof:
-by contradiction, if \(A_{i1} \propto A_{12} \propto \ldots \propto A_{jk} \propto A_{kj}\) there would be a logical inconsistency.
+\begin{proof}
+  by contradiction, if \(A_{i1} \propto A_{12} \propto \ldots \propto A_{jk} \propto A_{kj}\) there would be a logical inconsistency.
+\end{proof}
 
 \subsubsection{Optimal paths}
 
@@ -1323,35 +1353,37 @@ Artificial nodes or artificial arcs are introduced so that graph \(G\):
 \begin{itemize}
   \item Contains a unique initial node \(s\) corresponding to the event \inlinequote{beginning of the project}
   \item Contains a unique final node \(t\) corresponding to the event \inlinequote{end of the project}
-  \item does not contain multiple arcs with the same origin and destination
+  \item Does not contain multiple arcs with the same origin and destination
 \end{itemize}
 
 \bigskip
 \textbf{Problem}:
 given a project (set of activities with duration and precedence constraints), schedule the activities in order to minimize the overall project duration (the time needed to complete all the activities).
 
-\paragraph{Property 8}
+\bigskip
+\begin{property}
+  The minimum overall project duration is the length of a longest path from \(s\) to \(t\) in the graph \(G\).
+\end{property}
 
-The minimum overall project duration is the length of a longest path from \(s\) to \(t\) in the graph \(G\).
-
-\textbf{Proof}:
-since any \(s-t\) path represents a sequence of activities that must be executed in the specified order, its length provides a lower bound on the minimum overall project duration.
+\begin{proof}
+  since any \(s-t\) path represents a sequence of activities that must be executed in the specified order, its length provides a lower bound on the minimum overall project duration.
+\end{proof}
 
 \paragraph{Critical path method - \CPM}
 
-The critical path method (\CPM) determines:
+The critical path method \textit{(\CPM) } determines:
 
 \begin{itemize}
-  \item A schedule \textit{(a plan for executing the activities specifying the order and the assigned time)} that minimizes the overall project duration
-  \item The slack of each activity \textit{(the amount of time by which its execution can be delayed without affecting the overall minimum project duration)}
+  \item A \textbf{schedule} \textit{(a plan for executing the activities specifying the order and the assigned time)} that minimizes the overall project duration
+  \item The \textbf{slack} of each activity \textit{(the amount of time by which its execution can be delayed without affecting the overall minimum project duration)}
 \end{itemize}
 
 \bigskip
-\textbf{Initialization}:
+\textbf{Initialization}
 construct the graph \(G\) representing the project.
 
 \bigskip
-\textbf{Method}:
+\textbf{Method}
 
 \begin{enumerate}
   \item Find a topological order of the nodes
@@ -1367,17 +1399,17 @@ construct the graph \(G\) representing the project.
 \end{enumerate}
 
 \bigskip
-\textbf{Input}:
-graph \(G = (N, A)\) with \(n = |N|\) and the duration \(d_{ij}\) associated to each \(\left( i, j \right) \in A\)/
-
-\textbf{Output}:
-\(\left( T_{min_i}, T_{max_i} \right), i = 1, \ldots, n\)
+\textbf{Goal}
+\begin{itemize}[label=\(\rightarrow\)]
+  \item \textit{Input:} graph \(G = (N, A)\) with \(n = |N|\) and the duration \(d_{ij}\) associated to each \(\left( i, j \right) \in A\)
+  \item \textit{Output}: \(\left( T_{min_i}, T_{max_i} \right), i = 1, \ldots, n\)
+\end{itemize}
 
 \bigskip
 \textbf{Algorithm}:
-finally, the algorithm is shown in pseudocode in Algorithm~\ref{lst:critical-path-method}.
+finally, the algorithm is shown in pseudocode in Code~\ref{lst:critical-path-method}.
 
-\begin{lstlisting}[style=custom, language=pseudocode, caption={Critical path method}, label={lst:critical-path-method}]
+\begin{lstlisting}[style=custom, language=pseudocode, caption={Critical path method}, label={lst:critical-path-method}, float]
 sort the nodes topologically
 T_min_i := 0
 for j = 2 to n do
@@ -1422,28 +1454,51 @@ There are two types of Gantt charts:
 
 \section{Linear Programming}
 
-A linear programming \textit{(or \LP)} problem is an optimization problem such as
+\subsection{Optimization problems}
 
-\begin{gather}
-  \begin{aligned}
-    \min \         & f(x)                                  \\
-    \text{s.t.} \  & x \in X \subseteq \R^n \rightarrow \R
-  \end{aligned}
-  \label{eq:linear-programming}
-\end{gather}
+Optimization problems are problems that require to find the best solution among a set of possible solutions.
 
-where:
+\begin{definition}
+  An instance of an optimization problem is a pair \(\left( F, c \right)\) where:
+  \begin{itemize}
+    \item \(F\) is the domain of feasible point
+    \item \(c\) is the cost function, a mapping \(c :  F \rightarrow \R\)
+    \item the problem is finding an \(f \in F\) such that \(c\left( f \right) \leq c\left( y \right) \, \forall \, y \in F\)
+  \end{itemize}
+  Such point is called a globally optimal \textit{(or just optimal)} solution to the given instance.
+\end{definition}
 
-\begin{itemize}
-  \item the objective function \(f: X \rightarrow \R\) is linear
-  \item the feasible ragion \(X \left\{ x \in \R^n \, | \, g_i(x) \, r_i \, 0 \land i \in \left\{ 1, \ldots, m \right\}\right\}\) with \(r_i \in \left\{ =, \geq, \leq \right\}\) and \(g_i: \R^n \rightarrow \R\) are linear functions for \(i \in \left\{ 1, \ldots, m \right\}\)
-  \item \(x^\ast \in \R^n\) is an optimal solution of the \LP \ref{eq:linear-programming} if \(f(x^\ast) \leq f(x) \, \forall \, x \in X\)
-\end{itemize}
+\bigskip
+\begin{definition}
+  An \textbf{optimization problem} is a set of \(I\) instances of a given optimization problem.
+\end{definition}
 
+\bigskip
+\begin{definition}
+  A \textbf{linear programming} \textit{(or \LP)} problem is an optimization problem such as
+
+  \begin{gather}
+    \begin{aligned}
+      \min \         & f(x)                                  \\
+      \text{s.t.} \  & x \in X \subseteq \R^n \rightarrow \R
+    \end{aligned}
+    \label{eq:linear-programming}
+  \end{gather}
+
+  where:
+
+  \begin{itemize}
+    \item the \textbf{objective function} \(f: X \rightarrow \R\) is \textbf{linear}
+    \item the \textbf{feasible ragion} \(X \left\{ x \in \R^n \, | \, g_i(x) \, r_i \, 0 \land i \in \left\{ 1, \ldots, m \right\}\right\}\) with \(r_i \in \left\{ =, \geq, \leq \right\}\) and \(g_i: \R^n \rightarrow \R\) are \textbf{linear} functions for \(i \in \left\{ 1, \ldots, m \right\}\)
+    \item \(x^\ast \in \R^n\) is an \textbf{optimal solution} of the \LP \ref{eq:linear-programming} if \(f(x^\ast) \leq f(x) \, \forall \, x \in X\)
+  \end{itemize}
+\end{definition}
+
+\bigskip
 A wide variety of decision making problems can be formulated or approximated as \LP, as they often involve the optimal allocation of a given set of limited resources to different activities.
 
 \begin{itemize}
-  \item General form of a linear programming problem:
+  \item \textbf{General form} of a linear programming problem:
         \begin{gather}
           \begin{aligned}
             \min \         & z = c_1 x^1 + \cdot + c_n x_n                                    \\
@@ -1454,7 +1509,7 @@ A wide variety of decision making problems can be formulated or approximated as 
           \end{aligned}
         \end{gather}
 
-  \item Matrix notation of a linear programming problem:
+  \item \textbf{Matrix notation} of a linear programming problem:
         \begin{gather}
           \begin{aligned}
             \min \         & z = \begin{bmatrix}
@@ -1477,12 +1532,12 @@ A wide variety of decision making problems can be formulated or approximated as 
               x^2    \\
               \vdots \\
               x_n
-            \end{bmatrix} \left( \leq, =, \geq \right) \begin{bmatrix}
-                                                         b_1    \\
-                                                         b_2    \\
-                                                         \vdots \\
-                                                         b_m
-                                                       \end{bmatrix}   \\
+            \end{bmatrix} \left\{ \leq, =, \geq \right\} \begin{bmatrix}
+                                                           b_1    \\
+                                                           b_2    \\
+                                                           \vdots \\
+                                                           b_m
+                                                         \end{bmatrix} \\
                            & \begin{bmatrix}
                                x^1 \\ \vdots \\ x_n
                              \end{bmatrix}
@@ -1493,16 +1548,16 @@ A wide variety of decision making problems can be formulated or approximated as 
 
 \subsection{Assumptions of \LP models}
 
-The \LP model is based on the following assumptions:
+The \LP model is based on the following \textbf{assumptions}:
 
 \begin{itemize}
-  \item Linearity (proportionality and additivity) of the objective function and constraints
+  \item \textbf{Linearity} \textit{(proportionality and additivity)} of the objective function and constraints
         \begin{itemize}[label=\(\rightarrow\)]
-          \item proportionality: \( \textit{contribution of each variable} \ = \ \textit{constant} \ \times \ \textit{variable} \). It does not account for economies of scale
-          \item additivity: \(\textit{total contribution} \ =\sum_i \textit{contribution of each variable} \ i\). It does not account for competing activities (their sum is not necessarily the total contribution)
+          \item \textbf{proportionality}: \( \textit{contribution of each variable} \, = \, \textit{constant} \, \times \ \textit{variable} \). It does not account for economies of scale
+          \item \textbf{additivity}: \(\textit{total contribution} \, =\sum_i \textit{contribution of each variable} \, i\). It does not account for competing activities (their sum is not necessarily the total contribution)
         \end{itemize}
-  \item Divisibility of the variables, as they can assume fractional (rational) values
-  \item Parameters are assumed to be constants which can be estimated with a sufficient degree of accuracy
+  \item \textbf{Divisibility} of the variables, as they can assume fractional (rational) values
+  \item \textbf{Parameters} are assumed to be \textbf{constants} which can be estimated with a sufficient degree of accuracy
         \begin{itemize}[label=\(\rightarrow\)]
           \item more complex mathematical programs are needed to account for uncertainty in the parameter values
         \end{itemize}
@@ -1512,7 +1567,7 @@ The \LP model is based on the following assumptions:
 
 \subsection{Equivalent Forms}
 
-The general form (\ref{eq:linear-programming-general-form}) of a \LP can be expressed in the equivalent standard form (\ref{eq:linear-programming-standard-form}).
+The \textbf{General Form} \textit{(or canonical form)} \textit{(Equation~\ref{eq:linear-programming-general-form})} of a \LP can be expressed in the equivalent \textbf{Standard Form} \textit{(Equation~\ref{eq:linear-programming-standard-form})}.
 
 \begin{gather}
   \begin{aligned}
@@ -1521,7 +1576,7 @@ The general form (\ref{eq:linear-programming-general-form}) of a \LP can be expr
                    & A_2 x \leq b_2 \quad                                                 & \text{inequality constraints}     \\
                    & A_3 x = b_3 \quad                                                    & \text{equality constraints}       \\
                    & x_j \geq 0,\ j \in J \subseteq \left\{ 1, \ldots, n \right\} \quad   & \text{non-negativity constraints} \\
-                   & x_j \ \text{free} \, j \in \left\{ 1, \ldots, n \right\} \setminus J & \text{free variables}
+                   & x_j \ \text{free}, \ j \in \left\{ 1, \ldots, n \right\} \setminus J & \text{free variables}
   \end{aligned}
   \label{eq:linear-programming-general-form}
 \end{gather}
@@ -1529,7 +1584,7 @@ The general form (\ref{eq:linear-programming-general-form}) of a \LP can be expr
 \begin{gather}
   \begin{aligned}
     \min \         & z = c^T x &                               \\
-    \text{s.t.} \  & Ax \leq b & \text{equality constraints}   \\
+    \text{s.t.} \  & Ax = b    & \text{inequality constraints} \\
                    & x \geq 0  & \text{non negative variables}
   \end{aligned}
   \label{eq:linear-programming-standard-form}
@@ -1571,46 +1626,46 @@ the transformation may involve adding and or deleting variables and constraints,
 
 \subsection{Graphical solutions}
 
-A level curve of value \(z\) of a function \(f\) is the set of points in \(\R^n\) where \(f\) is constant and takes value \(z\).
+A \textbf{level curve} of value \(z\) of a function \(f\) is the set of points in \(\R^n\) where \(f\) is constant and takes value \(z\).
 
 \bigskip
 Consider a \LP with inequality constraints \textit{(as it's easier to visualize)}.
 
 \begin{itemize}
-  \item A hyperplane is the set of points that satisfies the constraint
+  \item A \textbf{hyperplane} is the set of points that satisfy the constraint
         \( H = \left\{ x \in \R^n \, | \, a^T x = b \right\} \)
-  \item An affine half space is the set of points that satisfies the constraint
+  \item An \textbf{affine half space} is the set of points that satisfies the constraint
         \(H = \left\{ x \in \R^n \, | \, a^T x \leq b \right\} \)
         \begin{itemize}[label=\(\rightarrow\)]
           \item each inequality constraint \(a^T x \leq b\) defines an affine half space in the variable space
         \end{itemize}
-\end{itemize}
-
-\bigskip
-Definitions relative to the geometry of \LP:
-
-\begin{itemize}
-  \item The feasible region \(X\) of any \LP is a polyhedron \(P\) defined by the intersection of a finite number of affine half spaces
+  \item The \textbf{feasible region} \(X\) of any \LP is a polyhedron \(P\) defined by the intersection of a finite number of affine half spaces
         \begin{itemize}[label=\(\rightarrow\)]
           \item \(P\) can be empty or unbounded
         \end{itemize}
-  \item A subset \(S \subseteq \R^n\) is convex if for each pair of points \(y^1, y^2 \in S\) the line segment between \(y^1\) and \(y^2\) is contained in \(S\)
-  \item The segment defined by \(y^1, y^2 \in S\) defined by all the convex combinations of \(y^1\) and \(y^2\) is called a convex hull
+  \item A subset \(S \subseteq \R^n\) is \textbf{convex} if for each pair of points \(y^1, y^2 \in S\) the line segment between \(y^1\) and \(y^2\) is contained in \(S\)
+        \begin{itemize}[label=\(\rightarrow\)]
+          \item given two points \(y^1, y^2 \in S\), a \textbf{convex combination} of them is any point of the form
+                \[ z = \lambda y^1 + \left( 1 - \lambda \right) y^2 \quad 0 \leq \lambda \leq 1 \]
+          \item a convex combination with \(\lambda \neq 0, 1\) is called \textbf{strict}
+        \end{itemize}
+  \item The segment defined by \(y^1, y^2 \in S\) defined by all the convex combinations of \(y^1\) and \(y^2\) is called a \textbf{convex hull}
         \begin{itemize}[label=\(\rightarrow\)]
           \item \(\left[ y^1, y^2 \right] = \left\{ x \in \R^n \, | \, x = \alpha y^1 + \left( 1-\alpha \right) y^2 \land \alpha \in \left[ 0, 1 \right] \right\}\)
         \end{itemize}
-  \item A polyhedron \(P\) is a convex set of \(\R^n\)
+  \item A \textbf{polyhedron} \(P\) is a convex set of \(\R^n\)
         \begin{itemize}
           \item any half space is convex
           \item the intersection of a finite number of convex sets is also a convex set
         \end{itemize}
-  \item A vertex of polyhedron \(P\) is a point op \(P\) that cannot be expressed as a convex combination of other points of \(P\)
+  \item A \textbf{vertex of polyhedron} \(P\) is a point op \(P\) that cannot be expressed as a convex combination of other points of \(P\)
         \begin{itemize}
           \item mathematically, \(x\) is a vertex \(P\) iff
                 \[ x = \alpha y^1 + (1 - \alpha) y^2, \alpha \in \left[ 0, 1 \right] \quad y^1, y^2 \in P \Rightarrow x = y^1 \lor x = y^2 \]
           \item a non empty polyhedron \(P = \left\{ x \in \R^n \, | \,Ax = b, x \geq 0 \right\}\) has a finite number (\(n >1\)) of vertices
         \end{itemize}
-  \item Given a polyhedron \(P\), a vector \(d \in \R^n, d \neq \overline{0}\) is an unbounded feasible direction of \(P\) if, for every point \(x^0 \in P\), the ray \(\left\{ x \in \R^n \, | \, x = x^0 + \lambda d, \lambda \geq 0 \right\}\) is contained in \(P\)
+  \item A \textbf{polytope} is a bounded polyhedron
+  \item Given a polyhedron \(P\), a vector \(d \in \R^n, d \neq \overline{0}\) is an \textbf{unbounded feasible direction} of \(P\) if, for every point \(x^0 \in P\), the ray \(\left\{ x \in \R^n \, | \, x = x^0 + \lambda d, \lambda \geq 0 \right\}\) is contained in \(P\)
 \end{itemize}
 
 \begin{figure}[htbp]
@@ -1636,7 +1691,7 @@ Definitions relative to the geometry of \LP:
   \begin{subfigure}[h]{0.495\textwidth}
     \centering
     \bigskip
-    \tikzfig{figure-4.tikz}
+    \tikzfig[0.75]{figure-4.tikz}
     \caption{Convex polyhedron}
     \label{subfig:convex-hull}
     \bigskip
@@ -1644,7 +1699,7 @@ Definitions relative to the geometry of \LP:
   \begin{subfigure}[h]{0.495\textwidth}
     \centering
     \bigskip
-    \tikzfig{figure-5.tikz}
+    \tikzfig[0.75]{figure-5.tikz}
     \caption{Not convex polyhedron}
     \label{subfig:not-convex-hull}
     \bigskip
@@ -1654,18 +1709,20 @@ Definitions relative to the geometry of \LP:
   \bigskip
 \end{figure}
 
-\subsubsection{Theorem - representation of polyhedra}
+\subsubsection{\textit{Weyl-Minkoswki} Theorem}
 
-The \textit{Weyl-Minkoswki} theorem on the representation of polyhedra states that:
+The \textit{Weyl-Minkoswki} Theorem on the representation of polyhedra states that:
 
-Every point \(x\) of a polyhedron \(P\) can be expressed as a convex combination of its vertices \(x^1, \ldots, x^k\) plus \textit{(if needed)} an unbounded feasible direction \(d\) of \(P\):
-\[ x = \alpha_1 x^1 + \ldots + \alpha_k x^k + d \]
-where the multipliers \(\alpha_1 \geq 0\) satisfy the constraint \(\displaystyle\sum_{i=1} \alpha_i = 1\).
+\begin{theorem}
+  Every point \(x\) of a polyhedron \(P\) can be expressed as a convex combination of its vertices \(x^1, \ldots, x^k\) plus \textit{(if needed)} an unbounded feasible direction \(d\) of \(P\):
+  \[ x = \alpha_1 x^1 + \ldots + \alpha_k x^k + d \]
+  where the multipliers \(\alpha_1 \geq 0\) satisfy the constraint \(\displaystyle\sum_{i=1} \alpha_i = 1\).
+\end{theorem}
 
 \bigskip
 The unbounded feasible direction is needed if the polyhedron is unbounded; Figure~\ref{fig:weyl-minkowski-theorem} represent the cases of a bounded and unbounded polyhedron.
 
-\begin{figure}
+\begin{figure}[htbp]
   \centering
   \bigskip
   \begin{subfigure}[h]{0.495\textwidth}
@@ -1684,17 +1741,13 @@ The unbounded feasible direction is needed if the polyhedron is unbounded; Figur
     \label{subfig:bounded-polyhedron}
     \bigskip
   \end{subfigure}
-  \caption{Illustration of the Weyl-Minkowski theorem}
+  \caption{Illustration of the \textit{Weyl-Minkowski} theorem}
   \label{fig:weyl-minkowski-theorem}
   \bigskip
 \end{figure}
 
-\bigskip
-A polytope is a bounded polyhedron; it has the only unbounded feasible direction \(d = 0\).
-
-\textbf{Consequence:}
+\textbf{Consequences:}
 every point \(x\) of polytope \(P\) can be expressed as a convex combination of its vertices.
-
 Then the \textit{Weyl-Minkowski theorem} can be used to describe any point.
 An example of this is shown in Figure~\ref{fig:polytope-example}.
 
@@ -1712,21 +1765,38 @@ An example of this is shown in Figure~\ref{fig:polytope-example}.
 Geometrically:
 
 \begin{itemize}
-  \item An interior point \(x \in P\) cannot be an optimal solution of the problem
+  \item An \textbf{interior point} \(x \in P\) cannot be an optimal solution of the problem
         \begin{itemize}
           \item it always exists an improving direction
           \item consider Figure~\ref{subfig:interior-point-solution} where \(c\) represents the direction of fastest increase in \(z\) \textit{(constant gradient)}
         \end{itemize}
-  \item In an optimal vertex, all feasible direction are worsening directions
+  \item In an optimal vertex, all \textbf{feasible direction are worsening directions}
         \begin{itemize}
           \item consider Figure~\ref{subfig:worsening-point-direction} where \(c\) represents the direction of fastest increase in \(z\) \textit{(constant gradient)}
         \end{itemize}
-  \item The Weyl-Minkowski theorem implies that, although the variables can assume fractional values, \LP can be seen as combinatorial problems
+  \item The \textit{Weyl-Minkowski} theorem implies that, although the variables can assume fractional values, any \LP can be seen as a \textbf{combinatorial problem}
         \begin{itemize}
-          \item only the vertices of the polyhedron have to be considered in order to find the feasible solutions
+          \item \inlinequote{only} the vertices of the polyhedron have to be considered in order to find the feasible solutions
           \item the graphical method in only applicable for \(n \leq 3\)
           \item the number of vertices often grows exponentially with respect to the number of variables
         \end{itemize}
+\end{itemize}
+
+\bigskip
+Furthermore, let \(P\) be a convex polytope of dimension \(d\) and let \(HS\) be a half space of \(P\) defined py hyperplane \(H\).
+If the intersection \(f = P \cap HS\) is a subset of \(H\) then:
+
+\begin{itemize}
+  \item \(f\) is a \textbf{face} of \(P\)
+  \item \(H\) is the \textbf{support hyperplane} of \(f\)
+\end{itemize}
+
+The face is then defined according to its dimension:
+
+\begin{itemize}
+  \item a \textbf{vertex} is a face of dimension \(0\) \textit{(a point)}
+  \item a \textbf{facet} is a face of dimension \(d-1\) \textit{(a hyperplane)}
+  \item an \textbf{edge} is a face of dimension \(1\) \textit{(a line)}
 \end{itemize}
 
 \begin{figure}[htbp]
@@ -1757,13 +1827,13 @@ There are four types of \LP, depending on the number of solutions; all are illus
 Since the objective of the problem is to minimize \(f(x)\) \textit{(as it's in form \(\min c^T x\))}, better solutions are found by moving along the direction \(-c\) \textit{(the opposite of the gradient \(\nabla f(x)\))}.
 
 \begin{enumerate}
-  \item A unique optimal solution, Figure~\ref{subfig:unique-solution}
-  \item Multiple (infinitely many) optimal solutions, Figure~\ref{subfig:multiple-solutions}
-  \item Unbounded \LP, Figure~\ref{subfig:unbounded-lp}
+  \item \textbf{A unique} optimal solution, Figure~\ref{subfig:unique-solution}
+  \item \textbf{Multiple} \textit{(infinitely many)} optimal solutions, Figure~\ref{subfig:multiple-solutions}
+  \item \textbf{Unbounded} \LP, Figure~\ref{subfig:unbounded-lp}
         \begin{itemize}
           \item this type of problem has unbounded polyhedron and unlimited objective function values
         \end{itemize}
-  \item Infeasible \LP, Figure~\ref{subfig:infeasible-lp}
+  \item \textbf{Infeasible} \LP, Figure~\ref{subfig:infeasible-lp}
         \begin{itemize}
           \item this type of problem has an empty polyhedron and no feasible solution
         \end{itemize}
@@ -1812,7 +1882,7 @@ Since the objective of the problem is to minimize \(f(x)\) \textit{(as it's in f
 
 \subsubsection{Basic feasible solutions and polihedra vertices}
 
-Due to the fundamental theorem of Linear Programming, to solve any \LP problem it suffices to consider the (finitely many) vertices of the polyhedron \(P\) of feasible solutions.
+Due to the fundamental theorem of Linear Programming, to solve any \LP problem it suffices to consider the \textit{(finitely many)} vertices of the polyhedron \(P\) of feasible solutions.
 Since the geometrical definition of vertex cannot be exploited algorithmically, an algebraic definition is needed.
 
 A vertex corresponds to the intersection of the hyperplanes associated to \(n\) inequalities.
@@ -1828,67 +1898,448 @@ Finally, by renaming
 \[ A \coloneq \left[ A | I \right] \quad x \coloneq \left( x^T | s^T \right) \]
 the system of equation is represented in matrix form, where \(A\) has \(m\) rows.
 
-\paragraph{Property - vertices of polyhedra}
+\bigskip
+\begin{property}
+  For any polyhedron \(P = \left\{ x \in \R^n \, | \, Ax = b, x \geq 0 \right\}\), where \(A\) has \(m\) rows:
 
-For any polyhedron \(P = \left\{ x \in \R^n \, | \, Ax = b, x \geq 0 \right\}\), where \(A\) has \(m\) rows:
-
-\begin{itemize}
-  \item the facets (edges in \(\R^2\)) are obtained by setting one variable to \(0\)
-  \item the vertices are obtained by settings \(n-m\) variables to \(0\)
-\end{itemize}
+  \begin{itemize}
+    \item the \textbf{facets} (edges in \(\R^2\)) are obtained by setting one variable to \(0\)
+    \item the \textbf{vertices} are obtained by settings \(n-m\) variables to \(0\)
+  \end{itemize}
+\end{property}
 
 \subsubsection{Algebraic characterization of vertices}
 
 Consider any polyhedron \(P = \left\{ x \in \R^n \, | \, Ax = b, x \geq 0 \right\}\), in standard form.
 
-\textbf{Assumption:}
-\(A \in \R^{m \times n}\) is such that \(m \leq n\) of rank \(m\) (i.e. \(A\) is full rank).
+\bigskip
+\textbf{Assumption}
+
+\(A \in \R^{m \times n}\) is such that \(m \leq n\) of rank \(m\) \textit{(i.e. \(A\) is full rank)}.
 This is equivalent to assume that there are no redundant constraints.
 
-\textbf{Solutions:}
+\bigskip
+\textbf{Solutions}
+
 \begin{itemize}
   \item If \(m = n\), there is a unique solution of \(Ax = b\) \textit{(\(x = A^{-1} b)\)}
-  \item If \(m \leq n\), there are \(\infty^{m-n}\) solutions of \(Ax= b\)
+  \item If \(m < n\), there are \(\infty^{m-n}\) solutions of \(Ax = b\)
         \begin{itemize}
-          \item the system has \(n-m\) degrees of freedom
-          \item by fixing the degrees of freedom to \(0\), a vertex is obtained
+          \item the system has \(n-m\) \textbf{degrees of freedom}
+          \item by fixing the degrees of freedom to \(0\), a \textbf{vertex} is obtained
         \end{itemize}
 \end{itemize}
 
 \bigskip
-The basis of matrix \(A\) is a subset of \(m\) columns of \(A\) that are linearly independent and form an \(m \times m\) non singular matrix \(B\).
-\[ A = [ \overbrace{B}^n | \overbrace{N}^{n-m} ] \]
+\begin{definition}
+  The \textbf{basis} of matrix \(A\) is a subset of \(m\) columns of \(A\) that are linearly independent and form an \(m \times m\) non singular matrix \(B\).
+  \[ A = [ \overbrace{B}^m | \overbrace{N}^{m-n} ] \]
+\end{definition}
 
-\paragraph{Basic solutions}
+\subsubsection{Basic solutions}
+\label{sec:basic-solutions}
 
-Let \(x^T = [ \overbrace{x_B^T}^{m\textit{ components}} |  \overbrace{x_N^T}^{n-m\textit{ components}}]\).
+Let \(x^T = [ \overbrace{x_B^T}^{m\textit{ components}} |  \overbrace{x_N^T}^{m-n \textit{ components}}]\).
 Then any system \(Ax = b\) can be written as \(B _{x_B} + N_{x_N} = b\), and for any set of values of \(x_N\), if \(B\) is not singular, then \(x_B = B^{-1} (b - N_{x_N})\).
 
-\textbf{Definitions:}
+\bigskip
+\textbf{Definitions}
 \begin{itemize}
-  \item A basic solution is a solution obtained by setting \(x_N = 0\) and, consequently, \(x_B = B^{-1} b\)
-  \item A basic solution with \(x_B \geq 0\) is a basic feasible solution
-  \item The variables in \(x_B\) are the basic variables and those in \(x_N\) are non basic variables
-  \item By construction, \(\left( x_B^T, x_N^T \right)\) satisfy \(Ax = b\)
+  \item A \textbf{basic solution} is a solution obtained by setting \(x_N = 0\) and, consequently, \(x_B = B^{-1} b\)
+  \item A \textbf{feasible solution} is any vector \(x \geq 0\) such that \(Ax = b\)
+  \item A feasible solution with \(x_B \geq 0\) is a \textbf{basic feasible solution} with basis \(B\)
+        \begin{itemize}
+          \item \(\forall \, j \notin B, x_j = 0\) - all the non zero variables are in \(B\)
+          \item a \textbf{basic feasible solution} has \(n\) linearly independent constants
+          \item the variables in \(x_B\) are the basic variables and those in \(x_N\) are non basic variables
+          \item by construction, \(\left( x_B^T, x_N^T \right)\) satisfy \(Ax = b\)
+          \item a basic feasible solution is referred to as \BFS for brevity
+        \end{itemize}
+  \item A basic feasible solution is \textbf{degenerate} if it contains at least one basic variable with value \(0\)
 \end{itemize}
 
-\paragraph{Theorem of basic feasible solution}
+\bigskip
+\begin{theorem}[Basic feasible solutions]
+  \(x \in \R^n\) is a basic feasible solution if and only if \(x\) is a vertex of the polyhedron \(P = \left\{ x \in \R^n \, | \, Ax = b, x \geq 0 \right\}\)
+\end{theorem}
 
-\(x \in \R^n\) is a basic feasible solution if and only if \(x\) is a vertex of the polyhedron \(P = \left\{ x \in \R^n \, | \, Ax = b, x \geq 0 \right\}\)
+\bigskip
+\begin{property}[Number of solutions]
+  At most, there exists one basic feasible solution for each choice of the \(n-m\) non basic variables out of the \(n\) variables:
+  \[\text{\# basic feasible solutions} \leq
+    \begin{pmatrix}
+      n \\ n-m
+    \end{pmatrix}
+    = \dfrac{n!}{\left( n - m \right)! \left( n - \left( n-m \right) \right)!} =
+    \begin{pmatrix}
+      n \\ m
+    \end{pmatrix}
+  \]
+\end{property}
 
-\paragraph{Number of basic feasible solutions}
+\subsection{Simplex method}
 
-At most, there exists one basic feasible solution for each choice of the \(n-m\) non basic variables out of the \(n\) variables:
-\[\text{\# basic feasible solutions} \leq
-  \begin{pmatrix}
-    n \\ n-m
-  \end{pmatrix}
-  = \dfrac{n!}{\left( n - m \right)! \left( n - \left( n-m \right) \right)!} =
-  \begin{pmatrix}
+The Simplex method provides a systematic way to find the optimal solution of a \LP problem.
+Given an \LP problem in standard form:
+
+\begin{gather*}
+  \begin{aligned}
+    \min \quad        & z = c^T x \\
+    \text{s.t.} \quad & Ax = b    \\
+                      & x \geq 0
+  \end{aligned}
+\end{gather*}
+
+it examines a sequence of basic feasible solutions with non increasing objective function values, until an optimal solution is reached or the problem is found to be unbounded.
+At each iteration, the basic feasible solution is replaced by a new one that is closer to the optimal solution.
+
+In other, \textit{simpler}, words, it generates a path \textit{(a sequence of adjacent vertices)} along the edges of the polyhedron \(P\) that leads to the optimal solution.
+
+The simplex method is articulated in \(3\) steps:
+
+\begin{enumerate}
+  \item Find an \textbf{initial vertex} or establish that the \LP is \textbf{unbounded}
+  \item Determine whether the current vertex is \textbf{optimal}
+  \item Move from a current vertex to a \textbf{better adjacent vertex} \textit{(in terms of objective function value)} or establish that the \LP is unbounded
+\end{enumerate}
+
+\subsubsection{Optimality test}
+
+Given a \LP \(\min\left\{ c^T x \, | \, Ax = b, x \geq 0 \right\}\) and a feasible basis \(B\) of \(A\), \(Ax = b\) can be written as:
+\[ B_{x_B} + N_{x_N} = b, \quad B^{-1}b \geq 0\]
+where \(x_B\) and \(x_N\) are the basic and non basic variables, respectively.
+Then, a \textbf{basic feasible solution} is a value of \(x\) such that \(x_N = 0\), and consequently \(x_B = B^{-1}b\).
+
+By substitution, the objective function can be expressed in terms of only the non basic variables:
+\[ z = c^T x = c_B^T B^{-1} b + \left( c_N^T - c_B^T B^{-1} N \right) x_N  \]
+
+\begin{itemize}
+  \item The cost of \(x = (x_B, x_N)\) is \(z_0 = c_B^T B^{-1} b\) where \(x_B = B^{-1} b, x_N = 0\)
+  \item The reduced costs of the non basic variables \(x_N\) are denoted by \(\overline{c}_N^T \coloneqq c_N^T - c_B^T B^{-1} N\)
+  \item The vector of reduced costs with respect to the basis \(B\) is
+        \[ \overline{c}^T = c^T - c_B^T B^{-1} A = [\overbrace{c_B^T - c_B^T B^{-1} B}^{0^T}, \overbrace{c_N^T - c_B^T B^{-1}N}^{\overline{c}_N^T}] \]
+\end{itemize}
+
+\bigskip
+\begin{itemize}
+  \item The reduced costs are defined also for basic variables, but \(\overline{c}_B = 0\)
+  \item \(\overline{c}_j\) represents the change in the objective function value if non basic variable \(x_j\) is increased from \(0\) to \(1\) while keeping all other non basic variables to \(0\)
+  \item The solution value changes by \(\Delta z = \theta \overline{c}_j\)  \item The solution value changes by \(\Delta z = \theta \overline{c}_j\)
+
+\end{itemize}
+
+\bigskip
+\begin{proposition}
+  If \(\overline{c}_N \geq 0\), then the basic feasible solution \(\left( x_B^T, x_N^T \right)\), where \(x_B = B^{-1} b \geq 0, x_N = 0\), of cost \(z_0 = c_B^T B^{-1} b\) is a global optimum.
+\end{proposition}
+
+\begin{proof}
+  \(\overline{c}^T \geq 0^T\) implies that
+  \[ c^T x = c_B^T B^{-1} b + c_N^T x_N \geq c_B^T B^{-1} \quad \forall \, x \geq 0, Ax = b \]
+\end{proof}
+
+\bigskip
+\textbf{Remarks}
+\begin{itemize}
+  \item For maximization problems, the condition is \(\overline{c}_N \leq 0\).
+  \item This optimality condition is sufficient but generally not necessary.
+\end{itemize}
+
+\subsubsection{General case}
+
+Given a basis \(B\), the system \(Ax = b\) can be written as:
+\[ \displaystyle \sum_{j=1}^m a_{ij} x_i = b_j \quad \text{ for } i = 1, \ldots, m\]
+and then expressed in canonical form
+\[ x_B + B^{-1} N x_N = B^{-1} b \ \Leftrightarrow \ x_B + \overline{N} x_N = \overline{b} \]
+which emphasizes the basic feasible solution \(\left( x_B, x_N \right) = \left( B^{-1} b, 0 \right)\).
+This amounts to pre-multiply the system by \(B^{-1}\)
+\[ \overbrace{B^{-1} B x_b}^{=I} + \overbrace{B^{-1} N}^{= \overline{N}} x_N = \overbrace{B^{-1} b}^{= \overline{b}} \]
+
+\bigskip
+In the canonical form
+\[ x_{B_i} + \displaystyle \sum_{j=1}^{n-m} \overline{a}_{ij} x_{N_j} = \overline{b}_i \quad i = 1, \ldots, m \quad (I_{x_B} + \overline{N}_{x_N} = \overline{b}) \]
+basic variables are expressed in terms of non basic variables:
+\[ x_B = \overline{b} - \overline{N}_{x_N} \]
+If the value of value of a non basic \(x_s\) is increased from \(0\) while all the other non basic variables are kept to \(0\), the system is modified as follows:
+\[ x_{B_i} + \overline{a}_{is} x_s = \overline{b}_i \Leftrightarrow x_{B_i} = \overline{b}_i - \overline{a}_{is} x_s, \quad i = 1, \ldots, m \]
+In order to guarantee \(x_{B_i} \geq 0 \, \forall \, i\), the value of \(x_s\) must be chosen such that
+\[ \overline{b}_i - \overline{a}_{is} x_s \geq 0 \ \Rightarrow \ x_s \leq \dfrac{\overline{b}_i}{\overline{a}_{is}} \quad \overline{a}_{is} \geq 0 \]
+Then the value of \(x_s\) can be increased up to
+\[ \theta^\ast = \min_{i=1}^m \left\{ \dfrac{\overline{b}_i}{\overline{a}_{is}} \, | \, \overline{a}_{is} \geq 0 \right\} \]
+while the value of \(x_r\), where
+\[ r = \argmin_{i=1}^m \left\{ \dfrac{\overline{b}_i}{\overline{a}_{is}} \, | \, \overline{a}_{is} \geq 0 \right\} \]
+decreases to \(0\) and exists the basis.
+
+\bigskip
+If \(\overline{a}_{is} \leq 0 \, \forall \, i\), there's  no limit to the increase of \(x_s\).
+
+\subsubsection{Changes of basis}
+
+\textbf{Assumption:} this Section refers to the case where the \LP is a minimization problem.
+
+\bigskip
+Let \(B\) be a feasible basis and \(x_s \in x_N\) a non basic variable with reduced cost \(\overline{c}_s \leq 0\).
+In order to change the basis:
+
+\begin{itemize}
+  \item \(x_s\) is increased as much as possible \textit{(\(x_s\) \inlinequote{enters the basis})} while keeping the other non basic variables equal to \(0\)
+  \item The basic variable \(x_r\) \textit{(in \(x_B\))} such that \(x_r \geq 0\) imposes the tightest upper bound \(\theta^\ast\) on the increase of \(x_s\) \textit{(\(x_r\) \inlinequote{leaves the basis})}
+  \item If \(\theta^\ast \geq 0\), the new basic feasible solution has a better objective function value than the previous one
+  \item The new basis differs from the previous one by a single column \textit{(adjacent vertices)}
+  \item
+\end{itemize}
+
+To transform the canonical form of the current basic feasible solution into the canonical form of the new basic feasible solution, the following formula is applied
+\[B^{-1} B x_B + B^{-1} N x_N = B^{-1} b\]
+
+The value \(B^{-1}\) of the new basis \(B\) can be obtained by applying to the inverse of the previous basis a single elementary row operation, called \textbf{pivot};
+it will be explained in the next Paragraph.
+
+\subsubsection{Pivoting operation}
+The pivot operation is a single elementary row operation that transforms the inverse of the previous basis into the inverse of the new basis; it's the same operation used in the Gaussian elimination method to solve systems of linear equations.
+
+\bigskip
+Given \(Ax = b\):
+
+\begin{enumerate}
+  \item Select a coefficient \(\overline{a}_{rs} \neq 0\), the \textbf{pivot}
+  \item Divide the \(r\)-th row by \(\overline{a}_{rs}\)
+  \item For each row \(i \neq r\) with \(\overline{a}_{rs} \neq 0\), subtract the resulting \(r\)-th row multiplied by \(\overline{a}_{is}\)
+\end{enumerate}
+
+This move does not affect the feasible solutions.
+Only a finite number of pivots exists for each basis.
+
+\bigskip
+An example of pivot operation is shown in Figure~\ref{fig:pivot-operation-example}.
+
+\begin{figure}[htbp]
+  \centering
+  \bigskip
+  \begin{subfigure}[b]{0.495\textwidth}
+    \centering
+    \bigskip
+    \tikzfig{figure-15.tikz}
+    \caption{Initial system}
+    \label{fig:pivot-operation-example-1}
+    \bigskip
+  \end{subfigure}
+  \begin{subfigure}[b]{0.495\textwidth}
+    \centering
+    \bigskip
+    \tikzfig{figure-16.tikz}
+    \caption{Pivot operation}
+    \bigskip
+    \label{fig:pivot-operation-example-2}
+  \end{subfigure}
+
+  \caption{Pivot operation example}
+  \label{fig:pivot-operation-example}
+  \bigskip
+\end{figure}
+
+\subsubsection{Moving to an adjacent vertex}
+
+\textbf{Goals}
+\begin{itemize}[label=\(\rightarrow\)]
+  \item improve the objective function value
+  \item preserve the feasibility
+\end{itemize}
+
+\begin{enumerate}
+  \item Which non basic variable enters the basis?
+        \begin{itemize}
+          \item any one with reduced cost \(\overline{c}_j < 0\)
+          \item the one yielding the maximum \(\Delta z\) with respect to the current basic feasible solution \textit{(\(z = c_B^T B^{-1} b\))}
+          \item \textbf{Bland's rule}: \(s = \min \{ j \, | \, \overline{c}_j < 0 \}\)
+                \begin{itemize}[label=\(\rightarrow\)]
+                  \item \(\overline{c}_j > 0\) for maximization problems
+                \end{itemize}
+          \item Which basic variable leaves the basis?
+                \begin{itemize}
+                  \item \textbf{min ratio text}: index \(i\) with smallest positive ratio \(\sfrac{x_{B_i}}{\overline{a}_{is}} = \theta^\ast\) among those with \(\overline{a}_{is} > 0\)
+                  \item \textbf{Bland's rule}: \(r = \min \left\{ i \, | \, \sfrac{\overline{b}_i}{\overline{a}{is}} = \theta^\ast \overline{a}_{is} > 0 \right\}\)
+                  \item also randomly
+                \end{itemize}
+        \end{itemize}
+\end{enumerate}
+
+\bigskip
+\begin{property}[Unboundedness]
+  If the objective function is unbounded, the algorithm will never stop: if \(\exists \, \overline{c}_j < 0\) with \(\overline{a}_{ij} \leq 0 \, \forall \, i\) no element of the \(j\)-th column can play the role of the pivot.
+  This condition is verified if problem is \textbf{unbounded}.
+\end{property}
+
+\subsubsection{Tableau representation}
+
+\textbf{Tableau} is a matrix representation of the \LP problem.
+Let
+\[ \begin{matrix} z = c^T x \\ Ax = b \end{matrix}\] with implicit non negativity constraints be the \LP problem.
+
+The initial tableau is the matrix represented in Figure~\ref{subfig:tableau-initial}.
+The first column contains the right hand side of the objective function and the right hand side vector.
+
+Consider a basis \(B\) and a partition \(A = \left[ B \ N \right]\), with \(0 = c^T x - z\).
+The corresponding tableau is the matrix represented in Figure~\ref{subfig:tableau-basis}.
+
+By pivoting operations \textit{(or pre multiplication by \(B^{-1}\))}, the tableau is in the canonical form with respect to \(B\).
+The said tableau is the matrix represented in Figure~\ref{subfig:tableau-canonical}.
+
+\begin{figure}[htbp]
+  \centering
+  \bigskip
+  \begin{subfigure}[t]{0.99\textwidth}
+    \centering
+    \bigskip
+    \tikzfig{figure-17.tikz}
+    \caption{Initial tableau}
+    \label{subfig:tableau-initial}
+    \bigskip
+  \end{subfigure}
+  \bigskip
+  \begin{subfigure}[b]{0.515\textwidth}
+    \centering
+    \bigskip
+    \tikzfig{figure-18.tikz}
+    \caption{Tableau with respect to a basis}
+    \label{subfig:tableau-basis}
+    \bigskip
+  \end{subfigure}
+  \begin{subfigure}[b]{0.475\textwidth}
+    \centering
+    \bigskip
+    \tikzfig{figure-19.tikz}
+    \caption{Canonical tableau}
+    \label{subfig:tableau-canonical}
+    \bigskip
+  \end{subfigure}
+  \caption{Tableau representation}
+  \label{fig:tableau-representations}
+  \bigskip
+\end{figure}
+
+\subsubsection{The simplex algorithm}
+
+In Code~\ref{code:simplex} the simplex algorithm is implemented.
+
+\begin{lstlisting}[language=pseudocode, caption={The simplex algorithm}, label={code:simplex}]
+B[1], ..., B[m] := initial basis
+construct the initial tableau A in canonical form with respect to B
+unbounded := false
+optimal := false
+while optimal = false and unbounded = false do
+  if a[0, j] $\forall$ j = 1, ..., m then
+    optimal := true // for LP with min
+  else
+    select a non basic variable x_s with a[0, s] < 0 // negative reduced cost
+    if a[i, s] $\leq$ 0 $\forall$ i = 1, ..., m then
+      unbounded := true
+    else
+      r := argmin {a[i, 0] / a[i, s] $\forall$ i = 1, ..., m with a[i, s] > 0}
+      pivot(r, s) // update the tableau
+      B[r] := s
+    end
+  end
+end
+\end{lstlisting}
+
+\subsubsection{Degenerate basic feasible solutions and convergence}
+
+As already announced in Section~\ref{sec:basic-solutions}, a basic feasible solution \(x\) is degenerate if it contains at least one basic variable \(x_j = 0\).
+A solution \(x\) with more than \(n -m\) zeroes corresponds to several distinct bases.
+
+More than \(n\) constraints \textit{(the \(m\) of \(Ax = b\) and more than \(n-m\) among the \(n\) of \(x \geq 0\))} on the same vertex are satisfied with equality.
+In the presence of degenerate basic feasible solutions \textit{(\BFS)}, a basis change may not decrease the objective function value:
+if the current \BFS is degenerate, the only admissible value of \(\theta^\ast\) is \(0\) and the new \BFS is the same as the old one.
+
+Note that a degenerate \BFS can arise from a non degenerate one:
+even if \(\theta^\ast > 0\), several basic variables may go to \(0\) when \(x_s\) is increased to \(\theta^\ast\).
+It's possible to cycle through a sequence of degenerate basis associated to the same vertex.
+
+\paragraph{Anti cycling rule}
+
+Several anti cycling rules have bern proposed for the choice of the variables that enter end exit the bases \textit{(indices \(r\) and \(s\) in Algorithm~\ref{code:simplex})}.
+
+The simplest one is the \textbf{Bland's rule}: among all candidate variables for \(x_s\) and \(x_r\), the one with the smallest index is chosen.
+
+\begin{property}
+  The simplex algorithm with Bland's rule terminates after less than \(\begin{pmatrix}
     n \\ m
-  \end{pmatrix}
-\]
+  \end{pmatrix}\) iterations.
+\end{property}
 
-% FOR2022_3LPVerticesBFS
+\subsubsection{Two phase simplex algorithm}
+
+The two phase simplex algorithm is a modification of the simplex algorithm that allows to solve the \LP problem with equality
+constraints.
+
+\begin{enumerate}[label=\textbf{Phase \arabic*:}, ref=\textbf{Phase \arabic*}]
+  \item Determine an initial basic feasible solution
+        \begin{itemize}
+          \item given the problem with equality constraints
+                \[\begin{matrix}
+                    z = c^T x \\
+                    Ax = b    \\
+                    x \geq 0
+                  \end{matrix}, b \geq 0\]
+          \item an auxiliary \LP with artificial variables is constructed
+                \[\begin{matrix}
+                    \min        & v = \displaystyle \sum_{i=1}^m y_1 \\
+                    \text{s.t.} & Ax + ly = b                        \\
+                                & x \geq 0, y \geq 0
+                  \end{matrix}\]
+        \end{itemize}
+  \item Solve the auxiliary problem
+        \begin{itemize}
+          \item if \(v^\ast > 0\), the problem is infeasible
+          \item if \(v^\ast = 0\), \(y^\ast = 0\) and \(x^\ast\) is a basic feasible solution of the original problem
+                \begin{itemize}
+                  \item if \(y_i\) is non basic \(\forall \, i\), with \(1 \leq i \leq m\), the corresponding columns are deleted and a tableau in canonical form is obtained; the row of \(z\) must be determined via substitution
+                  \item if there is a basic \(y_i\) \textit{(the basic feasible solution is degenerate)}, then a pivot operations is performed on the row of \(y_i\) to exchange the basic variable with a non basic one
+                \end{itemize}
+        \end{itemize}
+\end{enumerate}
+\subsection{Network flows}
+
+Network flows problems involve the distribution of a given \textit{product} \textit{(such as water, gas, data)} from a set of \textit{sources} to a set of \textit{users} so as to optimize a given objective function \textit{(e.g. minimize the total cost of the distribution)}.
+
+It has many indirect applications, such as:
+
+\begin{itemize}
+  \item \textbf{Telecommunication}
+  \item \textbf{Transportation}
+  \item \textbf{Logistics}
+\end{itemize}
+
+\begin{definition}[network flow]
+  A network is a directed and connected graph \(G = (V, A)\) with a source \(s \in V\) and a sing \(t \in V\), with \(s \neq t\), and a capacity \(k_{ij} \geq 0\) for each arc \((i, j) \in A\).
+\end{definition}
+
+\begin{itemize}
+  \item A \textbf{feasible flow} \(x\) from \(s\) to \(t\) is a vector \(x \in \R^m\) with a component \(x_{ij}\) for each arc \((i, j) \in A\) satisfying the capacity constraint \[0 \leq x_{ij} \leq k_{ij}, \quad \forall \, \left( i, j \right) \in A\]
+        and the flow balance constraint at each intermediate node \(u \in \left\{ V \setminus \{s, t\} \right\}\):
+        \[\displaystyle \sum_{\left( i, u \right) \in \delta^{-}(u)} x_{iu} = \displaystyle \sum_{\left( u, j \right) \in \delta^{+}(u)} x_{uj} \quad \forall \, u \in N \setminus \left\{ s, t \right\} \]
+  \item The value of \textbf{flow} \(x\) is \(\phi = \displaystyle \sum_{\left( s, j \right) \in \delta^{+}(s)} x_{sj}\)
+  \item Given a network and a feasible flow \(x\), an arc \(\left( i, j \right) \in A\) is \textbf{saturated} if \(x_{ij} = k_{ij}\) and \textbf{empty} if \(x_{ij} = 0\)
+\end{itemize}
+
+\begin{definition}[flow problem definition]
+  Given a network \(G = \left( V, A \right)\) with an integer capacity \(k_{ij}\) for each arc \((i, j) \in A\), find a feasible flow \(x\) from \(s\) to \(t\) with maximum value.
+
+  If multiple sources or sink are present while only one product is considered, dummy notes \(s^\ast\) and \(t^\ast\) can be added.
+\end{definition}
+
+\subsubsection{Linear programming model}
+
+The linear programming model of the network flow is defined as:
+
+\begin{gather}
+  \begin{aligned}
+    \max \quad        & \phi \\
+    \text{s.t.} \quad &
+  \end{aligned}
+\end{gather}
+
+% TODO FOR2022_2GraphsFlows - slide 5 (or 87 i don't know)
 
 \end{document}

@@ -1,0 +1,40 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (0) at (1, 0.75) {\(0\)};
+		\node [style=none] (1) at (1, -2.5) {\(b\)};
+		\node [style=none] (2) at (5, 0.75) {\(c_B^T\)};
+		\node [style=none] (3) at (5, -2.5) {\(B\)};
+		\node [style=none] (4) at (2, -5) {};
+		\node [style=none] (5) at (0, -5) {};
+		\node [style=none] (6) at (8, -5) {};
+		\node [style=none] (7) at (8, 1.5) {};
+		\node [style=none] (8) at (2, 1.5) {};
+		\node [style=none] (9) at (0, 1.5) {};
+		\node [style=none] (10) at (5, 2) {\(x_1 \quad \cdots \quad x_m\)};
+		\node [style=none] (12) at (0, 0) {};
+		\node [style=none] (13) at (16, 0) {};
+		\node [style=none] (14) at (11, 2) {\(x_{m+1} \quad \cdots \quad x_n\)};
+		\node [style=none] (15) at (16, 1.5) {};
+		\node [style=none] (16) at (11, 0.75) {\(c_N^T\)};
+		\node [style=none] (17) at (15, 2) {\(z\)};
+		\node [style=none] (18) at (15, 0.75) {\(-1\)};
+		\node [style=none] (19) at (14, 1.5) {};
+		\node [style=none] (20) at (14, 0) {};
+		\node [style=none] (21) at (11, -2.5) {\(N\)};
+		\node [style=none] (22) at (16, -5) {};
+		\node [style=none] (23) at (14, -5) {};
+		\node [style=none] (24) at (15, -0.75) {\(0\)};
+		\node [style=none] (25) at (15, -4.25) {\(0\)};
+		\node [style=none] (26) at (15, -2.5) {\(\vdots\)};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=solid] (5.center) to (9.center);
+		\draw [style=solid] (7.center) to (6.center);
+		\draw [style=solid] (13.center) to (12.center);
+		\draw [style=solid] (15.center) to (9.center);
+		\draw [style=solid] (8.center) to (4.center);
+		\draw [style=solid] (5.center) to (22.center);
+		\draw [style=solid] (23.center) to (19.center);
+		\draw [style=solid] (15.center) to (22.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

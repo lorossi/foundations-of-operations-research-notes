@@ -1,0 +1,31 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (0) at (1, -0.75) {\(0\)};
+		\node [style=none] (1) at (1, -2.25) {\(b\)};
+		\node [style=none] (2) at (5, -0.75) {\(c^T\)};
+		\node [style=none] (3) at (5, -2.25) {\(A\)};
+		\node [style=none] (4) at (2, -3) {};
+		\node [style=none] (5) at (0, -3) {};
+		\node [style=none] (6) at (8, -3) {};
+		\node [style=none] (7) at (8, 0) {};
+		\node [style=none] (8) at (2, 0) {};
+		\node [style=none] (9) at (0, 0) {};
+		\node [style=none] (10) at (5, 0.5) {\(x_1 \quad \cdots \quad x_n\)};
+		\node [style=none] (11) at (8.25, -0.75) {};
+		\node [style=none] (12) at (0, -1.5) {};
+		\node [style=none] (13) at (8, -1.5) {};
+		\node [style=left align] (14) at (9.5, -0.75) {\textit{objective function}};
+		\node [style=left align] (15) at (9.5, -2.25) {\(m\) \textit{rows}};
+		\node [style=none] (16) at (8.25, -2.25) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=solid] (5.center) to (9.center);
+		\draw [style=solid] (9.center) to (7.center);
+		\draw [style=solid] (7.center) to (6.center);
+		\draw [style=solid] (5.center) to (6.center);
+		\draw [style=solid] (4.center) to (8.center);
+		\draw [style=solid] (13.center) to (12.center);
+		\draw [style=solid arrow] (14) to (11.center);
+		\draw [style=solid arrow] (15) to (16.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

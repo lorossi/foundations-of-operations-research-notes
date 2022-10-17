@@ -70,5 +70,6 @@
     "tikzstyles",
     "tikztemp",
     "Warshall's"
-  ]
+  ],
+  "liveServer.settings.port": 5501
 }
