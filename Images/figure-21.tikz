@@ -1,0 +1,24 @@
+\begin{tikzpicture}[minimum size=0.5cm]
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=white, draw=red] (0) at (0, 0) {};
+		\node [style=white, draw=red] (1) at (0, -2) {};
+		\node [style=white, draw=red] (2) at (0, -4) {};
+		\node [style=white, draw=blue] (3) at (7, 0) {};
+		\node [style=white, draw=blue] (4) at (7, 2) {};
+		\node [style=white, draw=blue] (5) at (7, -2) {};
+		\node [style=white, draw=blue] (6) at (7, -4) {};
+		\node [style=white, draw=blue] (7) at (7, -6) {};
+		\node [style=none] (8) at (0, -5.5) {\texttt{engineers}};
+		\node [style=none] (9) at (7, -7.5) {\texttt{tasks}};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=solid] (0) to (4);
+		\draw [style=solid] (6) to (0);
+		\draw [style=solid] (1) to (7);
+		\draw [style=solid] (2) to (4);
+		\draw [style=solid] (3) to (2);
+		\draw [style=solid] (5) to (2);
+		\draw [style=solid] (1) to (5);
+		\draw [style=solid] (7) to (2);
+	\end{pgfonlayer}
+\end{tikzpicture}

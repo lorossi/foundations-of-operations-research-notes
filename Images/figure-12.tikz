@@ -6,12 +6,11 @@
 		\node [style=none] (3) at (0, -6) {};
 		\node [style=right align] (4) at (-0.5, -0.25) {\(x^2\)};
 		\node [style=bottom align] (5) at (5.75, -6.25) {\(x^1\)};
-		\node [style=small black, fill={rgb,255: red,191; green,0; blue,64}] (7) at (4, -2) {};
+		\node [style=small black, fill={rgb,255: red,191; green,0; blue,64}] (7) at (4, -3) {};
 		\node [style=none] (8) at (5, -6) {};
-		\node [style=none] (9) at (2.5, 1) {};
-		\node [style=none] (10) at (2, -1) {};
-		\node [style=none] (11) at (2, -1) {};
-		\node [style=none, text={rgb,255: red,191; green,0; blue,64}] (12) at (2.75, 1.5) {\(c\)};
+		\node [style=none] (9) at (3, 0) {};
+		\node [style=none] (11) at (2.25, -1.75) {};
+		\node [style=none, text={rgb,255: red,191; green,0; blue,64}] (12) at (3.25, 0.5) {\(c\)};
 		\node [style=small black, fill={rgb,255: red,191; green,0; blue,64}] (13) at (0, -1) {};
 	\end{pgfonlayer}
 	\begin{pgfonlayer}{edgelayer}

@@ -76,7 +76,7 @@ A comparison of the two classes, assuming that \(1 \, \mu s\) is needed for each
 \begin{table}
   \centering
   \bigskip
-  \begin{tabular}{c|c|c}
+  \begin{tblr}{c|c|c}
     \(n\)  & \(n^2\)          & \(2^n\)                \\
     \hline
     \(1\)  & \(1 \, \mu s\)   & \(1 \, \mu s\)         \\
@@ -86,7 +86,7 @@ A comparison of the two classes, assuming that \(1 \, \mu s\) is needed for each
     \(40\) & \(1.6 \, ms\)    & \(\approx 13 \, d\)    \\
     \(50\) & \(2.5 \, ms\)    & \(\approx 36 \, y\)    \\
     \(60\) & \(3.6 \, ms\)    & \(\approx 36535 \, y\) \\
-  \end{tabular}
+  \end{tblr}
   \caption{Complexity classes}
   \label{tab:complexity-classes}
   \bigskip
@@ -145,27 +145,29 @@ A \textbf{graph} is a pair \(G = (N, E)\) with:
         \[ p = \left\langle (v_1, v_2), (v_2, v_3), \ldots, (v_{k-1}, v_k)\right\rangle \]
         connecting nodes, with  \((v_i, v_{i+1} \in E)\)  for \(i = 1, \ldots, k-1\)
   \item A \textbf{cycle} is a path \[ \left\langle v_1, v_2, \ldots, v_1 \right\rangle \] where the first and last nodes are the same
-  \item A \textbf{directed cycle} is path \[ \left\langle \{v_1, v_2\}, \{v_2, v_3\}, \ldots, \{v_{k-1}, v_k\}, \{v_k, v_1\}\right\rangle \]
-        where the first and the last nodes are the same
+        \begin{itemize}
+          \item A \textbf{directed cycle} is path \[ \left\langle \{v_1, v_2\}, \{v_2, v_3\}, \ldots, \{v_{k-1}, v_k\}, \{v_k, v_1\}\right\rangle \]
+                where the first and the last nodes are the same
+        \end{itemize}
   \item Nodes \(u\) and \(v\) are \textbf{connected} if exists a path connecting them
-  \item A graph \((N, E)\) is \textbf{connecting} if \(u, v\) are connecting \(\forall \, u, v \in N\)
-  \item A graph \((N, E)\) is \textbf{strongly connected} if \(u, v\) are connected by a \textbf{directed} path \(\forall \, u, v \in N\)
+  \item A graph \((N, E)\) is \textbf{connected} if \(u, v\) are connecting \(\forall \, u, v \in N\)
+        \begin{itemize}
+          \item A graph \((N, E)\) is \textbf{strongly connected} if \(u, v\) are connected by a \textbf{directed} path \(\forall \, u, v \in N\)
+        \end{itemize}
   \item A graph is \textbf{bipartite} if there is a partition \(N = N_1 \cup N_2, \, N_1 \cap N_2 = \emptyset\) such that \(\forall \, (u, v) \in E, u \in N_1 \text{ and } v \in N_2\)
   \item A graph is \textbf{complete} if \(E = \left\{\{v_i, v_j\} \,|\, v_i, v_j \in N \land i \leq j \right\}\)
   \item Given a directed graph \(G = (N, A)\) and \(S \subseteq N\), the \textbf{outgoing cut} induced by \(S\) is the set of arcs:
         \[\delta^+(S) = \left\{ (u, v) \in A \,|\, u \in S \land v \in N \setminus S \right\}\]
         the \textbf{incoming cut} induced by \(S\) is the set of arcs:
         \[\delta^-(S) = \left\{ (u, v) \in A \,|\, v \in S \land u \in N \setminus S \right\}\]
+  \item A graph with \(n\) \textbf{nodes} has at most \(m = \dfrac{n(n-1)}{2}\) \textbf{edges}
+  \item A \textbf{directed} graph with \(n\) \textbf{nodes} has at most \(m = n(n-1)\) \textbf{arcs}
         \begin{itemize}
-          \item A graph with \(n\) \textbf{nodes} has at most \(m = \dfrac{n(n-1)}{2}\) \textbf{edges}
-          \item A \textbf{directed} graph with \(n\) \textbf{nodes} has at most \(m = n(n-1)\) \textbf{arcs}
-                \begin{itemize}
-                  \item a graph is \textbf{dense} if \(m \approx n^2\)
-                  \item a graph is \textbf{sparse} if \(m \ll n\)
-                \end{itemize}
+          \item a graph is \textbf{dense} if \(m \approx n^2\)
+          \item a graph is \textbf{sparse} if \(m \ll n\)
         \end{itemize}
   \item The adjacency list \(A(i)\) of a node \(i\) is the set of arcs emanating from that node
-        \[ A(i) = \left\{ j \in N \, | \, (i, j) \in A  \right\} \]
+        \[ A(i) = \left\{ j \in N \mid   (i, j) \in A  \right\} \]
 \end{itemize}
 
 \bigskip
@@ -175,7 +177,7 @@ Some examples are shown in Figure \ref{fig:examples-of-graphs}.
   \centering
   \begin{subfigure}[t]{0.495\textwidth}
     \centering
-    \begin{tikzpicture}[circle, node distance = 2cm, minimum size = 0.75cm]
+    \begin{tikzpicture}[node distance = 2cm, minimum size = 0.75cm]
       \samplegraph
       \sampleedges
     \end{tikzpicture}
@@ -184,7 +186,7 @@ Some examples are shown in Figure \ref{fig:examples-of-graphs}.
   \end{subfigure}
   \begin{subfigure}[t]{0.495\textwidth}
     \centering
-    \begin{tikzpicture}[circle, node distance = 2cm, minimum size = 0.75cm]
+    \begin{tikzpicture}[node distance = 2cm, minimum size = 0.75cm]
       \samplegraph
       \samplearcs
     \end{tikzpicture}
@@ -194,7 +196,7 @@ Some examples are shown in Figure \ref{fig:examples-of-graphs}.
   \bigskip
   \begin{subfigure}[t]{0.495\textwidth}
     \centering
-    \begin{tikzpicture}[circle, node distance = 2cm, minimum size = 0.75cm]
+    \begin{tikzpicture}[node distance = 2cm, minimum size = 0.75cm]
       \samplegraph
 
       \path[-] (1) edge (2);
@@ -321,9 +323,9 @@ Some examples are shown in Figure \ref{fig:examples-of-graphs}.
 Graphs are represented by:
 
 \begin{itemize}
-  \item Adjacency \textbf{matrix} \(\mathbf{A}\) of size \(n \times n\) if the graph is dense:
+  \item Adjacency \textbf{matrix} \(\mathbf{A}\) of size \(n \times n\) if the graph is \textbf{dense}
         \[ a_{ij} = \begin{cases} 1 \ &\text{if } (i, j) \in A\\ a_{i_j} &\text{otherwise}\end{cases} \]
-  \item Adjacency \textbf{list} \(\mathbf{A}\) of size \(n\) if the graph is sparse
+  \item Adjacency \textbf{list} \(\mathbf{A}\) of size \(n\) if the graph is \textbf{sparse}
 \end{itemize}
 
 The same representation can be used for both directed and undirected graphs;
@@ -377,9 +379,9 @@ An example of a graph representation is shown in Figure~\ref{fig:graph-represent
 
 \subsubsection{Graph reachability problem}
 
-\begin{definition}[Graph reachability problem]
-  Given a directed graph \(G = (N, A)\) and a node \(s \in N\), find all nodes reachable from \(s\).
-\end{definition}
+\begin{problem}[graph reachability]
+Given a directed graph \(G = (N, A)\) and a node \(s \in N\), the \textbf{graph reachability problem} consists in finding all nodes reachable from \(s\).
+\end{problem}
 
 \bigskip
 \textbf{Goal}
@@ -399,14 +401,14 @@ The goal is reached by an \textit{efficient} algorithm to solve the problem, wit
 \textbf{Algorithm}
 The algorithm pseudocode is shown in Code~\ref{lst:graph-reachability}.
 
-\begin{lstlisting}[style=custom, language=pseudocode, caption={Graph reachability}, label={lst:graph-reachability}, float]
+\begin{lstlisting}[caption={Graph reachability}, label={lst:graph-reachability}, float]
 Q := {s}
 M := {}
 while Q is not empty do
   u := node $\in$ Q
   Q := Q \ {u}
   M := M $\cup$ {u}
-  for (u, v) $\in \ \delta^+(u)$ do
+  for (u, v) $\in \ \delta^+(\texttt{u})$ do
     if v $\notin$ M and v $\notin$ Q then
       Q := Q $\cup$ {v}
     end
@@ -427,7 +429,7 @@ At each iteration of the \texttt{\textbf{while}} loop:
 \end{enumerate}
 
 Since each node \(u\) is inserted in \(Q\) at most once and each arch \((u,v)\) is considered at most once, the overall complexity is:
-\[ \bigO{n+m} \quad n = |N|, \, m =|A|\]
+\[ \bigO{n+m} \quad n = |N|, \ m =|A|\]
 For dense graphs, this value converges to \(\bigO{n^2}\).
 
 \subsection{Subgraphs and Trees}
@@ -449,7 +451,7 @@ A representation of these concepts is shown in Figure~\ref{fig:subgraphs-trees}.
   \centering
   \begin{subfigure}[t]{0.995\textwidth}
     \centering
-    \begin{tikzpicture}[circle, node distance = 2cm, minimum size = 0.75cm]
+    \begin{tikzpicture}[node distance = 2cm, minimum size = 0.75cm]
       \samplegraph
       \sampleedges
     \end{tikzpicture}
@@ -615,12 +617,12 @@ an undirected graph \(G = (N, E), \, n = |N|, \, m = |E|\) and a cost function \
 \end{enumerate}
 
 \bigskip
-\begin{definition}[Problem definition]
-  Given an undirected graph \(G = (N, E)\) and a cost function \(c: E \rightarrow \R\), find a spanning tree \(G_T(N, T)\) of \(G\) of minimum, total cost.
-\end{definition}
+\begin{problem}[Problem definition]
+Given an undirected graph \(G = (N, E)\) and a cost function \(c: E \rightarrow \R\), find a spanning tree \(G_T(N, T)\) of \(G\) of minimum, total cost.
 
 The objective is finding:
 \[ \displaystyle \min_{T \in X} \sum_{e \in T} c_e \qquad X = \text{ set of all spanning trees of } G \]
+\end{problem}
 
 \begin{theorem}
   A complete graph with \(n\) nodes (\(n \geq 1\)) has \(n^{n-2}\) spanning trees.
@@ -658,7 +660,7 @@ the pseudocode of the algorithm is shown in Code~\ref{lst:prims-algorithm}.
 Prim's algorithm is \textbf{greedy}:
 at each step a minimum cost edge is selected among those in the cut \(\delta(S)\) induced by the current set of nodes \(S\).
 
-\begin{lstlisting}[style=custom, language=pseudocode, caption={Prim's algorithm}, label={lst:prims-algorithm}, float]
+\begin{lstlisting}[caption={Prim's algorithm}, label={lst:prims-algorithm}, float]
 S := {u}
 T := {}
 while |T| < n - 1 do
@@ -689,8 +691,8 @@ The Prim's algorithm can be implemented in quadratic time, i.e. \(\bigO{n^2}\).
   \item \(k\) number of edges selected so far
   \item Subset \(S \subseteq N\) of nodes incident to the selected edges
   \item Subset \(T \subseteq E\) of selected edges
-  \item \(C_j = \begin{cases} \min \{c_{ij} \, | \, i \in S\} \quad &j \notin S \\ +\infty &\text{otherwise}\end{cases}\)
-  \item \(\textit{closest}_j = \begin{cases} \argmin\{c_{ij} \, | \, i \in S\}  & j \notin S \\ \text{predecessor of } j \text{ in the minimum spanning tree} \quad& j \in S \end{cases}\)
+  \item \(C_j = \begin{cases} \min \{c_{ij} \mid   i \in S\} \quad &j \notin S \\ +\infty &\text{otherwise}\end{cases}\)
+  \item \(\textit{closest}_j = \begin{cases} \argmin\{c_{ij} \mid   i \in S\}  & j \notin S \\ \text{predecessor of } j \text{ in the minimum spanning tree} \quad& j \in S \end{cases}\)
 \end{itemize}
 
 \bigskip
@@ -724,7 +726,7 @@ The spanning tree is built is built by selecting the node \(j\) with minimum cos
 \bigskip
 The code for this algorithm is shown in Code~\ref{lst:prim-quadratic}.
 
-\begin{lstlisting}[style=custom, language=pseudocode, caption={Prim's algorithm in quadratic time}, label={lst:prim-quadratic}, float]
+\begin{lstlisting}[caption={Prim's algorithm in quadratic time}, label={lst:prim-quadratic}, float]
 T := {}
 S := {u}
 // initialization
@@ -792,9 +794,9 @@ Given a spanning tree \(T\), an edge \(e \notin T\) is \textbf{cost decreasing} 
 \end{itemize}
 
 \bigskip
-\textbf{Model}
-
+\begin{problem}[Problem definition]
 Given a directed graph \(G = (N, A)\) with a cost \(c_{ij} \in \R\) associated to each arc \((i, j) \in A\), and two nodes \(s\) and \(t\), determine a minimum cost \textit{(shortest)} path from \(s\) to \(t\).
+\end{problem}
 
 \begin{itemize}
   \item Each \textbf{value} \(c_{i, j}\) represents the \textbf{cost} \textit{(or length, travel time, \ldots)} of arc \((i, j) \in A\)
@@ -840,12 +842,12 @@ Given a directed graph \(G = (N, A)\) with a cost \(c_{ij} \in \R\) associated t
 \begin{itemize}
   \item \(S \subseteq N\): subset of nodes whose labels are permanent
   \item \(X \subseteq N\): subset of nodes with temporary labels
-  \item \(L_j = \begin{cases} \text{cost of a shortest path from } s \text{ to } j \quad & j \in S \\ \min\{L_i + c_{ij} \, | \, (i, j) \in \delta^+(S) & j \notin S\}\end{cases}\)
+  \item \(L_j = \begin{cases} \text{cost of a shortest path from } s \text{ to } j \quad & j \in S \\ \min\{L_i + c_{ij} \mid   (i, j) \in \delta^+(S) & j \notin S\}\end{cases}\)
         \begin{itemize}[label=\(\rightarrow\)]
-          \item given a directed graph \(G\) and the current subset of nodes \(S \subset N\), consider the outgoing cut \(\delta^+(S)\) and select \((u, v) \in \delta^+(S)\) such that: \( L_u + c_{uv} = \min\{L_i + c_{ij} \, | \, (i, j) \in \delta^+ (S)\}\)
+          \item given a directed graph \(G\) and the current subset of nodes \(S \subset N\), consider the outgoing cut \(\delta^+(S)\) and select \((u, v) \in \delta^+(S)\) such that: \( L_u + c_{uv} = \min\{L_i + c_{ij} \mid   (i, j) \in \delta^+ (S)\}\)
           \item thus: \(L_u + c_{uv} \leq L_i + c_{ij}, \forall \, (i, j) \in \delta^+(S)\)
         \end{itemize}
-  \item \(\text{predecessor}_j = \begin{cases}\text{predecessor of } j \text{ in the shortest path from } s \text{ to } j \quad& j \in S \\ u \text{ such that } L_u + c_{uj} = \min\{L_i + c_{ij} \, | \, i \in S\} & j \notin S\end{cases}\)
+  \item \(\text{predecessor}_j = \begin{cases}\text{predecessor of } j \text{ in the shortest path from } s \text{ to } j \quad& j \in S \\ u \text{ such that } L_u + c_{uj} = \min\{L_i + c_{ij} \mid   i \in S\} & j \notin S\end{cases}\)
 \end{itemize}
 
 \bigskip
@@ -867,7 +869,7 @@ the complexity of the algorithm depends on the how the arc \((u, v)\) is selecte
 \bigskip
 The code for this algorithm is shown in Code~\ref{lst:dijkstras-algorithm}.
 
-\begin{lstlisting}[style=custom, language=pseudocode, caption={Dijkstra's algorithm}, label={lst:dijkstras-algorithm}, float]
+\begin{lstlisting}[caption={Dijkstra's algorithm}, label={lst:dijkstras-algorithm}, float]
 S := {}
 X := {s}
 for u $\in$ N do
@@ -878,7 +880,7 @@ while |S| < |N| do
   u := argmin{L_i $|$ i $\in$ X}
   X := X $\backslash$ {u}
   S := S $\cup$ {u}
-  for (u, v) $\in \delta^+(u)$ do
+  for (u, v) $\in \delta^+(\texttt{u})$ do
     if L_v > L_u + c_uv then
       L_v := L_u + c_uv
       predecessor_v := u
@@ -1103,17 +1105,16 @@ An example of Dijkstra's algorithm is shown in Figure~\ref{fig:dijkstra-example}
 \bigskip
 The code for this algorithm is shown in Code~\ref{lst:floyd-warshall-algorithm}.
 
-\begin{lstlisting}[style=custom, language=pseudocode, caption={Floyd-Warshall's algorithm}, label={lst:floyd-warshall-algorithm}, float]
-  for j := 1 to n do
-    p_id := i
+\begin{lstlisting}[caption={Floyd-Warshall's algorithm}, label={lst:floyd-warshall-algorithm}, float]
+for j := 1 to n do
+  p_id := i
 
-    if i = j then
-      d_ij := 0
-    else if (i, j) in A then
-      d_ij := c_ij
-    else
-      d_ij := $+\infty$
-    end
+  if i = j then
+    d_ij := 0
+  else if (i, j) in A then
+    d_ij := c_ij
+  else
+    d_ij := $+\infty$
   end
 end
 for u $\in$ N do
@@ -1128,6 +1129,7 @@ for u $\in$ N do
     if d_ij < 0 then
       error "negative cycle"
     end
+  end
 end
 \end{lstlisting}
 
@@ -1145,12 +1147,17 @@ end
 \subsection{Optimal paths in directed, acyclic graphs}
 
 A directed graph \(G = (N, A)\) is \textbf{acyclic} if it does not contain any circuit.
-A directed acyclic graph \(G\) is then referred to as a \textbf{\DAG}.
+A directed acyclic graph \(G\) is referred to as a \DAG.
 
-Property of \textit{\DAGs}: the nodes of any directed acyclic graph \(G\) can be ordered topologically, i.e. indexed so that for each arc \((i, j) \in A\) the index of \(i\) is less than the index of \(j\) \textit{(\(i \leq j\))}.
+\begin{property}[topological ordering]
+  The nodes of any \DAG \(G\) can be ordered topologically, i.e. indexed so that for each arc \((i, j) \in A\) the index of \(i\) is less than the index of \(j\) \textit{(\(i \leq j\))}.
+\end{property}
+
 The topological order can be exploited by dynamic programming algorithms to compute efficiently the shortest paths in a \DAG.
 
-\textbf{Problem}: given a \DAG \(G = (N, A)\) with a cost \(c_{ij} \in \R\) and nodes \(s, t\), determine the shortest (or longest) path from \(s\) to \(t\).
+\begin{problem}[Problem description]
+  Given a \DAG \(G = (N, A)\) with a cost \(c_{ij} \in \R\) and nodes \(s, t\), determine the shortest (or longest) path from \(s\) to \(t\).
+\end{problem}
 
 \subsubsection{Topological ordering method}
 
@@ -1269,20 +1276,21 @@ which can be solved in reversed order
 \textbf{Algorithm}:
 finally, the algorithm is shown in pseudocode in Code~\ref{lst:shortest-path-in-DAG}.
 
-\begin{lstlisting}[style=custom, language=pseudocode, caption={Shortest path in \DAG}, label={lst:shortest-path-in-DAG}, float]
+\begin{lstlisting}[caption={Shortest path in \DAG}, label={lst:shortest-path-in-DAG}, float]
 sort the nodes of G topologically
 L_1 := 0
 for j := 2 to n do
-  L_j := min{L_i + c_{ij} | (i, j) $\in \delta^-(\texttt{j}) \land \texttt{i} < \texttt{j}$}
-  pred_j := v such that (v, j) = argmin{L_i + c_{ij} | (i, j) $\in \delta^-(\texttt{j}) \land \texttt{i} < \texttt{j}$}
+  L_j := min{L_i + c_{ij} | (i, j) $\in \delta^-(\texttt{j})\ \land\ \texttt{i} < \texttt{j}$}
+  pred_j := v such that (v, j) = argmin{L_i + c_{ij} | (i, j) $\in \delta^-(\texttt{j})\ \land\ \texttt{i} < \texttt{j}$}
 end
 \end{lstlisting}
 
 \bigskip
-Complexity of the algorithm is \(\bigO{|A|}\):
+\textbf{Complexity}
+of the algorithm is \(\bigO{|A|}\):
 
 \begin{itemize}
-  \item Topological ordering of the nodes: \(\bigO{m}\) with \(m = |A|\) (number of arcs)
+  \item Topological ordering of the nodes: \(\bigO{m}\) with \(m = |A|\) \textit{(number of arcs)}
   \item Each node/arc is processed only once: \(\bigO{n+m}\)
 \end{itemize}
 
@@ -1297,16 +1305,18 @@ This is due to the optimality principle, already explored in the previous sectio
 
 \subsection{Project planning}
 
+\begin{problem}[Problem definition]
 A project consists of a set of \(m\) activities with their (estimated) duration: activity \(A_i\) has duration \(d_i \geq 0, i = 1, \ldots, m\).
 Some pair of activities allow a precedent constraint: \(A_i \propto A_j\) indicated that \(A_i\) must be performed before \(A_j\).
 
-\textbf{Model}:
-a project can be represented by a directed graph \(G = (N, A)\) where:
-
+A project can be represented by a directed graph \(G = (N, A)\) where:
 \begin{itemize}
   \item each arc corresponds to an activity
   \item the arc length represent the duration of the corresponding activity
 \end{itemize}
+\end{problem}
+
+\bigskip
 
 In order to account for precedence constraints, the arcs must be positioned such that for activities \(A_i \propto A_j\) there exists a directed path where the arc associated to \(A_i\) precedes the arc associated to \(A_j\).
 Such notation is shown in Figure \ref{fig:precedence-relation-in-project-planning}.
@@ -1351,14 +1361,15 @@ A graph \(G\) can be simplified by contracting some arcs, but it's important to 
 Artificial nodes or artificial arcs are introduced so that graph \(G\):
 
 \begin{itemize}
-  \item Contains a unique initial node \(s\) corresponding to the event \inlinequote{beginning of the project}
-  \item Contains a unique final node \(t\) corresponding to the event \inlinequote{end of the project}
-  \item Does not contain multiple arcs with the same origin and destination
+  \item Contains a \textbf{unique initial node} \(s\) corresponding to the event \inlinequote{beginning of the project}
+  \item Contains a \textbf{unique final node} \(t\) corresponding to the event \inlinequote{end of the project}
+  \item Does not contain \textbf{multiple arcs} with the \textbf{same origin and destination}
 \end{itemize}
 
 \bigskip
-\textbf{Problem}:
-given a project (set of activities with duration and precedence constraints), schedule the activities in order to minimize the overall project duration (the time needed to complete all the activities).
+\begin{problem}[Problem description]
+  Given a project (set of activities with duration and precedence constraints), schedule the activities in order to minimize the overall project duration (the time needed to complete all the activities).
+\end{problem}
 
 \bigskip
 \begin{property}
@@ -1409,16 +1420,16 @@ construct the graph \(G\) representing the project.
 \textbf{Algorithm}:
 finally, the algorithm is shown in pseudocode in Code~\ref{lst:critical-path-method}.
 
-\begin{lstlisting}[style=custom, language=pseudocode, caption={Critical path method}, label={lst:critical-path-method}, float]
+\begin{lstlisting}[caption={Critical path method}, label={lst:critical-path-method}, float]
 sort the nodes topologically
 T_min_i := 0
 for j = 2 to n do
   T_min_j := max{T_min_i + d_ij | (i, j) $\in \delta^- (\texttt{j})$}
-end for
+end
 T_max_n := T_min_n // minimum project duration
 for i = n-1 to 1 do
   T_max_i := min{T_max_j - d_ij | (i, j) $\in \delta^+ (\texttt{i})$}
-end for
+end
 \end{lstlisting}
 
 \bigskip
@@ -1450,28 +1461,356 @@ There are two types of Gantt charts:
   \item Gantt chart at \textbf{latest} - each activity \(\left( i, j \right)\) starts at \(T_{max_i}\) and ends at \(T_{max_i} + d_{ij}\)
 \end{itemize}
 
+\subsection{Network flows}
+
+Network flows problems involve the distribution of a given \textit{product} \textit{(such as water, gas, data)} from a set of \textit{sources} to a set of \textit{users} so as to optimize a given objective function \textit{(e.g. minimize the total cost of the distribution)}.
+
+It has many indirect applications, such as:
+
+\begin{itemize}
+  \item \textbf{Telecommunication}
+  \item \textbf{Transportation}
+  \item \textbf{Logistics}
+\end{itemize}
+
+\begin{itemize}
+  \item A \textbf{network} is a directed and connected graph \(G = (V, A)\) with a source \(s \in V\) and a sing \(t \in V\), with \(s \neq t\), and a capacity \(k_{ij} \geq 0\) for each arc \((i, j) \in A\).
+  \item A \textbf{feasible flow} \(x\) from \(s\) to \(t\) is a vector \(x \in \R^m\) with a component \(x_{ij}\) for each arc \((i, j) \in A\) satisfying the capacity constraint \[0 \leq x_{ij} \leq k_{ij}, \quad \forall \, \left( i, j \right) \in A\]
+        and the flow balance constraint at each intermediate node \(u \in \left\{ V \setminus \{s, t\} \right\}\):
+        \[\displaystyle \sum_{\left( i, u \right) \in \delta^{-}(u)} x_{iu} = \displaystyle \sum_{\left( u, j \right) \in \delta^{+}(u)} x_{uj} \quad \forall \, u \in N \setminus \left\{ s, t \right\} \]
+  \item The value of \textbf{flow} \(x\) is \(\phi = \displaystyle \sum_{\left( s, j \right) \in \delta^{+}(s)} x_{sj}\)
+  \item Given a network and a feasible flow \(x\), an arc \(\left( i, j \right) \in A\) is \textbf{saturated} if \(x_{ij} = k_{ij}\) and \textbf{empty} if \(x_{ij} = 0\)
+\end{itemize}
+
+\bigskip
+A problem related to flow is defined as follows \textit{(Definition~\ref{def:flow-problem})}.
+\begin{definition}[flow Problem definition]
+  Given a network \(G = \left( V, A \right)\) with an integer capacity \(k_{ij}\) for each arc \((i, j) \in A\), find a feasible flow \(x\) from \(s\) to \(t\) with maximum value.
+
+  If multiple sources or sink are present while only one product is considered, dummy notes \(s^\ast\) and \(t^\ast\) can be added \textit{(as shown in Figure~\ref{fig:multiple-sources-sinks})}.
+  \label{def:flow-problem}
+\end{definition}
+
+\begin{figure}[htbp]
+  \centering
+  \bigskip
+  \
+  \begin{tikzpicture}[circle, minimum size = 0.75cm]
+    \node[draw] (s) at (0, 0) {\(s^\ast\)};
+    \node[draw] (s1) at (2, 1.41) {\(s_1\)};
+    \node[draw] (s2) at (2, 0) {\(s_2\)};
+    \node[] (s3) at (2, -1.41) {\vdots};
+
+    \node[draw] (t1)  at (4, 1.41) {\(t_1\)};
+    \node[draw] (t2)  at (4, 0) {\(t_2\)};
+    \node[] (t3)  at (4, -1.41) {\vdots};
+    \node[draw] (t) at (6, 0) {\(t^\ast\)};
+
+    \path[->] (s) edge (s1);
+    \path[->] (s) edge (s2);
+    \path[->] (s) edge (s3);
+
+    \path[->] (t1) edge (t);
+    \path[->] (t2) edge (t);
+    \path[->] (t3) edge (t);
+  \end{tikzpicture}
+  \caption{Multiple sources and sinks. \(\delta^-(s^\ast) = \delta^+(t^\ast) = \emptyset\), \(k_{s^\ast i} = \text{availability limit}\), \(k_{jt^\ast} = \infty\)}
+  \label{fig:multiple-sources-sinks}
+  \bigskip
+\end{figure}
+\begin{figure}[htbp]
+  \centering
+  \bigskip
+  \begin{tikzpicture}[circle, minimum size = 0.75cm]
+    \node[draw] (s) at (0, 0) {\(s\)};
+    \node[draw] (i) at (2, 0) {\(i\)};
+    \node[draw] (j) at (5, 0) {\(j\)};
+    \node[draw] (t) at (7, 0) {\(t\)};
+
+    \path[->, dashed] (s) edge (i);
+    \path[->] (i) edge node[above] {\(x_{ij}, k_{ij}\)} (j);
+    \path[->, dashed] (j) edge (t);
+  \end{tikzpicture}
+  \caption{Graph representation of a flow}
+  \label{fig:flow-graph-representation}
+  \bigskip
+\end{figure}
+
+\subsubsection{Linear programming model}
+
+The linear programming model \textit{(refer to Section~\ref{sec:linear-programming} for a in dept explanation of linear programming)} of the network flow is defined as:
+
+\begin{gather*}
+  \begin{aligned}
+    \max \quad        & \phi                                                                                                                                                                                       \\
+    \text{s.t.} \quad & \displaystyle \sum_{\left( u, j \right) \in \delta^+(u)} x_{uj} + \displaystyle \sum_{\left( i, u \right) \in \delta^-(u)} x_{iu} & = \begin{cases}
+                                                                                                                                                                \phi \quad   & \text{if } u = s \\
+                                                                                                                                                                - \phi \quad & \text{if } u = t \\
+                                                                                                                                                                0 \quad      & \text{otherwise}
+                                                                                                                                                              \end{cases} \\
+                      & 0 \leq x_{ij} \leq k_{ij} \quad \forall \, \left( i, j \right) \in A                                                                                                                       \\
+                      & \phi \in \R, x_{ij} \in \R \quad \forall \, \left( i, j \right) \in A
+  \end{aligned}
+\end{gather*}
+
+where \(\phi\) denotes the value of the \textbf{feasible flow} \(x\);
+\(\phi\) is also the amount of product extracted from the source \(s\).
+
+\begin{itemize}
+  \item A \textbf{cut} separating \(s\) from \(t\) is \(\delta(S) \text{ of } G, \ s \in S, \ t \in V \setminus S\)
+  \item There are \(2^{n-2}\) cuts from \(s\) to \(t\), with \(n = |V|\)
+  \item The \textbf{capacity} of the cut \(\delta(S)\) induced by \(S\) is: \[ k(S) = \displaystyle \sum_{\left( i, j \right) \in \delta^+(S)} k_{ij} \]
+  \item Given a feasible flow \(x\) from \(s\) to \(t\) and a cut \(\delta(S)\) separating them, the value of the \textbf{feasible flow through the cut} is \[\phi(S) = \displaystyle \sum_{\left( i, j \right) \in \delta^+(S)} x_{ij} - \sum_{\left( i, j \right) \in \delta^-(S)} x_{ij}\]
+        with this notation, the value of the flow \(x\) is \(\phi = \phi\left( \left\{ s \right\} \right)\)
+\end{itemize}
+
+\subsubsection{Properties of the flows}
+\begin{property}
+  Given a feasible flow \(x\) from \(s\) to \(t\), for each cut separating \(\delta(S)\) separating \(s\) from \(t\):
+  \[ \phi(S) = \phi\left( \left\{ s \right\} \right) \]
+
+  This Property is implied by the flow balance equations \(\forall \, v \ \in V \setminus \left\{ s, t \right\}\).
+\end{property}
+
+\bigskip
+\begin{property}[weak duality]
+  For every feasible flow \(s\) from \(s\) to \(t\) and every cut \(\delta(S), \ s \in V\) separating \(s\) from \(t\):
+  \[ \phi(s) \leq k(S) \quad \left( \text{value of the flow } \leq \text{ capacity of the cut} \right)\]
+  \label{prop:weak-duality}
+\end{property}
+\begin{proof}
+  By definition of value of the flow through the cut \(\delta(S\):
+  \[ \phi(S) = \displaystyle \sum_{\left( i, j \right) \in \delta^+(S)} x_{ij} - \sum_{\left( i, j \right) \in \delta^-(S)} x_{ij} \]
+  And, since \(0 \leq x_{ij} \leq k_{ij}\) for all \(\left( i, j \right) \in A\):
+  \[ \displaystyle \sum_{\left( i, j \right) \in \delta^+(S)} x_{ij} - \sum_{\left( i, j \right) \in \delta^-(S)} x_{ij} \leq \displaystyle \sum_{\left( i, j \right) \in \delta^+(S)} k_{ij} = k(s) \]
+  Finally, \(\phi(S) \leq k(S)\).
+\end{proof}
+
+\textbf{Consequence:}
+If \(\phi(S) = k(S)\), for a subset \(S \subseteq V, \ s \in S, \ t \notin S\), then \(x\) is a flow of maximum value and the cut \(\delta(S)\) is of minimum capacity.
+
+The property \textit{(\ref{prop:weak-duality})} for any feasible flow \(x\) and for any cut \(\delta(S)\) separating \(s\) from \(t\) expresses a \textbf{weak duality relation} between the two problems of finding a maximum flow and a minimum cut.
+
+\begin{itemize}
+  \item \textbf{Primal problem}: given \(G = (V, A)\) with integer capacities on the arcs and \(s, t \in V\), determine a feasible flow of maximum problem
+  \item \textbf{Dual problem}: given \(G = (V, A)\) with integer capacities on the arcs and \(s, t \in V\), determine a cut \textit{(separating \(s\) from \(t\))} of minimum capacity separating \(s\) from \(t\)
+\end{itemize}
+
+\subsubsection{Ford-Fulkerson algorithm}
+
+\textbf{Idea}
+start from a feasible flow \(x\) and try to iteratively increase its value \(\phi\) by sending, at each iteration, an additional amount of product along a directed \textit{(or undirected)} path from \(s\) to \(t\) with a strictly positive residual capacity.
+
+\begin{itemize}
+  \item If \(\left( i, j \right)\) is not saturated (i.e. \(x_{ij} < k_{ij}\)), then \(\left( i, j \right)\) is called a \textbf{residual arc} and \(x_{ij}\) can be increased
+  \item If \(\left( i, j \right)\) is not empty (i.e. \(x_{ij} \geq 0\)), then \(\left( i, j \right)\) is called a \textbf{reverse arc} and \(x_{ij}\) can be decreased while respecting the flow balance equations
+\end{itemize}
+
+\bigskip
+An arc \(\left( i, j \right)\) in a \(s-t\) cut, where \(s \in S,\ t \in S^\prime\), is called:
+\begin{itemize}
+  \item \textbf{forward} if \(s \in S, t \in S^\prime\)
+  \item \textbf{backward} if \(s \in S^\prime, t \in S\)
+\end{itemize}
+
+The following Property (\ref{prop:augmenting-path}) is the key to the Ford-Fulkerson algorithm.
+\begin{property}[augmenting path]
+  A path \(P\) from \(s\) to \(t\) is an \textbf{augmenting path} with respect to the current feasible flow \(x\) if \(x_{ij} <k_{ij}\) for any forward arc and \(x_{ij} > 0\) for any backward arc.
+  \label{prop:augmenting-path}
+\end{property}
+
+Then the algorithm works by sending \(\delta\) additional units of product can be sent from \(s\) to \(t\):
+
+\begin{itemize}
+  \item \(+\delta\) along forward arcs
+  \item \(-\delta\) along backward arcs
+\end{itemize}
+
+\bigskip
+Given a feasible flow \(x\) for \(G = (V, A)\), a \textbf{residual network} \(\overline{G} = (V \overline{A})\) associated to \(x\) is defined as follows:
+
+\begin{itemize}
+  \item If \(\left( i, j \right) \in A\) is not empty, \(\left( j, i \right) \in \overline{A}\) with \(\overline{k}_{ij} = x_{ij} > 0\)
+  \item If \(\left( i, j \right) \in A\) is not saturated, \(\left( i, j \right) \in \overline{A}\) with \(\overline{k}_{ij} = k_{ij} - x_{ij} > 0\)
+        \begin{itemize}[label=\(\rightarrow\)]
+          \item \(\overline{k}_{ij}\) is called the \textbf{residual capacity} of \(\left( i, j \right)\)
+        \end{itemize}
+\end{itemize}
+
+At each iteration:
+
+\begin{itemize}
+  \item Find an augmenting path \(P\) from \(s\) to \(t\)
+  \item Send \(\delta\) units of product along \(P\)
+  \item Update the feasible flow \(x\) and the residual network \(\overline{G}\)
+\end{itemize}
+
+\bigskip
+\textbf{Goal}
+\begin{itemize}[label=\(\rightarrow\)]
+  \item \textit{Input}: graph \(G = (N. A)\) with capacity \(k_{ij} > 0\) for any \((i, j) \in A, \ s,t \in N\)
+  \item \textit{Output}: a feasible flow \(x\) from \(s\) to \(t\) of maximum value \(\phi^\ast\)
+\end{itemize}
+
+The pseudocode is shown in Code~\ref{code:ford-fulkerson}.
+
+\begin{lstlisting}[caption={Ford-Fulkerson algorithm}, label={code:ford-fulkerson}]
+x := 0
+phi := 0
+optimum := false
+do
+  build residual network $\overline{\texttt{G}}$ associated to x
+  P := path from s to t in $\overline{\texttt{G}}$
+  if P is not defined then
+    optimum := true
+  else
+    delta := min residual capacity of arcs in P
+    phi := phi + delta
+    for each arc (i, j) in P do
+      if (i, j) is a forward arc then
+        $\texttt{x}_{\texttt{ij}}$ := $\texttt{x}_{\texttt{ij}}$ + delta
+      else
+        $\texttt{x}_{\texttt{ij}}$ := $\texttt{x}_{\texttt{ij}}$ - delta
+      end
+    end
+  end
+until optimum = true
+\end{lstlisting}
+
+\bigskip
+\textbf{Complexity}
+\begin{itemize}
+  \item Since \(\delta > 0\), the value \(\phi\) increases at each iteration
+  \item If \(k_{ij} \mathbb{N} \, \forall \, i, j, \ x \in \mathbb{N}, \ \overline{k}_{ij} \in \mathbb{N}, \ \delta \geq 1\), then there are at most \(\phi^\ast\) increases
+  \item Since
+        \[ phi^\ast \leq k\left( \left\{ s \right\} \right) \leq m k_{max}, \quad m = |A|, \quad k_{max} = \max\left\{ k_{ij} \middle\vert \left( i, j \right) \in A \right\} \]
+        and each cycle is \(\bigO{m}\), the overall complexity is \(\bigO{m k_{max}^2}\).
+\end{itemize}
+
+\textbf{Space complexity}
+\begin{itemize}
+  \item The size of an instance \(I\), written as \(|I|\), is the number of bits needed to represent \(I\)
+  \item Since \(\left\lceil{\log_2{i}}\right\rceil + 1\) bits are needed to store an integer \(i\), \(|I| = \bigO{m \log_2{\left( k_{max} \right)}}\)
+  \item \(\bigO{m^2 k_{max}}\) grows exponentially with \(|I|\) because \(k_{max} = 2^{\log_2{k_{max}}}\) ??? % TODO fix this, as the slides are wrong
+\end{itemize}
+
+\paragraph{Correcteness of the Ford-Fulkerson algorithm}
+
+\begin{proposition}
+  The Ford-Fulkerson algorithm is exact
+\end{proposition}
+
+\begin{proof}
+  A feasible flow \(x\) has a maximum value if and only if \(t\) is not reachable from \(s\) in the residual network \(\overline{G}\) associated to \(x\).
+
+  \begin{itemize}
+    \item[\(\Rightarrow\)] If exists an augmenting path, then \(x\) is not optimal
+    \item[\(\Leftarrow\)] If \(t\) is not reachable from \(s\) in \(\overline{G}\), then there is a cut of \(\overline{G}\) such that \(\delta^+_{\overline{G}}(S^\ast) = \emptyset\)
+  \end{itemize}
+
+  By definition of \(\overline{G}\), every arc \(\left( i, j \right) \in \delta^+_{\overline{G}}(S^\ast)\) is saturated, while every arc \(\left( i, j \right) \in \delta^-_{\overline{G}}(S^\ast)\) is empty.
+  Therefore:
+  \[ \phi(S^\ast) = \displaystyle \sum_{\left( i, j \right) \in \delta^+_G(S^\ast) } x_{ij} - \displaystyle \sum_{\left( i, j \right) \in \delta^-_G(S^\ast) } x_{ij} = \displaystyle \sum_{\left( i, j \right) \in \delta^+_G(S^\ast) } k_{ij} = k(S^\ast) \]
+
+  By weak duality Property \textit{(\ref{prop:weak-duality})}, \(\phi(S^\ast) \leq k(S^\ast) \, \forall \, \text{ feasible}, \, \forall \, S \in V, s\in S, t \notin S\).
+  Then, the flow \(x\) has maximum value and the cut induced by \(S^\ast\) has minimum capacity.
+\end{proof}
+
+\paragraph{Strong duality}
+
+The \textit{Ford-Fulkerson} algorithm implies the following Theorem \textit{(\ref{thm:strong-duality})}.
+
+\begin{theorem}[strong duality]
+  The value of a feasible flow of maximum value is equal to the capacity of a cut of minimum capacity.
+  \label{thm:strong-duality}
+\end{theorem}
+
+\textbf{Remarks}
+\begin{itemize}
+  \item If all the capacities \(k_{ij} \in \mathbb{Z}^+\), the flow \(x\) of maximum value has all \(x_{ij}\) integer and an integer value \(\phi^\ast\)
+  \item \textit{Ford-Fulkerson} algorithm is not greedy \textit{(\(x_{ij}\) can be increased or decreased)}
+\end{itemize}
+
+\paragraph{Polynomial time algorithms for flow problems}
+
+More efficient algorithms exists, based on augmenting paths, pre flows and capacity scaling.
+
+\bigskip
+\textbf{Idea}
+Start from a feasible flow \(x\) of value \(\phi\) and send, at each iteration, an additional amount of product in the residual network, respecting the residual capacities and the value \(\phi\), along cycles of negative cost.
+
+\subsubsection{Indirect applicaton - assignment problem}
+
+A common indirect application of the Ford-Fulkerson algorithm is the assignment (or matching) problem:
+
+Given \(m\) engineers, \(n\) tasks and for each engineer the list of tasks they can perform.
+Assign the task to each engineer such that:
+
+\begin{itemize}
+  \item each engineer is assigned at most one task
+  \item each task is assigned to at most one engineer
+  \item the tasks assigned to each engineer are the ones they can perform
+\end{itemize}
+
+\bigskip
+\textbf{Graphical model}:
+bipartite graph of competences.
+An example is shown in Figure \ref{fig:assignment-example}.
+
+\begin{figure}[htbp]
+  \bigskip
+  \centering
+  \tikzfig{figure-21.tikz}
+  \caption{Example of assignment problem}
+  \label{fig:assignment-example}
+  \bigskip
+\end{figure}
+
+\bigskip
+\begin{definition}[matching]
+  Given an undirected graph \(G = \left( V, E \right)\), a \textit{matching} is a subset \(M \subseteq E\) such that:
+  \begin{itemize}
+    \item \(M\) is a set of edges
+    \item each vertex of \(V\) is incident to at most one edge of \(M\)
+  \end{itemize}
+  \label{def:matching}
+\end{definition}
+
+Thanks to Definition~\textit{(\ref{def:matching},)} the assignment problem can be solved by finding a maximum matching in the bipartite graph of competences;
+this equates to finding a feasible flow of maximum value from \(s\) to \(t\) in the bipartite graph of competences.
+An example of this problem is shown in Figure \ref{fig:assignment-flow-example}.
+
+There is a correspondence between the feasible flows from source to sink of value \(\phi\) and the matchings contained the edges of \(\phi\).
+
+\begin{figure}[htbp]
+  \bigskip
+  \centering
+  \tikzfig{figure-22.tikz}
+  \caption{Example of assignment problem solved by flow}
+  \label{fig:assignment-flow-example}
+  \bigskip
+\end{figure}
+
 \clearpage
 
 \section{Linear Programming}
+\label{sec:linear-programming}
 
 \subsection{Optimization problems}
 
 Optimization problems are problems that require to find the best solution among a set of possible solutions.
 
-\begin{definition}
-  An instance of an optimization problem is a pair \(\left( F, c \right)\) where:
-  \begin{itemize}
-    \item \(F\) is the domain of feasible point
-    \item \(c\) is the cost function, a mapping \(c :  F \rightarrow \R\)
-    \item the problem is finding an \(f \in F\) such that \(c\left( f \right) \leq c\left( y \right) \, \forall \, y \in F\)
-  \end{itemize}
-  Such point is called a globally optimal \textit{(or just optimal)} solution to the given instance.
-\end{definition}
+\begin{itemize}
+  \item An instance of an optimization problem is a pair \(\left( F, c \right)\) where:
+        \begin{itemize}
+          \item \(F\) is the domain of feasible point
+          \item \(c\) is the cost function, a mapping \(c :  F \rightarrow \R\)
+          \item the problem is finding an \(f \in F\) such that \(c\left( f \right) \leq c\left( y \right) \, \forall \, y \in F\)
+        \end{itemize}
+        Such point is called a globally optimal \textit{(or just optimal)} solution to the given instance.
 
-\bigskip
-\begin{definition}
-  An \textbf{optimization problem} is a set of \(I\) instances of a given optimization problem.
-\end{definition}
+  \item An \textbf{optimization problem} is a set of \(I\) instances of a given optimization problem.
+\end{itemize}
 
 \bigskip
 \begin{definition}
@@ -1489,7 +1828,7 @@ Optimization problems are problems that require to find the best solution among 
 
   \begin{itemize}
     \item the \textbf{objective function} \(f: X \rightarrow \R\) is \textbf{linear}
-    \item the \textbf{feasible ragion} \(X \left\{ x \in \R^n \, | \, g_i(x) \, r_i \, 0 \land i \in \left\{ 1, \ldots, m \right\}\right\}\) with \(r_i \in \left\{ =, \geq, \leq \right\}\) and \(g_i: \R^n \rightarrow \R\) are \textbf{linear} functions for \(i \in \left\{ 1, \ldots, m \right\}\)
+    \item the \textbf{feasible ragion} \(X \left\{ x \in \R^n \mid   g_i(x) \, r_i \, 0 \land i \in \left\{ 1, \ldots, m \right\}\right\}\) with \(r_i \in \left\{ =, \geq, \leq \right\}\) and \(g_i: \R^n \rightarrow \R\) are \textbf{linear} functions for \(i \in \left\{ 1, \ldots, m \right\}\)
     \item \(x^\ast \in \R^n\) is an \textbf{optimal solution} of the \LP \ref{eq:linear-programming} if \(f(x^\ast) \leq f(x) \, \forall \, x \in X\)
   \end{itemize}
 \end{definition}
@@ -1633,11 +1972,12 @@ Consider a \LP with inequality constraints \textit{(as it's easier to visualize)
 
 \begin{itemize}
   \item A \textbf{hyperplane} is the set of points that satisfy the constraint
-        \( H = \left\{ x \in \R^n \, | \, a^T x = b \right\} \)
+        \( H = \left\{ x \in \R^n \mid   a^T x = b \right\} \)
   \item An \textbf{affine half space} is the set of points that satisfies the constraint
-        \(H = \left\{ x \in \R^n \, | \, a^T x \leq b \right\} \)
+        \(H = \left\{ x \in \R^n \mid   a^T x \leq b \right\} \)
         \begin{itemize}[label=\(\rightarrow\)]
           \item each inequality constraint \(a^T x \leq b\) defines an affine half space in the variable space
+          \item in \(R^2\), an affine half space is a is a \textbf{half plane}
         \end{itemize}
   \item The \textbf{feasible region} \(X\) of any \LP is a polyhedron \(P\) defined by the intersection of a finite number of affine half spaces
         \begin{itemize}[label=\(\rightarrow\)]
@@ -1648,10 +1988,11 @@ Consider a \LP with inequality constraints \textit{(as it's easier to visualize)
           \item given two points \(y^1, y^2 \in S\), a \textbf{convex combination} of them is any point of the form
                 \[ z = \lambda y^1 + \left( 1 - \lambda \right) y^2 \quad 0 \leq \lambda \leq 1 \]
           \item a convex combination with \(\lambda \neq 0, 1\) is called \textbf{strict}
+          \item a function \(f: \R^n \rightarrow \R^m\) is \textbf{convex} if the space above the graph of \(f\) is convex
         \end{itemize}
-  \item The segment defined by \(y^1, y^2 \in S\) defined by all the convex combinations of \(y^1\) and \(y^2\) is called a \textbf{convex hull}
+  \item The segment defined by all the convex combinations of \(y^1\) and \(y^2\), \(y^1, y^2 \in S\), is called a \textbf{convex hull}
         \begin{itemize}[label=\(\rightarrow\)]
-          \item \(\left[ y^1, y^2 \right] = \left\{ x \in \R^n \, | \, x = \alpha y^1 + \left( 1-\alpha \right) y^2 \land \alpha \in \left[ 0, 1 \right] \right\}\)
+          \item \(\left[ y^1, y^2 \right] = \left\{ x \in \R^n \mid   x = \alpha y^1 + \left( 1-\alpha \right) y^2 \land \alpha \in \left[ 0, 1 \right] \right\}\)
         \end{itemize}
   \item A \textbf{polyhedron} \(P\) is a convex set of \(\R^n\)
         \begin{itemize}
@@ -1662,10 +2003,11 @@ Consider a \LP with inequality constraints \textit{(as it's easier to visualize)
         \begin{itemize}
           \item mathematically, \(x\) is a vertex \(P\) iff
                 \[ x = \alpha y^1 + (1 - \alpha) y^2, \alpha \in \left[ 0, 1 \right] \quad y^1, y^2 \in P \Rightarrow x = y^1 \lor x = y^2 \]
-          \item a non empty polyhedron \(P = \left\{ x \in \R^n \, | \,Ax = b, x \geq 0 \right\}\) has a finite number (\(n >1\)) of vertices
+          \item a non empty polyhedron \(P = \left\{ x \in \R^n \mid  Ax = b, x \geq 0 \right\}\) has a finite number (\(n >1\)) of vertices
         \end{itemize}
   \item A \textbf{polytope} is a bounded polyhedron
-  \item Given a polyhedron \(P\), a vector \(d \in \R^n, d \neq \overline{0}\) is an \textbf{unbounded feasible direction} of \(P\) if, for every point \(x^0 \in P\), the ray \(\left\{ x \in \R^n \, | \, x = x^0 + \lambda d, \lambda \geq 0 \right\}\) is contained in \(P\)
+  \item Let \(x\) be an element of a polyhedron \(P\). A vector \(d \in \R^n\) is said to be a \textbf{feasible direction} at \(x\) if there exists \(\theta \in \R, \theta > 0\) such that \(x + \theta d \in P\).
+  \item Given a polyhedron \(P\), a vector \(d \in \R^n, d \neq \overline{0}\) is an \textbf{unbounded feasible direction} of \(P\) if, for every point \(x^0 \in P\), the ray \(\left\{ x \in \R^n \mid   x = x^0 + \lambda d, \lambda \geq 0 \right\}\) is contained in \(P\)
 \end{itemize}
 
 \begin{figure}[htbp]
@@ -1713,10 +2055,11 @@ Consider a \LP with inequality constraints \textit{(as it's easier to visualize)
 
 The \textit{Weyl-Minkoswki} Theorem on the representation of polyhedra states that:
 
-\begin{theorem}
-  Every point \(x\) of a polyhedron \(P\) can be expressed as a convex combination of its vertices \(x^1, \ldots, x^k\) plus \textit{(if needed)} an unbounded feasible direction \(d\) of \(P\):
+\begin{theorem}[Weyl-Minkoswki]
+  Every point \(x\) of a polyhedron \(P\) can be expressed as a convex combination of its vertices \(x^1, \ldots, x^k\) plus \textit{(if needed)} an unbounded \textbf{feasible direction} \(d\) of \(P\):
   \[ x = \alpha_1 x^1 + \ldots + \alpha_k x^k + d \]
   where the multipliers \(\alpha_1 \geq 0\) satisfy the constraint \(\displaystyle\sum_{i=1} \alpha_i = 1\).
+  \label{thm:weyl-minkowski}
 \end{theorem}
 
 \bigskip
@@ -1755,7 +2098,7 @@ An example of this is shown in Figure~\ref{fig:polytope-example}.
   \bigskip
   \centering
   \tikzfig[0.7]{figure-8.tikz}
-  \caption{Example of polytope. \(x = \alpha_1 x^1 + \alpha_1 x^2 + \alpha_3 x^3\) with \(\alpha_1 + \alpha_2 + \alpha_3 = 1, \alpha_i \geq 0, d = 0\)}
+  \caption{Example of polytope: \(x = \alpha_1 x^1 + \alpha_1 x^2 + \alpha_3 x^3\) with \(\alpha_1 + \alpha_2 + \alpha_3 = 1, \alpha_i \geq 0, d = 0\)}
   \label{fig:polytope-example}
   \bigskip
 \end{figure}
@@ -1783,7 +2126,7 @@ Geometrically:
 \end{itemize}
 
 \bigskip
-Furthermore, let \(P\) be a convex polytope of dimension \(d\) and let \(HS\) be a half space of \(P\) defined py hyperplane \(H\).
+Furthermore, let \(P\) be a convex polytope of dimension \(d\) and let \(HS\) be a half space of \(P\) defined by hyperplane \(H\).
 If the intersection \(f = P \cap HS\) is a subset of \(H\) then:
 
 \begin{itemize}
@@ -1882,25 +2225,25 @@ Since the objective of the problem is to minimize \(f(x)\) \textit{(as it's in f
 
 \subsubsection{Basic feasible solutions and polihedra vertices}
 
-Due to the fundamental theorem of Linear Programming, to solve any \LP problem it suffices to consider the \textit{(finitely many)} vertices of the polyhedron \(P\) of feasible solutions.
-Since the geometrical definition of vertex cannot be exploited algorithmically, an algebraic definition is needed.
+Due to the fundamental theorem of Linear Programming \textit{(Theorem~\ref{thm:weyl-minkowski})}, to solve any \LP problem it suffices to consider the \textit{(finitely many)} vertices of the polyhedron \(P\) of feasible solutions;
+since the geometrical definition of vertex cannot be exploited algorithmically, an algebraic definition is needed.
 
 A vertex corresponds to the intersection of the hyperplanes associated to \(n\) inequalities.
 If a polyhedra is expressed in standard form
-\[ P = \left\{ x \in \R^n \, | \, Ax = b, x \geq 0 \right\}\]
+\[ P = \left\{ x \in \R^n \mid   Ax = b, x \geq 0 \right\}\]
 it is possible to transform it into a inequality
-\[ P = \left\{ x \in \R^n \, | \, Ax \leq b, x \geq 0 \right\}\]
-and later transform it into standard form
-\[ P^\prime = \left\{ x \in \R^n \, | \, Ax = b, x \geq 0 \right\} \]
+\[ P = \left\{ x \in \R^n \mid   Ax \leq b, x \geq 0 \right\}\]
+and later transform it back into standard form
+\[ P^\prime = \left\{ x \in \R^n \mid   Ax -s = b, s \geq 0, x \geq 0 \right\} \]
 where \(P^\prime\) is the polyhedron of feasible solutions of the original problem.
 
 Finally, by renaming
-\[ A \coloneq \left[ A | I \right] \quad x \coloneq \left( x^T | s^T \right) \]
+\[ A \coloneqq \left[ \, A \,|\, I \, \right], \quad x \coloneqq \left( \, x^T \,|\, s^T \right) \]
 the system of equation is represented in matrix form, where \(A\) has \(m\) rows.
 
 \bigskip
 \begin{property}
-  For any polyhedron \(P = \left\{ x \in \R^n \, | \, Ax = b, x \geq 0 \right\}\), where \(A\) has \(m\) rows:
+  For any polyhedron \(P = \left\{ x \in \R^n \mid   Ax = b, x \geq 0 \right\}\), where \(A\) has \(m\) rows:
 
   \begin{itemize}
     \item the \textbf{facets} (edges in \(\R^2\)) are obtained by setting one variable to \(0\)
@@ -1908,9 +2251,38 @@ the system of equation is represented in matrix form, where \(A\) has \(m\) rows
   \end{itemize}
 \end{property}
 
+\paragraph{Optimality of extreme points}
+
+\begin{theorem}
+  Consider the \LP problem of minimizing \(c^T x\) over a polyhedron \(P\).
+  Suppose that \(P\) has at least one extreme point and that there exists an optimal solution.
+  Then, there exists and optimal solution which is an extreme point of \(P\).
+  \label{thm:extreme-points-solution}
+\end{theorem}
+
+The above Theorem~\ref{thm:extreme-points-solution} \textbf{applies to polyhedra in standard form}, as well as to bounded polyhedra \textit{(as they don't contain a line)}.
+
+\bigskip
+\begin{theorem}
+  Consider the \LP problem of minimizing \(c^T x\) over a polyhedron \(P\).
+  Suppose that \(P\) has at least one extreme point.
+  Then, either the optimal cost is equal to \(-\infty\), or there exists an extreme point which is optimal.
+  \label{thm:extreme-points-solution-2}
+\end{theorem}
+
+For a general \LP problem. if the feasible set has no extreme point, then Theorem~\ref{thm:extreme-points-solution-2} does not apply;
+however, the problem can be transformed into an equivalent one in standard form, establishing the following Corollary \textit{(\ref{cor:extreme-point-solution-2})}.
+
+\begin{corollary}
+  Consider the \LP problem of minimizing \(c^T x\) over a polyhedron \(P\).
+  Suppose that \(P\) has at least one extreme point.
+  Then, either the optimal cost is equal to \(-\infty\), or there exists an optimal solution.
+  \label{cor:extreme-point-solution-2}
+\end{corollary}
+
 \subsubsection{Algebraic characterization of vertices}
 
-Consider any polyhedron \(P = \left\{ x \in \R^n \, | \, Ax = b, x \geq 0 \right\}\), in standard form.
+Consider any polyhedron \(P = \left\{ x \in \R^n \mid   Ax = b, x \geq 0 \right\}\), in standard form.
 
 \bigskip
 \textbf{Assumption}
@@ -1928,13 +2300,10 @@ This is equivalent to assume that there are no redundant constraints.
           \item the system has \(n-m\) \textbf{degrees of freedom}
           \item by fixing the degrees of freedom to \(0\), a \textbf{vertex} is obtained
         \end{itemize}
-\end{itemize}
 
-\bigskip
-\begin{definition}
-  The \textbf{basis} of matrix \(A\) is a subset of \(m\) columns of \(A\) that are linearly independent and form an \(m \times m\) non singular matrix \(B\).
-  \[ A = [ \overbrace{B}^m | \overbrace{N}^{m-n} ] \]
-\end{definition}
+        The \textbf{basis} of matrix \(A\) is a subset of \(m\) columns of \(A\) that are linearly independent and form an \(m \times m\) non singular matrix \(B\).
+        \[ A = [ \overbrace{B}^m | \overbrace{N}^{m-n} ] \]
+\end{itemize}
 
 \subsubsection{Basic solutions}
 \label{sec:basic-solutions}
@@ -1946,22 +2315,31 @@ Then any system \(Ax = b\) can be written as \(B _{x_B} + N_{x_N} = b\), and for
 \textbf{Definitions}
 \begin{itemize}
   \item A \textbf{basic solution} is a solution obtained by setting \(x_N = 0\) and, consequently, \(x_B = B^{-1} b\)
+        \begin{itemize}
+          \item two basic solutions are called adjacent if there are \(n-1\) linearly independent constraints active in both of them
+        \end{itemize}
   \item A \textbf{feasible solution} is any vector \(x \geq 0\) such that \(Ax = b\)
   \item A feasible solution with \(x_B \geq 0\) is a \textbf{basic feasible solution} with basis \(B\)
         \begin{itemize}
-          \item \(\forall \, j \notin B, x_j = 0\) - all the non zero variables are in \(B\)
+          \item \(\forall \, j \notin B, \ x_j = 0\) \textit{(all the non zero variables are in \(B\))}
           \item a \textbf{basic feasible solution} has \(n\) linearly independent constants
-          \item the variables in \(x_B\) are the basic variables and those in \(x_N\) are non basic variables
+          \item the variables in \(x_B\) are the \textbf{basic variables} and those in \(x_N\) are non \textbf{basic variables}
           \item by construction, \(\left( x_B^T, x_N^T \right)\) satisfy \(Ax = b\)
-          \item a basic feasible solution is referred to as \BFS for brevity
         \end{itemize}
   \item A basic feasible solution is \textbf{degenerate} if it contains at least one basic variable with value \(0\)
+        \begin{itemize}
+          \item a basis uniquely determines a basic solution
+          \item tow different bases may lead to the same basic solution
+        \end{itemize}
 \end{itemize}
 
 \bigskip
 \begin{theorem}[Basic feasible solutions]
-  \(x \in \R^n\) is a basic feasible solution if and only if \(x\) is a vertex of the polyhedron \(P = \left\{ x \in \R^n \, | \, Ax = b, x \geq 0 \right\}\)
+  \(x \in \R^n\) is a basic feasible solution if and only if \(x\) is a vertex of the polyhedron \(P = \left\{ x \in \R^n \mid   Ax = b, x \geq 0 \right\}\)
 \end{theorem}
+
+\bigskip
+A basic feasible solution is now on referred to as \BFS for brevity.
 
 \bigskip
 \begin{property}[Number of solutions]
@@ -1979,8 +2357,8 @@ Then any system \(Ax = b\) can be written as \(B _{x_B} + N_{x_N} = b\), and for
 
 \subsection{Simplex method}
 
-The Simplex method provides a systematic way to find the optimal solution of a \LP problem.
-Given an \LP problem in standard form:
+The Simplex method provides a systematic way to find the optimal solution of a \LP problem;
+given an \LP in standard form
 
 \begin{gather*}
   \begin{aligned}
@@ -1997,106 +2375,262 @@ In other, \textit{simpler}, words, it generates a path \textit{(a sequence of ad
 
 The simplex method is articulated in \(3\) steps:
 
-\begin{enumerate}
+\begin{enumerate}[label=\arabic*., ref=(\arabic*)]
   \item Find an \textbf{initial vertex} or establish that the \LP is \textbf{unbounded}
   \item Determine whether the current vertex is \textbf{optimal}
-  \item Move from a current vertex to a \textbf{better adjacent vertex} \textit{(in terms of objective function value)} or establish that the \LP is unbounded
+  \item \label{enum:simplex-method-3} Move from a current vertex to a \textbf{better adjacent vertex} \textit{(in terms of objective function value)} or establish that the \LP is unbounded
 \end{enumerate}
 
-\subsubsection{Optimality test}
+\bigskip
+The solution found in step~\ref{enum:simplex-method-3} may be optimal only in a local sense;
+in \LP, however, local optimality implies global optimality thanks to the following Property \textit{(\ref{prop:optimal-vertex})}.
 
-Given a \LP \(\min\left\{ c^T x \, | \, Ax = b, x \geq 0 \right\}\) and a feasible basis \(B\) of \(A\), \(Ax = b\) can be written as:
-\[ B_{x_B} + N_{x_N} = b, \quad B^{-1}b \geq 0\]
-where \(x_B\) and \(x_N\) are the basic and non basic variables, respectively.
-Then, a \textbf{basic feasible solution} is a value of \(x\) such that \(x_N = 0\), and consequently \(x_B = B^{-1}b\).
+\begin{property}[Optimality of a vertex]
+  If the \LP problem requires minimizing \textit{(or maximizing)} a convex function over a convex set, then the local optimum is also the global optimum.
+  \label{prop:optimal-vertex}
+\end{property}
 
-By substitution, the objective function can be expressed in terms of only the non basic variables:
-\[ z = c^T x = c_B^T B^{-1} b + \left( c_N^T - c_B^T B^{-1} N \right) x_N  \]
+\subsubsection{Optimality condition}
 
-\begin{itemize}
-  \item The cost of \(x = (x_B, x_N)\) is \(z_0 = c_B^T B^{-1} b\) where \(x_B = B^{-1} b, x_N = 0\)
-  \item The reduced costs of the non basic variables \(x_N\) are denoted by \(\overline{c}_N^T \coloneqq c_N^T - c_B^T B^{-1} N\)
-  \item The vector of reduced costs with respect to the basis \(B\) is
-        \[ \overline{c}^T = c^T - c_B^T B^{-1} A = [\overbrace{c_B^T - c_B^T B^{-1} B}^{0^T}, \overbrace{c_N^T - c_B^T B^{-1}N}^{\overline{c}_N^T}] \]
-\end{itemize}
+Given a \LP
+\begin{gather*}
+  \begin{aligned}
+    \min \quad        & z = c^T x \\
+    \text{s.t.} \quad & Ax = b    \\
+                      & x \geq 0
+  \end{aligned}
+\end{gather*}
+
+Suppose that \(x \in P\) is a basic feasible solution and move away from it in the direction of a vector \(d \in \R^n\)l
+clearly, \(d\) should not immediately lead to a point outside \(P\), otherwise the solution would not be feasible any more.
+Then the Definition~\ref{def:feasible-direction} applies.
+
+\begin{definition}[feasible direction]
+  Let \(x\) be an element of polyhedron \(P\).
+  A vector \(d \in \R^n\) is said to be a \textbf{feasible direction} at \(x\) if there exists a positive scalar \(\theta\) such that \(x + \theta d \in P\).
+  \label{def:feasible-direction}
+\end{definition}
 
 \bigskip
-\begin{itemize}
-  \item The reduced costs are defined also for basic variables, but \(\overline{c}_B = 0\)
-  \item \(\overline{c}_j\) represents the change in the objective function value if non basic variable \(x_j\) is increased from \(0\) to \(1\) while keeping all other non basic variables to \(0\)
-  \item The solution value changes by \(\Delta z = \theta \overline{c}_j\)  \item The solution value changes by \(\Delta z = \theta \overline{c}_j\)
+Let \(x\) be a basic feasible solution to the standard form problem, let \(B(1), \ldots, B(m)\) the indices of the basic variables and let \(B = \left[ A_{B(1)}, \ldots, A_{B(n)} \right]\) be the corresponding basis matrix.
 
-\end{itemize}
+In particular, \(x_i = 0\) for all non basic variables, while the vector \(x_B = \left( x_{B(1)}, \ldots, x_{B(m)} \right)\) of basic variables if given by
+\[x_B = B^{-1}b\]
+
+By selecting a non basic variable \(x_j\) (initially at zero) and increasing its value to \(\theta\) while keeping all the other non basic variables to zero, a new basic feasible solution \(x + \theta d\) is obtained.
+Algebraically:
+\[ d_i = \begin{cases}
+    1 \quad & \text{ if } i = j  \\
+    0 \quad & \text{ otherwise }
+  \end{cases} \]
+At the same time, the vector \(x_B\) changes to \(x_B + \theta d_B\), where \(d_B = (d_{B(1)}, \ldots, d_{B(m)})\) is the vector with those components of \(d\) that correspond to the basic variables.
+
+Given that only the feasible solutions are relevant, it's necessary true that \(A \left( x + \theta d \right) = b\) and since \(x\) is feasible, \(A x = b\).
+At the same time, since \(\theta > 0\), it must hold
+\begin{equation}
+  A d = 0
+  \label{eq:feasible-direction-1}
+\end{equation}
+
+Since \(d_j = 1\) and \(d_i = 0 \, \forall \, i \neq j\):
+\[ 0 = Ad = \displaystyle \sum_{i=1}^n A_i d_i = \sum_{i=1}^{m} A_{B(i)} d_{B(i)} = B d_B + A_j \]
+due to the invertibility of the basis matrix \(B\):
+
+\begin{equation}
+  d_B = - B^{-1} A_j
+  \label{eq:feasible-direction-2}
+\end{equation}
+The direction vector \(d\) will be referred thereon to as the \(j\)-th basic direction.
+
+While the equality constraints are respected, the non negativity constraints are not.
+During this movement, all the non basic variables stay at zero, while \(x_j\) is incremented: the focus is then on the basic variables.
+Two cases are possible:
+
+\begin{enumerate}[label=\arabic*., ref=(\arabic*)]
+  \item \(x\) is a non degenerate basic solution: \(x_B > 0\), so \(x_B + \theta d_B \geq 0\) and feasibility is maintained with \(\theta\) sufficiently small. \(d\) is a \textbf{feasible direction} at \(x\).
+  \item \(x\) is degenerate: it's possible that a basic variable \(x_{B(i)}\) is zero, while the correspondent component \(d_{B(i)}\) of \(d_{B} = -B^{-1}A_j < 0\). In this case, following the \(j\)-th basic direction, the non negativity constraint is violated and the solution is not feasible.
+\end{enumerate}
 
 \bigskip
-\begin{proposition}
-  If \(\overline{c}_N \geq 0\), then the basic feasible solution \(\left( x_B^T, x_N^T \right)\), where \(x_B = B^{-1} b \geq 0, x_N = 0\), of cost \(z_0 = c_B^T B^{-1} b\) is a global optimum.
-\end{proposition}
+Now let \(d\) be the \(j\)-th basic direction at \(x\).
+The rate of change of the objective function along \(d\) is given by \(c^\prime_B d_B + c_j\), where \(c_B = \left( c_{B(1)}, \ldots, c_{B(,)} \right)\).
 
-\begin{proof}
-  \(\overline{c}^T \geq 0^T\) implies that
-  \[ c^T x = c_B^T B^{-1} b + c_N^T x_N \geq c_B^T B^{-1} \quad \forall \, x \geq 0, Ax = b \]
-\end{proof}
+Using Equation~\ref{eq:feasible-direction-2}, the rate of change of the objective function along \(d\) is:
+\[ c_j - c^\prime_B B^{-1} A_j \]
+While quantity is important enough to warrant a Definition \textit{(\ref{def:reduced-cost})},
+intuitively, \(c_j\) is the cost per unit increase in the variable \(x_j\), and the term \(-c^\prime_B B^{-1} A_j\) is the cost of the compensating change in the basic variables necessitated by the constraint \(Ax = b\).
+
+\begin{definition}[reduced costs]
+  Let \(x\) be a basic solution with an associated basis matrix \(B\).
+  Let \(c_B\) be the vector of costs of the basic variables.
+  For each \(j\), the \textbf{reduced costs} \(\overline{c}_j\) of the non basic variable \(x_j\) are defined as
+  \[ \overline{c}_j = c_j - c^\prime_B B^{-1} A_j \]
+  \label{def:reduced-cost}
+\end{definition}
 
 \bigskip
-\textbf{Remarks}
-\begin{itemize}
-  \item For maximization problems, the condition is \(\overline{c}_N \leq 0\).
-  \item This optimality condition is sufficient but generally not necessary.
+Consider Definition~\textit{(\ref{def:reduced-cost})} for the case of a basic variable.
+Since \(B\) is the matrix \(\left[ A_{B(1)}, \ldots, A_{B(m)} \right]\), then \(B^{-1}[A_{B(1)}, \ldots, A_{B(m)}] = I\) \textit{(is the identity matrix)}.
+In particular, \(B^{-1} A_{B(i)}\) is the \(i\)-th column of the identity matrix, which is the \(i\)-th unit vector\(e_i\).
+
+Therefore, for every basic variable \(x_{B(i)}\), the reduced cost is:
+\[ \overline{c}_{B(i)} = c_{B(i)} - c^\prime_B B^{-1} A_{B(i)} = c_{B(i)} - c^\prime_B e_i = c_{B(i)} -  c_{B(i)} = 0 \]
+so the reduced cost of a basic variable is always zero.
+The next Theorem \textit{(\ref{thm:reduced-cost})} shows that the reduced cost of a non basic variable is always non negative.
+
+\begin{theorem}
+  Let \(x\) be a basic feasible solution \(x\) associated with a basis matrix \(B\), and let \(\overline{c}\) be the corresponding vector of reduced costs.
+  Then:
+
+  \begin{enumerate}
+    \item If \(\overline{c} \geq 0\), then \(x\) is optimal
+    \item If \(x\) is optimal and non degenerate, then \(\overline{c} = 0\)
+  \end{enumerate}
+  \label{thm:reduced-cost}
+\end{theorem}
+
+\bigskip
+Note that Theorem~\ref{thm:reduced-cost} allows the possibility that \(x\) is a degenerate solution and \(\overline{c} < 0\) for some non basic index \(j\).
+Furthermore, it states that in order to decide whether a non degenerate basic feasible solution is optimal, it's sufficient to check whether all the reduced costs are non negative, which is the same as examining \(n-m\) basic directions;
+checking if the degenerate basic feasible solution \(x\) is optimal is not as simple.
+
+Finally, the Definition~\ref{def:optimal-matrix} states the requirements for a matrix to be optimal.
+
+\begin{definition}[optimal matrix]
+  A matrix \(B\) is \textbf{optimal} if and only if it is a basis matrix for an optimal basic feasible solution, i.e. the following conditions are both satisfied:
+
+  \begin{itemize}
+    \item \(B^{-1} b \geq 0\)
+    \item \(\overline{c}^\prime = c^\prime - c^\prime_B B^{-1} A \geq 0\)
+  \end{itemize}
+  \label{def:optimal-matrix}
+\end{definition}
+
+\bigskip
+\textbf{Remarks:}
+\begin{itemize}[label=\(\rightarrow\)]
+  \item For \textbf{maximization} problems, the condition is \(\overline{c}_N \leq 0\)
+  \item This optimality condition is \textbf{sufficient} but generally not necessary
 \end{itemize}
 
 \subsubsection{General case}
 
-Given a basis \(B\), the system \(Ax = b\) can be written as:
-\[ \displaystyle \sum_{j=1}^m a_{ij} x_i = b_j \quad \text{ for } i = 1, \ldots, m\]
-and then expressed in canonical form
-\[ x_B + B^{-1} N x_N = B^{-1} b \ \Leftrightarrow \ x_B + \overline{N} x_N = \overline{b} \]
-which emphasizes the basic feasible solution \(\left( x_B, x_N \right) = \left( B^{-1} b, 0 \right)\).
-This amounts to pre-multiply the system by \(B^{-1}\)
-\[ \overbrace{B^{-1} B x_b}^{=I} + \overbrace{B^{-1} N}^{= \overline{N}} x_N = \overbrace{B^{-1} b}^{= \overline{b}} \]
+Let's first of all assume that every basic feasible solution is non degenerate;
+this assumption will be relaxed later on.
+
+Suppose that the current basic feasible solution is \(x\), with reduced costs \(\overline{c}_j\) for each of the non basic variables.
+If all of them are non negative, then \(x\) is optimal \textit{(thanks to Theorem~\ref{thm:reduced-cost})} and the algorithm can terminate.
+
+Otherwise, if \(\exists \, \overline{c}_j < 0\) for a non basic variable \(x_j\), then the \(j\)-th basic direction \(d\) is a feasible direction of cost decrease;
+while moving along it, \(x_j\) becomes positive and the value of all other non basic variables stays constant at \(0\).
+This situation is described as \inlinequote{entering the basis}.
+
+By moving away from \(x\) along \(d\), the traced points are in form \(x + \theta d\), where \(\theta \geq 0\).
+Since costs decrease along the direction \(d\), the goal is to move as far as possible;
+the farthest point will be \(x + \theta^\ast d\), where
+\[ \theta^\ast = \max \left\{ \theta \geq 0 \mid x + \theta d \in P \right\}\]
+The associated ost change is
+\[ \Delta c = \theta^\ast c^\prime d = \theta^\ast \overline{c}_j \]
 
 \bigskip
-In the canonical form
-\[ x_{B_i} + \displaystyle \sum_{j=1}^{n-m} \overline{a}_{ij} x_{N_j} = \overline{b}_i \quad i = 1, \ldots, m \quad (I_{x_B} + \overline{N}_{x_N} = \overline{b}) \]
-basic variables are expressed in terms of non basic variables:
-\[ x_B = \overline{b} - \overline{N}_{x_N} \]
-If the value of value of a non basic \(x_s\) is increased from \(0\) while all the other non basic variables are kept to \(0\), the system is modified as follows:
-\[ x_{B_i} + \overline{a}_{is} x_s = \overline{b}_i \Leftrightarrow x_{B_i} = \overline{b}_i - \overline{a}_{is} x_s, \quad i = 1, \ldots, m \]
-In order to guarantee \(x_{B_i} \geq 0 \, \forall \, i\), the value of \(x_s\) must be chosen such that
-\[ \overline{b}_i - \overline{a}_{is} x_s \geq 0 \ \Rightarrow \ x_s \leq \dfrac{\overline{b}_i}{\overline{a}_{is}} \quad \overline{a}_{is} \geq 0 \]
-Then the value of \(x_s\) can be increased up to
-\[ \theta^\ast = \min_{i=1}^m \left\{ \dfrac{\overline{b}_i}{\overline{a}_{is}} \, | \, \overline{a}_{is} \geq 0 \right\} \]
-while the value of \(x_r\), where
-\[ r = \argmin_{i=1}^m \left\{ \dfrac{\overline{b}_i}{\overline{a}_{is}} \, | \, \overline{a}_{is} \geq 0 \right\} \]
-decreases to \(0\) and exists the basis.
+It's then necessary to determine the closed formula for \(\theta^\ast\).
+Given that \(A d = 0\) \textit{(Equation~\ref{eq:feasible-direction-1})}, then \(A \left( x + \theta d \right) = Ax = b, \ \forall \, \theta\);
+\(x + \theta d\) can become infeasible only if one of its component becomes negative, i.e. if \(x_i + \theta a_{ij} \leq 0\).
+Two cases can be distinguished:
 
-\bigskip
-If \(\overline{a}_{is} \leq 0 \, \forall \, i\), there's  no limit to the increase of \(x_s\).
+\begin{enumerate}
+  \item \(d \geq 0\), then \(x + \theta d \geq 0\) for all \(\theta \geq 0\), the vector is never infeasible and \(\theta^\ast = \infty\)
+  \item \(d_i \leq 0\) for some \(i\), then \(x_i + \theta d_i \geq 0 \Rightarrow \theta \leq -\sfrac{x_i}{d_i}\).
+        Since this constraint must be satisfied for all \(i\), the largest possible value of \(\theta\) is
+        \[ \theta^\ast = \min_{i=1, \ldots, m} \left\{ -\dfrac{x_i}{d_i} \,\middle\vert\, d_i \leq 0 \right\} \]
+        Recalling that \(x_i\) is a non basic variable, then either \(x_i\) is the entering variable and \(d_i = 1\), or else \(d_i = 0\);
+        in either case it's non negative and the formula can be re written as
+        \begin{equation}
+          \theta^\ast = \min_{i=1, \ldots, m} \left\{ - \dfrac{x_{B(i)}}{d_{B(i)}} \,\middle\vert\, d_{B(i)} < 0 \right\}
+          \label{eq:theta-star}
+        \end{equation}
+        Note that \(\theta^\ast > 0\) since \(x_{B(i)} > 0 \ \forall \, i\).
+\end{enumerate}
 
 \subsubsection{Changes of basis}
 
 \textbf{Assumption:} this Section refers to the case where the \LP is a minimization problem.
 
 \bigskip
-Let \(B\) be a feasible basis and \(x_s \in x_N\) a non basic variable with reduced cost \(\overline{c}_s \leq 0\).
-In order to change the basis:
+Once \(\theta^\ast\) has been chosen \textit{(Equation~\ref{eq:theta-star})}, assuming that's it's finite, the new feasible solution \(y= x + \theta^\ast d\) is obtained by moving along the basic direction \(d\) from \(x\).
+Since \(x_j=0\) and \(d_j=1\), then \(y_j = \theta^\ast > 0\).
 
-\begin{itemize}
-  \item \(x_s\) is increased as much as possible \textit{(\(x_s\) \inlinequote{enters the basis})} while keeping the other non basic variables equal to \(0\)
-  \item The basic variable \(x_r\) \textit{(in \(x_B\))} such that \(x_r \geq 0\) imposes the tightest upper bound \(\theta^\ast\) on the increase of \(x_s\) \textit{(\(x_r\) \inlinequote{leaves the basis})}
-  \item If \(\theta^\ast \geq 0\), the new basic feasible solution has a better objective function value than the previous one
-  \item The new basis differs from the previous one by a single column \textit{(adjacent vertices)}
-  \item
-\end{itemize}
+Let \(l\) be a minimizing index of \ref{eq:theta-star};
+the following conditions must hold:
 
-To transform the canonical form of the current basic feasible solution into the canonical form of the new basic feasible solution, the following formula is applied
-\[B^{-1} B x_B + B^{-1} N x_N = B^{-1} b\]
+\begin{gather*}
+  - \dfrac{x_{B(l)}}{d_{B(l)}} = \min_{i=1, \ldots, m} \left\{ - \dfrac{x_{B(i)}}{d_{B(i)}} \,\middle\vert\, d_{B(i)} < 0 \right\} = \theta^\ast \\
+  d_{B(l)}  < 0 \\
+  x_{B(l)} + \theta^\ast d_{B(l)}  = 0
+\end{gather*}
 
-The value \(B^{-1}\) of the new basis \(B\) can be obtained by applying to the inverse of the previous basis a single elementary row operation, called \textbf{pivot};
-it will be explained in the next Paragraph.
+The basic variable \(x_{B(l)}\) is now \(0\), while the non basic variable \(x_j\) is \(y_j = \theta^\ast > 0\):
+the basis has changed, and the new basis is \(\overline{B} = B \setminus \{ x_{B(l)} \} \cup \{ x_j \}\) \textit{(\(x_{B(l)}\) has left the basis, \(x_j\) has entered the basis)}.
+The new matrix is now:
+\[ \overline{B} = \left[ A_{B(1)} \mid  \cdots \mid A_{B(l-1)} \mid A_j \mid A_{B(l+1)} \mid \cdots \mid A_{B(m)} \right] \]
+
+\bigskip
+Equivalently, the set of basic indices \(B = \{ B(1), \ldots, B(m) \}\) can be updated as follows:
+\[\overline{B}(i) = \begin{cases}
+    B(i) \quad & \text{ if } i \neq l \\
+    j \quad    & \text{ if } i = l
+  \end{cases}\]
+
+\bigskip
+The previous steps can then be summarized in the following Theorem.
+
+\begin{theorem}
+  \begin{itemize}
+    \item The columns \(A_{B(i)}, i \neq l\) and \(A_j\) are linearly independent; \(\overline{B}\) is a basis matrix
+    \item The vector \(y = x + \theta^\ast d\) is a basic feasible solution associated to the basis \(\overline{B}\)
+  \end{itemize}
+\end{theorem}
+
+\paragraph{An iteration of the Simplex method}
+
+A single iteration of the Simplex method consists of the following steps:
+
+\begin{enumerate}[label=\textbf{\arabic*.}, ref=(\arabic*)]
+  \item \label{enum:simplex-iteration-1}start with a basis consisting of the basics columns \(A_{B(1)}, \ldots, A_{B(m)}\) and an associated basic feasible solution \(x\)
+  \item \label{enum:simplex-iteration-2}compute the reduced costs \(\overline{c}_j\) of the non basic variables \(x_j\)
+        \begin{itemize}[label=\(\rightarrow\)]
+          \item if the reduced costs are all non negative, then the current solution is optimal and the algorithm terminates
+          \item otherwise, choose a non basic variable \(x_j\) with reduced cost \(\overline{c}_j \leq 0\)
+        \end{itemize}
+  \item \label{enum:simplex-iteration-3}compute \(u = B^{-1} A_j\) and the basic direction \(d\) associated to \(x_j\)
+        \begin{itemize}[label=\(\rightarrow\)]
+          \item if no component of \(u\) is negative, then \(\theta^\ast = \infty\), the optimal cost is \(-\infty\) and the algorithm terminates
+        \end{itemize}
+  \item \label{enum:simplex-iteration-4}some components of \(u\) are negative, so \(\theta^\ast\) can be computed
+        \[ \theta^\ast = \min_{i=1, \ldots, m} \left\{ - \dfrac{x_{B(i)}}{u_i} \,\middle\vert\, u_i < 0 \right\} \]
+  \item \label{enum:simplex-iteration-5}let \(l\) be a minimizing index of Step~\ref{enum:simplex-iteration-4}; form a new basis replacing \(A_{B(l)}\) with \(A_j\).
+        If \(y\) is the new basic feasible solution, then \(y_j = \theta^\ast\) and \(y_{B(i)} = x_{B(i)} + \theta^\ast u_i, i \neq l\)
+\end{enumerate}
+
+\bigskip
+The method is initialized with an arbitrary basic feasible solution \(x\) and the corresponding basis \(B\);
+the following Theorem (Theorem~\ref{thm:simplex-iteration}) states that the algorithm terminates after a finite number of iterations.
+
+\begin{theorem}
+  Assume that the feasible set is non empty and that every basic feasible solution is non degenerate.
+  Then, the Simplex method terminates after a finite number of iterations;
+  at termination, there are two possibilities:
+  \begin{enumerate}
+    \item an optimal basis \(B\) and the optimal solution \(x\) is associated to it are found
+    \item a vector \(d\) satisfying \(Ad = 0, d \geq 0, c^\prime d < 0\) is found, and the optimal cost is \(-\infty\)
+  \end{enumerate}
+  \label{thm:simplex-iteration}
+\end{theorem}
 
 \subsubsection{Pivoting operation}
-The pivot operation is a single elementary row operation that transforms the inverse of the previous basis into the inverse of the new basis; it's the same operation used in the Gaussian elimination method to solve systems of linear equations.
+
+The pivot operation is a single elementary row operation that transforms the inverse of the previous basis into the inverse of the new basis;
+it's the same operation used in the Gaussian elimination method to solve systems of linear equations.
 
 \bigskip
 Given \(Ax = b\):
@@ -2146,21 +2680,26 @@ An example of pivot operation is shown in Figure~\ref{fig:pivot-operation-exampl
   \item preserve the feasibility
 \end{itemize}
 
+\bigskip
+The general description of the Simplex method allows some freedom:
+Step~\ref{enum:simplex-iteration-2} allows to choose any \(j\) whose reduced cost \(\overline{c}_j\) is negative and Step~\ref{enum:simplex-iteration-5} allows to choose any \(l\) minimizing \(\theta^\ast\).
+Rules for making these choices are called \textbf{pivot rules}.
+
 \begin{enumerate}
-  \item Which non basic variable enters the basis?
+  \item Which non basic variable \textbf{enters} the basis?
         \begin{itemize}
           \item any one with reduced cost \(\overline{c}_j < 0\)
-          \item the one yielding the maximum \(\Delta z\) with respect to the current basic feasible solution \textit{(\(z = c_B^T B^{-1} b\))}
-          \item \textbf{Bland's rule}: \(s = \min \{ j \, | \, \overline{c}_j < 0 \}\)
+          \item the one yielding the maximum \(\Delta z = \theta^\ast \overline{c}_j\) with respect to the current basic feasible solution
+          \item \textbf{Bland's rule}: \(s = \min \{ j \mid \overline{c}_j < 0 \}\)
                 \begin{itemize}[label=\(\rightarrow\)]
                   \item \(\overline{c}_j > 0\) for maximization problems
                 \end{itemize}
-          \item Which basic variable leaves the basis?
-                \begin{itemize}
-                  \item \textbf{min ratio text}: index \(i\) with smallest positive ratio \(\sfrac{x_{B_i}}{\overline{a}_{is}} = \theta^\ast\) among those with \(\overline{a}_{is} > 0\)
-                  \item \textbf{Bland's rule}: \(r = \min \left\{ i \, | \, \sfrac{\overline{b}_i}{\overline{a}{is}} = \theta^\ast \overline{a}_{is} > 0 \right\}\)
-                  \item also randomly
-                \end{itemize}
+        \end{itemize}
+  \item Which basic variable \textbf{leaves} the basis?
+        \begin{itemize}
+          \item \textbf{min ratio text}: index \(i\) with smallest positive ratio \(\dfrac{x_{B_i}}{\overline{a}_{is}} = \theta^\ast\) among those with \(\overline{a}_{is} > 0\)
+          \item \textbf{Bland's rule}: \(r = \min \left\{ i \,\middle\vert\, \dfrac{\overline{b}_i}{\overline{a}{is}} = \theta^\ast \, \overline{a}_{is} > 0 \right\}\)
+          \item also randomly
         \end{itemize}
 \end{enumerate}
 
@@ -2222,7 +2761,8 @@ The said tableau is the matrix represented in Figure~\ref{subfig:tableau-canonic
 
 In Code~\ref{code:simplex} the simplex algorithm is implemented.
 
-\begin{lstlisting}[language=pseudocode, caption={The simplex algorithm}, label={code:simplex}]
+\begin{minipage}{0.99\textwidth}
+  \begin{lstlisting}[caption={The simplex algorithm}, label={code:simplex}]
 B[1], ..., B[m] := initial basis
 construct the initial tableau A in canonical form with respect to B
 unbounded := false
@@ -2242,6 +2782,7 @@ while optimal = false and unbounded = false do
   end
 end
 \end{lstlisting}
+\end{minipage}
 
 \subsubsection{Degenerate basic feasible solutions and convergence}
 
@@ -2255,6 +2796,23 @@ if the current \BFS is degenerate, the only admissible value of \(\theta^\ast\) 
 Note that a degenerate \BFS can arise from a non degenerate one:
 even if \(\theta^\ast > 0\), several basic variables may go to \(0\) when \(x_s\) is increased to \(\theta^\ast\).
 It's possible to cycle through a sequence of degenerate basis associated to the same vertex.
+
+\begin{definition}
+  Consider the standard form polyhedron \(P = \left\{ x \in \R^n \mid   Ax = b, x \geq 0 \right\}\), and let \(x\) be a basic solution.
+  Let \(m\) be the number of rows of \(A\).
+  The vector \(x\) is a degenerate basic solution if more than \(n-m\) of the components of \(x\) are zero.
+\end{definition}
+\bigskip
+A geometrical example of degenerate solution is the one in Figure~\ref{fig:degenerate-solutions}.
+
+\begin{figure}[htbp]
+  \bigskip
+  \centering
+  \tikzfig{figure-20.tikz}
+  \caption{\(A\) is a degenerate \BFS. \(B\) is a non degenerate \BFS.}
+  \label{fig:degenerate-solutions}
+  \centering
+\end{figure}
 
 \paragraph{Anti cycling rule}
 
@@ -2299,47 +2857,5 @@ constraints.
                 \end{itemize}
         \end{itemize}
 \end{enumerate}
-\subsection{Network flows}
-
-Network flows problems involve the distribution of a given \textit{product} \textit{(such as water, gas, data)} from a set of \textit{sources} to a set of \textit{users} so as to optimize a given objective function \textit{(e.g. minimize the total cost of the distribution)}.
-
-It has many indirect applications, such as:
-
-\begin{itemize}
-  \item \textbf{Telecommunication}
-  \item \textbf{Transportation}
-  \item \textbf{Logistics}
-\end{itemize}
-
-\begin{definition}[network flow]
-  A network is a directed and connected graph \(G = (V, A)\) with a source \(s \in V\) and a sing \(t \in V\), with \(s \neq t\), and a capacity \(k_{ij} \geq 0\) for each arc \((i, j) \in A\).
-\end{definition}
-
-\begin{itemize}
-  \item A \textbf{feasible flow} \(x\) from \(s\) to \(t\) is a vector \(x \in \R^m\) with a component \(x_{ij}\) for each arc \((i, j) \in A\) satisfying the capacity constraint \[0 \leq x_{ij} \leq k_{ij}, \quad \forall \, \left( i, j \right) \in A\]
-        and the flow balance constraint at each intermediate node \(u \in \left\{ V \setminus \{s, t\} \right\}\):
-        \[\displaystyle \sum_{\left( i, u \right) \in \delta^{-}(u)} x_{iu} = \displaystyle \sum_{\left( u, j \right) \in \delta^{+}(u)} x_{uj} \quad \forall \, u \in N \setminus \left\{ s, t \right\} \]
-  \item The value of \textbf{flow} \(x\) is \(\phi = \displaystyle \sum_{\left( s, j \right) \in \delta^{+}(s)} x_{sj}\)
-  \item Given a network and a feasible flow \(x\), an arc \(\left( i, j \right) \in A\) is \textbf{saturated} if \(x_{ij} = k_{ij}\) and \textbf{empty} if \(x_{ij} = 0\)
-\end{itemize}
-
-\begin{definition}[flow problem definition]
-  Given a network \(G = \left( V, A \right)\) with an integer capacity \(k_{ij}\) for each arc \((i, j) \in A\), find a feasible flow \(x\) from \(s\) to \(t\) with maximum value.
-
-  If multiple sources or sink are present while only one product is considered, dummy notes \(s^\ast\) and \(t^\ast\) can be added.
-\end{definition}
-
-\subsubsection{Linear programming model}
-
-The linear programming model of the network flow is defined as:
-
-\begin{gather}
-  \begin{aligned}
-    \max \quad        & \phi \\
-    \text{s.t.} \quad &
-  \end{aligned}
-\end{gather}
-
-% TODO FOR2022_2GraphsFlows - slide 5 (or 87 i don't know)
 
 \end{document}

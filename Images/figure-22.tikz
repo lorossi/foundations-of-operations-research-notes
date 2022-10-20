@@ -1,0 +1,34 @@
+\begin{tikzpicture}[minimum size=0.5cm]
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=white, draw=red] (0) at (0, 0) {};
+		\node [style=white, draw=red] (1) at (0, -2) {};
+		\node [style=white, draw=red] (2) at (0, -4) {};
+		\node [style=white, draw=blue] (3) at (7, 0) {};
+		\node [style=white, draw=blue] (4) at (7, 2) {};
+		\node [style=white, draw=blue] (5) at (7, -2) {};
+		\node [style=white, draw=blue] (6) at (7, -4) {};
+		\node [style=white, draw=blue] (7) at (7, -6) {};
+		\node [style=none] (8) at (0, -5.5) {\texttt{engineers}};
+		\node [style=none] (9) at (7, -7.5) {\texttt{tasks}};
+		\node [style=white] (10) at (-4, -2) {\(s\)};
+		\node [style=white] (11) at (11, -2) {\(t\)};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=solid] (0) to (4);
+		\draw [style=solid] (6) to (0);
+		\draw [style=solid] (1) to (7);
+		\draw [style=solid] (2) to (4);
+		\draw [style=solid] (3) to (2);
+		\draw [style=solid] (5) to (2);
+		\draw [style=solid] (7) to (2);
+		\draw [style=solid] (1) to (3);
+		\draw [style=solid arrow, draw=red] (10) to (0);
+		\draw [style=solid arrow, draw=red] (10) to (1);
+		\draw [style=solid arrow, draw=red] (10) to (2);
+		\draw [style=solid arrow, draw=blue] (4) to (11);
+		\draw [style=solid arrow, draw=blue] (3) to (11);
+		\draw [style=solid arrow, draw=blue] (5) to (11);
+		\draw [style=solid arrow, draw=blue] (6) to (11);
+		\draw [style=solid arrow, draw=blue] (7) to (11);
+	\end{pgfonlayer}
+\end{tikzpicture}
