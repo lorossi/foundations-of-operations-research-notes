@@ -58,8 +58,10 @@
     "editor.formatOnSave": false
   },
   "cSpell.words": [
+    "abovesep",
     "argmin",
     "auxlock",
+    "belowsep",
     "cleanstyle",
     "deletetemp",
     "Fulkerson",
@@ -71,6 +73,7 @@
     "tikzstyle",
     "tikzstyles",
     "tikztemp",
+    "valign",
     "Warshall's"
   ],
   "liveServer.settings.port": 5501

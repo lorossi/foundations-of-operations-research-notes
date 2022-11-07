@@ -383,8 +383,7 @@ An example of a graph representation is shown in Figure~\ref{fig:graph-represent
 Given a directed graph \(G = (N, A)\) and a node \(s \in N\), the \textbf{graph reachability problem} consists in finding all nodes reachable from \(s\).
 \end{problem}
 
-\bigskip
-\textbf{Goal}
+\subparagraph*{Goal}
 \begin{itemize}[label=\(\rightarrow\)]
   \item \textit{Input}: graph \(G = (N, A)\), described via successor lists, and a node \(s \in N\)
   \item \textit{Output}: subset \(M \subseteq N\) of nodes of \(G\) reachable from \(s\)
@@ -397,8 +396,7 @@ The goal is reached by an \textit{efficient} algorithm to solve the problem, wit
   \item the nodes exploration is performed in a \textbf{breadth-first} manner
 \end{itemize}
 
-\bigskip
-\textbf{Algorithm}
+\subparagraph*{Algorithm}
 The algorithm pseudocode is shown in Code~\ref{lst:graph-reachability}.
 
 \begin{lstlisting}[caption={Graph reachability}, label={lst:graph-reachability}, float]
@@ -637,25 +635,25 @@ The objective is finding:
 \textbf{Idea}: iteratively build a spanning tree.
 
 \bigskip
-\textbf{Method}
+\textbf{Method}:
 \begin{enumerate}
   \item Start from initial tree \((S, T)\) with \(S = \{u\}, S \subseteq N\) and \(T = \emptyset\)
   \item At each step, add to the current partial tree \((S, T)\) an edge of minimum cost among those which connect a node in \(S\) to a node in \(N \setminus S\)
 \end{enumerate}
 
 \bigskip
-\textbf{Goal}
+\textbf{Goal}:
 \begin{itemize}[label=\(\rightarrow\)]
   \item \textit{Input}: connected graph \(G = (N, E)\) with edge costs.
   \item \textit{Output}: subset \(T \subseteq N\) of edges of \(G\) such that \(G_T = (N, T)\) is a minimum cost spanning tree of \(G\).
 \end{itemize}
 
 \bigskip
-\textbf{Complexity}
+\textbf{Complexity}:
 if all edges are scanned at each iteration, the complexity order is \(\bigO{nm}\)
 
 \bigskip
-\textbf{Algorithm}
+\textbf{Algorithm}:
 the pseudocode of the algorithm is shown in Code~\ref{lst:prims-algorithm}.
 Prim's algorithm is \textbf{greedy}:
 at each step a minimum cost edge is selected among those in the cut \(\delta(S)\) induced by the current set of nodes \(S\).
@@ -761,7 +759,49 @@ end
 The complexity of this algorithm is \(\bigO{n^2}\).
 For sparse graphs, where \(m \ll \dfrac{n(n-1)}{2}\), a more efficient implementation (\(\bigO{m \log{(n)}}\)) \textit{(using priority queues)} is possible.
 
-\subsubsection{Optimality condition}
+\subsubsection{Kruskal's algorithm}
+
+Kruskal's algorithm has the same Goal of Prim's algorithm but with a different approach;
+like the latter, is greedy.
+
+\bigskip
+\textbf{Method}:
+
+\begin{enumerate}
+  \item create a \textbf{forest} \(F\) where each vertex is a separate tree
+  \item create a \textbf{set} \(S\) containing all the edges in the graph
+  \item while \(S\) is \textbf{non empty }and \(F\) is not spanning:
+        \begin{enumerate}
+          \item \textbf{remove an edge} with minimum cost from \(S\)
+          \item if the removed edge connects two different trees then \textbf{add it to the forest} \(F\), combining two trees into a single tree
+        \end{enumerate}
+\end{enumerate}
+
+At the termination of the algorithm, the forest forms a minimum spanning forest of the graph.
+If the graph is connected, the forest has a single component and forms a minimum spanning tree.
+
+\bigskip
+\textbf{Complexity}:
+the complexity of the algorithm is \(\bigO{E \log}(E)\) with \(E\) the number of edges in the graph.
+
+\bigskip
+\textbf{Algorithm}:
+the Kruskal's algorithm is implemented in Code~\ref{lst:kruskal}.
+
+\begin{lstlisting}[caption={Kruskal's algorithm}, label={lst:kruskal}, float]
+F := {}
+S := {e_1, ..., e_m}, e $\in$ E, sorted by cost in non-decreasing order
+i := 1
+while |F| < n - 1 do
+  if the two endpoints of e_i are in different trees then
+    F := F $\cup$ {e_i}
+    merge the two trees containing the two endpoints
+  end
+  i := i + 1
+end15
+\end{lstlisting}
+
+\subsubsection{Optimality condition of a spanning tree}
 
 Given a spanning tree \(T\), an edge \(e \notin T\) is \textbf{cost decreasing} if when added to \(T\), it creates a cycle \(C\) with \(C \subseteq T \cup \{e\}\) and \(\exists \, f \in C \setminus \{e\} \ \text{such that} \  c_e < c_f\).
 
@@ -816,7 +856,7 @@ Given a directed graph \(G = (N, A)\) with a cost \(c_{ij} \in \R\) associated t
 \textbf{Idea}: consider the nodes in increasing order of length \textit{(cost)} of the shortest path from \(s\) to any one of the other nodes.
 
 \bigskip
-\textbf{Method}
+\textbf{Method}:
 \begin{itemize}
   \item To each \textbf{node} \(j \in N\), a \textbf{label} \(L_j\) is associated
         \begin{itemize}
@@ -831,14 +871,14 @@ Given a directed graph \(G = (N, A)\) with a cost \(c_{ij} \in \R\) associated t
 \end{itemize}
 
 \bigskip
-\textbf{Goal}
+\textbf{Goal}:
 \begin{itemize}[label=\(\rightarrow\)]
   \item \textit{Input}: graph \(G = (N, A)\), cost \(c_{ij} \geq 0 \, \forall \, i, j\), origin \(s \in N\)
   \item \textit{Output}: shortest path from \(s\) to all other nodes in \(G\)
 \end{itemize}
 
 \bigskip
-\textbf{Data structure}
+\textbf{Data structure}:
 \begin{itemize}
   \item \(S \subseteq N\): subset of nodes whose labels are permanent
   \item \(X \subseteq N\): subset of nodes with temporary labels
@@ -1071,14 +1111,14 @@ An example of Dijkstra's algorithm is shown in Figure~\ref{fig:dijkstra-example}
 
 \subsubsection{Floyd-Warshall's algorithm}
 
-\textbf{Goal}
+\textbf{Goal}:
 \begin{itemize}[label=\(\rightarrow\)]
   \item \textit{Input}: a directed graph \(G = (N, A)\) with an \(n \times n\) cost matrix \(C = [c_{ij}]\)
   \item \textit{Output}: for each pair of nodes \(i, j \in N\), the cost \(c_{ij}\) of the shortest path from \(i\) to \(j\)
 \end{itemize}
 
 \bigskip
-\textbf{Data structure}
+\textbf{Data structure}:
 \begin{itemize}
   \item Two \(n \times n\) matrices \(D, P\) whose elements correspond, at the end of the algorithm, to:
         \begin{itemize}
@@ -1088,7 +1128,7 @@ An example of Dijkstra's algorithm is shown in Figure~\ref{fig:dijkstra-example}
 \end{itemize}
 
 \bigskip
-\textbf{Method}
+\textbf{Method}:
 \begin{enumerate}
   \item Initialization of \(D\) and \(P\):
         \[ p_{ij} = i \quad \forall \, i \]
@@ -1097,7 +1137,7 @@ An example of Dijkstra's algorithm is shown in Figure~\ref{fig:dijkstra-example}
 \end{enumerate}
 
 \bigskip
-\textbf{Complexity}
+\textbf{Complexity}:
 \begin{itemize}
   \item Since in the worst case the triangular operation is executed for all nodes \(u\) ad for each pair of nodes \(i, j\), the complexity is \(\bigO{n^3}\)
 \end{itemize}
@@ -1156,7 +1196,7 @@ A directed acyclic graph \(G\) is referred to as a \DAG.
 The topological order can be exploited by dynamic programming algorithms to compute efficiently the shortest paths in a \DAG.
 
 \begin{problem}[Problem description]
-  Given a \DAG \(G = (N, A)\) with a cost \(c_{ij} \in \R\) and nodes \(s, t\), determine the shortest (or longest) path from \(s\) to \(t\).
+Given a \DAG \(G = (N, A)\) with a cost \(c_{ij} \in \R\) and nodes \(s, t\), determine the shortest (or longest) path from \(s\) to \(t\).
 \end{problem}
 
 \subsubsection{Topological ordering method}
@@ -1285,8 +1325,7 @@ for j := 2 to n do
 end
 \end{lstlisting}
 
-\bigskip
-\textbf{Complexity}
+\subparagraph*{Complexity}
 of the algorithm is \(\bigO{|A|}\):
 
 \begin{itemize}
@@ -1368,7 +1407,7 @@ Artificial nodes or artificial arcs are introduced so that graph \(G\):
 
 \bigskip
 \begin{problem}[Problem description]
-  Given a project (set of activities with duration and precedence constraints), schedule the activities in order to minimize the overall project duration (the time needed to complete all the activities).
+Given a project \textit{(set of activities with duration and precedence constraints)}, schedule the activities in order to minimize the overall project duration \textit{(the time needed to complete all the activities)}.
 \end{problem}
 
 \bigskip
@@ -1389,12 +1428,10 @@ The critical path method \textit{(\CPM) } determines:
   \item The \textbf{slack} of each activity \textit{(the amount of time by which its execution can be delayed without affecting the overall minimum project duration)}
 \end{itemize}
 
-\bigskip
-\textbf{Initialization}
+\subparagraph*{Initialization}
 construct the graph \(G\) representing the project.
 
-\bigskip
-\textbf{Method}
+\subparagraph*{Method}
 
 \begin{enumerate}
   \item Find a topological order of the nodes
@@ -1409,8 +1446,7 @@ construct the graph \(G\) representing the project.
         \end{itemize}
 \end{enumerate}
 
-\bigskip
-\textbf{Goal}
+\subparagraph*{Goal}
 \begin{itemize}[label=\(\rightarrow\)]
   \item \textit{Input:} graph \(G = (N, A)\) with \(n = |N|\) and the duration \(d_{ij}\) associated to each \(\left( i, j \right) \in A\)
   \item \textit{Output}: \(\left( T_{min_i}, T_{max_i} \right), i = 1, \ldots, n\)
@@ -1586,7 +1622,7 @@ where \(\phi\) denotes the value of the \textbf{feasible flow} \(x\);
   Finally, \(\phi(S) \leq k(S)\).
 \end{proof}
 
-\textbf{Consequence:}
+\subparagraph*{Consequence}
 If \(\phi(S) = k(S)\), for a subset \(S \subseteq V, \ s \in S, \ t \notin S\), then \(x\) is a flow of maximum value and the cut \(\delta(S)\) is of minimum capacity.
 
 The property \textit{(\ref{prop:weak-duality})} for any feasible flow \(x\) and for any cut \(\delta(S)\) separating \(s\) from \(t\) expresses a \textbf{weak duality relation} between the two problems of finding a maximum flow and a minimum cut.
@@ -1598,7 +1634,7 @@ The property \textit{(\ref{prop:weak-duality})} for any feasible flow \(x\) and 
 
 \subsubsection{Ford-Fulkerson algorithm}
 
-\textbf{Idea}
+\textbf{Idea}:
 start from a feasible flow \(x\) and try to iteratively increase its value \(\phi\) by sending, at each iteration, an additional amount of product along a directed \textit{(or undirected)} path from \(s\) to \(t\) with a strictly positive residual capacity.
 
 \begin{itemize}
@@ -1646,7 +1682,7 @@ At each iteration:
 \end{itemize}
 
 \bigskip
-\textbf{Goal}
+\textbf{Goal}:
 \begin{itemize}[label=\(\rightarrow\)]
   \item \textit{Input}: graph \(G = (N. A)\) with capacity \(k_{ij} > 0\) for any \((i, j) \in A, \ s,t \in N\)
   \item \textit{Output}: a feasible flow \(x\) from \(s\) to \(t\) of maximum value \(\phi^\ast\)
@@ -1678,7 +1714,7 @@ until optimum = true
 \end{lstlisting}
 
 \bigskip
-\textbf{Complexity}
+\textbf{Complexity}:
 \begin{itemize}
   \item Since \(\delta > 0\), the value \(\phi\) increases at each iteration
   \item If \(k_{ij} \mathbb{N} \, \forall \, i, j, \ x \in \mathbb{N}, \ \overline{k}_{ij} \in \mathbb{N}, \ \delta \geq 1\), then there are at most \(\phi^\ast\) increases
@@ -1687,7 +1723,7 @@ until optimum = true
         and each cycle is \(\bigO{m}\), the overall complexity is \(\bigO{m k_{max}^2}\).
 \end{itemize}
 
-\textbf{Space complexity}
+\textbf{Space complexity}:
 \begin{itemize}
   \item The size of an instance \(I\), written as \(|I|\), is the number of bits needed to represent \(I\)
   \item Since \(\left\lceil{\log_2{i}}\right\rceil + 1\) bits are needed to store an integer \(i\), \(|I| = \bigO{m \log_2{\left( k_{max} \right)}}\)
@@ -1716,7 +1752,7 @@ until optimum = true
   Then, the flow \(x\) has maximum value and the cut induced by \(S^\ast\) has minimum capacity.
 \end{proof}
 
-\paragraph{Strong duality}
+\paragraph{Strong duality of the Ford-Fulkerson algorithm}
 
 The \textit{Ford-Fulkerson} algorithm implies the following Theorem \textit{(\ref{thm:strong-duality})}.
 
@@ -1725,7 +1761,7 @@ The \textit{Ford-Fulkerson} algorithm implies the following Theorem \textit{(\re
   \label{thm:strong-duality}
 \end{theorem}
 
-\textbf{Remarks}
+\subparagraph*{Remarks}
 \begin{itemize}
   \item If all the capacities \(k_{ij} \in \mathbb{Z}^+\), the flow \(x\) of maximum value has all \(x_{ij}\) integer and an integer value \(\phi^\ast\)
   \item \textit{Ford-Fulkerson} algorithm is not greedy \textit{(\(x_{ij}\) can be increased or decreased)}
@@ -1735,8 +1771,7 @@ The \textit{Ford-Fulkerson} algorithm implies the following Theorem \textit{(\re
 
 More efficient algorithms exists, based on augmenting paths, pre flows and capacity scaling.
 
-\bigskip
-\textbf{Idea}
+\subparagraph*{Idea}
 Start from a feasible flow \(x\) of value \(\phi\) and send, at each iteration, an additional amount of product in the residual network, respecting the residual capacities and the value \(\phi\), along cycles of negative cost.
 
 \subsubsection{Indirect applicaton - assignment problem}
@@ -1798,17 +1833,18 @@ There is a correspondence between the feasible flows from source to sink of valu
 
 \subsection{Optimization problems}
 
-Optimization problems are problems that require to find the best solution among a set of possible solutions.
+\textbf{Optimization problems} are problems that require to find the best solution among a set of possible solutions.
 
 \begin{itemize}
-  \item An instance of an optimization problem is a pair \(\left( F, c \right)\) where:
+  \item An \textbf{instance} of an optimization problem is a pair \(\left( F, c \right)\) where:
         \begin{itemize}
-          \item \(F\) is the domain of feasible point
-          \item \(c\) is the cost function, a mapping \(c :  F \rightarrow \R\)
+          \item \(F\) is the \textbf{domain} of feasible point
+          \item \(c\) is the \textbf{cost function}, a mapping \(c :  F \rightarrow \R\)
           \item the problem is finding an \(f \in F\) such that \(c\left( f \right) \leq c\left( y \right) \, \forall \, y \in F\)
+                \begin{itemize}
+                  \item such point is called a \textbf{globally optimal} \textit{(or just optimal)} solution to the given instance.
+                \end{itemize}
         \end{itemize}
-        Such point is called a globally optimal \textit{(or just optimal)} solution to the given instance.
-
   \item An \textbf{optimization problem} is a set of \(I\) instances of a given optimization problem.
 \end{itemize}
 
@@ -1816,19 +1852,20 @@ Optimization problems are problems that require to find the best solution among 
 \begin{definition}
   A \textbf{linear programming} \textit{(or \LP)} problem is an optimization problem such as
 
-  \begin{gather}
+  \begin{gather*}
     \begin{aligned}
       \min \         & f(x)                                  \\
       \text{s.t.} \  & x \in X \subseteq \R^n \rightarrow \R
     \end{aligned}
     \label{eq:linear-programming}
-  \end{gather}
+  \end{gather*}
 
   where:
 
   \begin{itemize}
     \item the \textbf{objective function} \(f: X \rightarrow \R\) is \textbf{linear}
-    \item the \textbf{feasible ragion} \(X \left\{ x \in \R^n \mid   g_i(x) \, r_i \, 0 \land i \in \left\{ 1, \ldots, m \right\}\right\}\) with \(r_i \in \left\{ =, \geq, \leq \right\}\) and \(g_i: \R^n \rightarrow \R\) are \textbf{linear} functions for \(i \in \left\{ 1, \ldots, m \right\}\)
+    \item the \textbf{feasible region} \(X \left\{ x \in \R^n \mid   g_i(x) \, r_i \, 0 \land i \in \left\{ 1, \ldots, m \right\}\right\}\) with: \[r_i \in \left\{ =, \geq, \leq \right\} \ \text{and} \ g_i: \R^n \rightarrow \R\] are \textbf{linear} functions for \(i \in \left\{ 1, \ldots, m \right\}\)
+
     \item \(x^\ast \in \R^n\) is an \textbf{optimal solution} of the \LP \ref{eq:linear-programming} if \(f(x^\ast) \leq f(x) \, \forall \, x \in X\)
   \end{itemize}
 \end{definition}
@@ -1836,9 +1873,12 @@ Optimization problems are problems that require to find the best solution among 
 \bigskip
 A wide variety of decision making problems can be formulated or approximated as \LP, as they often involve the optimal allocation of a given set of limited resources to different activities.
 
+\bigskip
+Two forms of \LP are commonly used:
+
 \begin{itemize}
   \item \textbf{General form} of a linear programming problem:
-        \begin{gather}
+        \begin{gather*}
           \begin{aligned}
             \min \         & z = c_1 x^1 + \cdot + c_n x_n                                    \\
             \text{s.t.} \  & a_{11} x^1 + \cdot + a_{1n} x_n \left( \leq, =, \geq \right) b_1 \\
@@ -1846,10 +1886,10 @@ A wide variety of decision making problems can be formulated or approximated as 
                            & a_{m1} x^1 + \cdot + a_{mn} x_n \left( \leq, =, \geq \right) b_m \\
                            & x^1, \ldots, x_n \geq 0
           \end{aligned}
-        \end{gather}
+        \end{gather*}
 
   \item \textbf{Matrix notation} of a linear programming problem:
-        \begin{gather}
+        \begin{gather*}
           \begin{aligned}
             \min \         & z = \begin{bmatrix}
                                    c1 & c2 & \cdots & cn
@@ -1882,7 +1922,7 @@ A wide variety of decision making problems can be formulated or approximated as 
                              \end{bmatrix}
             \geq 0
           \end{aligned}
-        \end{gather}
+        \end{gather*}
 \end{itemize}
 
 \subsection{Assumptions of \LP models}
@@ -1893,7 +1933,7 @@ The \LP model is based on the following \textbf{assumptions}:
   \item \textbf{Linearity} \textit{(proportionality and additivity)} of the objective function and constraints
         \begin{itemize}[label=\(\rightarrow\)]
           \item \textbf{proportionality}: \( \textit{contribution of each variable} \, = \, \textit{constant} \, \times \ \textit{variable} \). It does not account for economies of scale
-          \item \textbf{additivity}: \(\textit{total contribution} \, =\sum_i \textit{contribution of each variable} \, i\). It does not account for competing activities (their sum is not necessarily the total contribution)
+          \item \textbf{additivity}: \(\textit{total contribution} \, =\sum_i \textit{contribution of each variable} \ i\). It does not account for competing activities (their sum is not necessarily the total contribution)
         \end{itemize}
   \item \textbf{Divisibility} of the variables, as they can assume fractional (rational) values
   \item \textbf{Parameters} are assumed to be \textbf{constants} which can be estimated with a sufficient degree of accuracy
@@ -1923,28 +1963,28 @@ The \textbf{General Form} \textit{(or canonical form)} \textit{(Equation~\ref{eq
 \begin{gather}
   \begin{aligned}
     \min \         & z = c^T x &                               \\
-    \text{s.t.} \  & Ax = b    & \text{inequality constraints} \\
+    \text{s.t.} \  & Ax = b    & \text{equality constraints} \\
                    & x \geq 0  & \text{non negative variables}
   \end{aligned}
   \label{eq:linear-programming-standard-form}
 \end{gather}
 
-The two forms are equivalent, as simple transportation rules allow to pass from one form to the other;
-the transformation may involve adding and or deleting variables and constraints, as the next Section shows.
+The two forms are equivalent, as simple transformation rules allow to pass from one form to the other;
+the transformations may involve adding and or deleting variables and constraints, as the next Section shows.
 
 \subsubsection{Transformation rules}
 
 \begin{itemize}[parsep=1.25ex]
   \item \(\max c^T x \Rightarrow \min -c^T x\)
   \item \(a^T x \leq b \Rightarrow \begin{cases}
-          a^T + x = b \\
+          a^T x + s = b \\
           s \geq 0
-        \end{cases}\) s is a slack variable
+        \end{cases}\) s is a \textbf{slack variable}
   \item \(a^T x \geq b \Rightarrow \begin{cases}
-          a^T + x = b \\
+          a^T x - s = b \\
           s \geq 0
-        \end{cases}\) s is a surplus variable
-  \item \(x_j\) unrestricted in sign \(\Rightarrow \begin{cases}
+        \end{cases}\) s is a \textbf{surplus variable}
+  \item \(x_j\) \textbf{unrestricted} in sign \(\Rightarrow \begin{cases}
           x_j = x_j^+ - x_j^- \\
           x_j^+ \geq 0        \\
           x_j^- \geq 0
@@ -1965,7 +2005,8 @@ the transformation may involve adding and or deleting variables and constraints,
 
 \subsection{Graphical solutions}
 
-A \textbf{level curve} of value \(z\) of a function \(f\) is the set of points in \(\R^n\) where \(f\) is constant and takes value \(z\).
+A \textbf{level curve} of value \(z\) of a function \(f\) is the set of points in \(\R^n\) where \(f\) is constant and has value \(z\):
+\[\left\{ x \in \R^n \mid f(x) = z \right\}\]
 
 \bigskip
 Consider a \LP with inequality constraints \textit{(as it's easier to visualize)}.
@@ -1981,7 +2022,7 @@ Consider a \LP with inequality constraints \textit{(as it's easier to visualize)
         \end{itemize}
   \item The \textbf{feasible region} \(X\) of any \LP is a polyhedron \(P\) defined by the intersection of a finite number of affine half spaces
         \begin{itemize}[label=\(\rightarrow\)]
-          \item \(P\) can be empty or unbounded
+          \item \(P\) can be \textbf{empty} or \textbf{unbounded}
         \end{itemize}
   \item A subset \(S \subseteq \R^n\) is \textbf{convex} if for each pair of points \(y^1, y^2 \in S\) the line segment between \(y^1\) and \(y^2\) is contained in \(S\)
         \begin{itemize}[label=\(\rightarrow\)]
@@ -1996,12 +2037,12 @@ Consider a \LP with inequality constraints \textit{(as it's easier to visualize)
         \end{itemize}
   \item A \textbf{polyhedron} \(P\) is a convex set of \(\R^n\)
         \begin{itemize}
-          \item any half space is convex
-          \item the intersection of a finite number of convex sets is also a convex set
+          \item any \textbf{half space} is \textbf{convex}
+          \item the \textbf{intersection} of a finite number of convex sets is also a \textbf{convex} set
         \end{itemize}
   \item A \textbf{vertex of polyhedron} \(P\) is a point op \(P\) that cannot be expressed as a convex combination of other points of \(P\)
         \begin{itemize}
-          \item mathematically, \(x\) is a vertex \(P\) iff
+          \item \(x\) is a vertex \(P\) iff
                 \[ x = \alpha y^1 + (1 - \alpha) y^2, \alpha \in \left[ 0, 1 \right] \quad y^1, y^2 \in P \Rightarrow x = y^1 \lor x = y^2 \]
           \item a non empty polyhedron \(P = \left\{ x \in \R^n \mid  Ax = b, x \geq 0 \right\}\) has a finite number (\(n >1\)) of vertices
         \end{itemize}
@@ -2051,19 +2092,20 @@ Consider a \LP with inequality constraints \textit{(as it's easier to visualize)
   \bigskip
 \end{figure}
 
-\subsubsection{\textit{Weyl-Minkoswki} Theorem}
+\subsubsection{Weyl-Minkoswki Theorem}
 
-The \textit{Weyl-Minkoswki} Theorem on the representation of polyhedra states that:
+The \textbf{Weyl-Minkoswki Theorem} describes the representation of a polyhedron.
+Its formulation is expressed in the \textit{Theorem~\ref{thm:weyl-minkowski}}.
 
 \begin{theorem}[Weyl-Minkoswki]
   Every point \(x\) of a polyhedron \(P\) can be expressed as a convex combination of its vertices \(x^1, \ldots, x^k\) plus \textit{(if needed)} an unbounded \textbf{feasible direction} \(d\) of \(P\):
   \[ x = \alpha_1 x^1 + \ldots + \alpha_k x^k + d \]
-  where the multipliers \(\alpha_1 \geq 0\) satisfy the constraint \(\displaystyle\sum_{i=1} \alpha_i = 1\).
+  where the multipliers \(\alpha_i \geq 0\) satisfy the constraint \(\displaystyle\sum_{i=1} \alpha_i = 1\).
   \label{thm:weyl-minkowski}
 \end{theorem}
 
 \bigskip
-The unbounded feasible direction is needed if the polyhedron is unbounded; Figure~\ref{fig:weyl-minkowski-theorem} represent the cases of a bounded and unbounded polyhedron.
+The unbounded feasible direction is needed if the polyhedron is unbounded; Figure~\ref{fig:weyl-minkowski-theorem} represent the cases of a bounded and an unbounded polyhedron.
 
 \begin{figure}[htbp]
   \centering
@@ -2089,7 +2131,7 @@ The unbounded feasible direction is needed if the polyhedron is unbounded; Figur
   \bigskip
 \end{figure}
 
-\textbf{Consequences:}
+\subparagraph*{Consequences:}
 every point \(x\) of polytope \(P\) can be expressed as a convex combination of its vertices.
 Then the \textit{Weyl-Minkowski theorem} can be used to describe any point.
 An example of this is shown in Figure~\ref{fig:polytope-example}.
@@ -2229,14 +2271,13 @@ Due to the fundamental theorem of Linear Programming \textit{(Theorem~\ref{thm:w
 since the geometrical definition of vertex cannot be exploited algorithmically, an algebraic definition is needed.
 
 A vertex corresponds to the intersection of the hyperplanes associated to \(n\) inequalities.
-If a polyhedra is expressed in standard form
+If a polyhedron is expressed in standard form
 \[ P = \left\{ x \in \R^n \mid   Ax = b, x \geq 0 \right\}\]
 it is possible to transform it into a inequality
 \[ P = \left\{ x \in \R^n \mid   Ax \leq b, x \geq 0 \right\}\]
 and later transform it back into standard form
 \[ P^\prime = \left\{ x \in \R^n \mid   Ax -s = b, s \geq 0, x \geq 0 \right\} \]
 where \(P^\prime\) is the polyhedron of feasible solutions of the original problem.
-
 Finally, by renaming
 \[ A \coloneqq \left[ \, A \,|\, I \, \right], \quad x \coloneqq \left( \, x^T \,|\, s^T \right) \]
 the system of equation is represented in matrix form, where \(A\) has \(m\) rows.
@@ -2284,15 +2325,11 @@ however, the problem can be transformed into an equivalent one in standard form,
 
 Consider any polyhedron \(P = \left\{ x \in \R^n \mid   Ax = b, x \geq 0 \right\}\), in standard form.
 
-\bigskip
-\textbf{Assumption}
-
+\subparagraph*{Assumption}
 \(A \in \R^{m \times n}\) is such that \(m \leq n\) of rank \(m\) \textit{(i.e. \(A\) is full rank)}.
 This is equivalent to assume that there are no redundant constraints.
 
-\bigskip
-\textbf{Solutions}
-
+\subparagraph*{Solutions}
 \begin{itemize}
   \item If \(m = n\), there is a unique solution of \(Ax = b\) \textit{(\(x = A^{-1} b)\)}
   \item If \(m < n\), there are \(\infty^{m-n}\) solutions of \(Ax = b\)
@@ -2311,8 +2348,7 @@ This is equivalent to assume that there are no redundant constraints.
 Let \(x^T = [ \overbrace{x_B^T}^{m\textit{ components}} |  \overbrace{x_N^T}^{m-n \textit{ components}}]\).
 Then any system \(Ax = b\) can be written as \(B _{x_B} + N_{x_N} = b\), and for any set of values of \(x_N\), if \(B\) is not singular, then \(x_B = B^{-1} (b - N_{x_N})\).
 
-\bigskip
-\textbf{Definitions}
+\subparagraph*{Definitions}
 \begin{itemize}
   \item A \textbf{basic solution} is a solution obtained by setting \(x_N = 0\) and, consequently, \(x_B = B^{-1} b\)
         \begin{itemize}
@@ -2390,7 +2426,7 @@ in \LP, however, local optimality implies global optimality thanks to the follow
   \label{prop:optimal-vertex}
 \end{property}
 
-\subsubsection{Optimality condition}
+\subsubsection{Optimality condition of a LP solution}
 
 Given a \LP
 \begin{gather*}
@@ -2401,7 +2437,7 @@ Given a \LP
   \end{aligned}
 \end{gather*}
 
-Suppose that \(x \in P\) is a basic feasible solution and move away from it in the direction of a vector \(d \in \R^n\)l
+Suppose that \(x \in P\) is a basic feasible solution and move away from it in the direction of a vector \(d \in \R^n\);
 clearly, \(d\) should not immediately lead to a point outside \(P\), otherwise the solution would not be feasible any more.
 Then the Definition~\ref{def:feasible-direction} applies.
 
@@ -2469,7 +2505,7 @@ intuitively, \(c_j\) is the cost per unit increase in the variable \(x_j\), and 
 \end{definition}
 
 \bigskip
-Consider Definition~\textit{(\ref{def:reduced-cost})} for the case of a basic variable.
+Consider \textit{Definition~\ref{def:reduced-cost}} for the case of a basic variable.
 Since \(B\) is the matrix \(\left[ A_{B(1)}, \ldots, A_{B(m)} \right]\), then \(B^{-1}[A_{B(1)}, \ldots, A_{B(m)}] = I\) \textit{(is the identity matrix)}.
 In particular, \(B^{-1} A_{B(i)}\) is the \(i\)-th column of the identity matrix, which is the \(i\)-th unit vector\(e_i\).
 
@@ -2506,8 +2542,7 @@ Finally, the Definition~\ref{def:optimal-matrix} states the requirements for a m
   \label{def:optimal-matrix}
 \end{definition}
 
-\bigskip
-\textbf{Remarks:}
+\subparagraph*{Remarks}
 \begin{itemize}[label=\(\rightarrow\)]
   \item For \textbf{maximization} problems, the condition is \(\overline{c}_N \leq 0\)
   \item This optimality condition is \textbf{sufficient} but generally not necessary
@@ -2529,7 +2564,7 @@ By moving away from \(x\) along \(d\), the traced points are in form \(x + \thet
 Since costs decrease along the direction \(d\), the goal is to move as far as possible;
 the farthest point will be \(x + \theta^\ast d\), where
 \[ \theta^\ast = \max \left\{ \theta \geq 0 \mid x + \theta d \in P \right\}\]
-The associated ost change is
+The associated cost change is
 \[ \Delta c = \theta^\ast c^\prime d = \theta^\ast \overline{c}_j \]
 
 \bigskip
@@ -2541,8 +2576,10 @@ Two cases can be distinguished:
 \begin{enumerate}
   \item \(d \geq 0\), then \(x + \theta d \geq 0\) for all \(\theta \geq 0\), the vector is never infeasible and \(\theta^\ast = \infty\)
   \item \(d_i \leq 0\) for some \(i\), then \(x_i + \theta d_i \geq 0 \Rightarrow \theta \leq -\sfrac{x_i}{d_i}\).
-        Since this constraint must be satisfied for all \(i\), the largest possible value of \(\theta\) is
-        \[ \theta^\ast = \min_{i=1, \ldots, m} \left\{ -\dfrac{x_i}{d_i} \,\middle\vert\, d_i \leq 0 \right\} \]
+  Since this constraint must be satisfied for all \(i\), the largest possible value of \(\theta\) is
+  \begin{equation}
+        \theta^\ast = \min_{i=1, \ldots, m} \left\{ -\dfrac{x_i}{d_i} \,\middle\vert\, d_i \leq 0 \right\}
+  \end{equation}
         Recalling that \(x_i\) is a non basic variable, then either \(x_i\) is the entering variable and \(d_i = 1\), or else \(d_i = 0\);
         in either case it's non negative and the formula can be re written as
         \begin{equation}
@@ -2584,9 +2621,9 @@ Equivalently, the set of basic indices \(B = \{ B(1), \ldots, B(m) \}\) can be u
 \bigskip
 The previous steps can then be summarized in the following Theorem.
 
-\begin{theorem}
+\begin{theorem}\hfill
   \begin{itemize}
-    \item The columns \(A_{B(i)}, i \neq l\) and \(A_j\) are linearly independent; \(\overline{B}\) is a basis matrix
+    \item The columns \(A_{B(i)}\), \(i \neq l\) and \(A_j\) are linearly independent; \(\overline{B}\) is a basis matrix
     \item The vector \(y = x + \theta^\ast d\) is a basic feasible solution associated to the basis \(\overline{B}\)
   \end{itemize}
 \end{theorem}
@@ -2614,7 +2651,7 @@ A single iteration of the Simplex method consists of the following steps:
 
 \bigskip
 The method is initialized with an arbitrary basic feasible solution \(x\) and the corresponding basis \(B\);
-the following Theorem (Theorem~\ref{thm:simplex-iteration}) states that the algorithm terminates after a finite number of iterations.
+the following Theorem \textit{(\ref{thm:simplex-iteration})} states that the algorithm terminates after a finite number of iterations.
 
 \begin{theorem}
   Assume that the feasible set is non empty and that every basic feasible solution is non degenerate.
@@ -2674,7 +2711,7 @@ An example of pivot operation is shown in Figure~\ref{fig:pivot-operation-exampl
 
 \subsubsection{Moving to an adjacent vertex}
 
-\textbf{Goals}
+\subparagraph*{Goals}
 \begin{itemize}[label=\(\rightarrow\)]
   \item improve the objective function value
   \item preserve the feasibility
@@ -2835,17 +2872,17 @@ constraints.
   \item Determine an initial basic feasible solution
         \begin{itemize}
           \item given the problem with equality constraints
-                \[\begin{matrix}
-                    z = c^T x \\
-                    Ax = b    \\
-                    x \geq 0
-                  \end{matrix}, b \geq 0\]
+                \(\quad \begin{matrix}
+                  z = c^T x \\
+                  Ax = b    \\
+                  x \geq 0
+                \end{matrix}, b \geq 0\)
           \item an auxiliary \LP with artificial variables is constructed
-                \[\begin{matrix}
-                    \min        & v = \displaystyle \sum_{i=1}^m y_1 \\
-                    \text{s.t.} & Ax + ly = b                        \\
-                                & x \geq 0, y \geq 0
-                  \end{matrix}\]
+                \(\quad \begin{matrix}
+                  \min        & v = \displaystyle \sum_{i=1}^m y_1 \\
+                  \text{s.t.} & Ax + ly = b                        \\
+                              & x \geq 0, y \geq 0
+                \end{matrix}\)
         \end{itemize}
   \item Solve the auxiliary problem
         \begin{itemize}
@@ -2857,5 +2894,173 @@ constraints.
                 \end{itemize}
         \end{itemize}
 \end{enumerate}
+
+\subsection{Linear Programming duality}
+
+To any \textit{maximization} \LP problem, a corresponding \textit{(with the same parameters)} \textit{minimization} problem can be associated;
+in the same way, a \textit{minimization} problem can be associated to a \textit{maximization} problem.
+
+The two problems are called \textbf{dual} of each other.
+Despite having different spaces and objective functions, but in general the optimal objective function values coincide.
+
+\bigskip
+\begin{minipage}{0.3\textwidth}
+  \begin{gather}
+    \begin{aligned}
+      \max        & \quad c^T x     \\
+      \text{s.t.} & \quad Ax \leq b \\
+                  & \quad x \geq 0
+    \end{aligned}
+  \end{gather}
+  \label{eq:LP-duality-primal}
+\end{minipage}
+\hspace{0.3\textwidth}
+\begin{minipage}{0.3\textwidth}
+  \begin{gather}
+    \begin{aligned}
+      \min        & \quad b^T y        \\
+      \text{s.t.} & \quad A^T y \geq c \\
+                  & \quad y \geq 0
+    \end{aligned}
+  \end{gather}
+  \label{eq:LP-duality-dual}
+\end{minipage}
+
+\bigskip
+\begin{definition}
+  The problem in~\ref{eq:LP-duality-primal} is called the \textbf{primal problem} and the problem in~\ref{eq:LP-duality-dual} is called the \textbf{dual problem}.
+\end{definition}
+
+\begin{definition}
+  The dual of the dual problem coincides with the primal problem.
+\end{definition}
+
+\subsubsection{General transformation rules}
+
+Table~\ref{tab:LP-duality-transformation-rules} summarizes the general transformation rules for the primal and dual problems.
+
+\begin{table}[htbp]
+  \centering
+  \bigskip
+  \begin{tblr}{colspec={c|c||c|c}, cells={valign=m}, rows={abovesep+=2pt, belowsep+=2pt}}
+    \textbf{PRIMAL}      & \textit{minimize} & \textit{maximize} & \textbf{DUAL} \\
+    \hline
+    \textbf{constraints} & {\(\geq b_i\)                                         \\ \(\leq b_i\) \\ \(= b_i\)} & {\(\geq 0\) \\ \(\leq 0\) \\ free}              & \textbf{variables} \\
+    \hline
+    \textbf{variables}   & {\(\geq 0\)                                           \\ \(\leq 0\) \\ free} & {\(\leq c_j\) \\ \(\geq c_j\) \\ \(= c_j\)} & \textbf{constraints}
+  \end{tblr}
+  \bigskip
+  \caption{Transformation rules for the dual problem}
+  \label{tab:LP-duality-transformation-rules}
+\end{table}
+
+\subsubsection{The duality theorem}
+
+\paragraph{Weak duality}
+
+\begin{theorem}[Weak duality]
+  If \(x\) is a feasible solution to the primal problem \textit{(Equation~\ref{eq:LP-duality-primal})} and \(y\) is a feasible solution to the dual problem \textit{(Equation~\ref{eq:LP-duality-dual})}, then
+  \[ p^\prime b \leq c^\prime x \]
+\end{theorem}
+
+\begin{proof}
+  For every pair \(x \in X\) and \(y \in Y\), where
+  \[ X = \left\{  x \mid Ax \geq b, x \geq 0 \right\} \neq \emptyset \quad Y = \left\{ y \mid A^T y \leq c, y \geq 0 \right\} \neq \emptyset \]
+  the following relations hold:
+  \[ Ax \geq b, x \geq 0, A^T y \leq c, y \geq 0 \Rightarrow b^T y \leq x^T A^T y \leq x^T c = c^T x \]
+\end{proof}
+
+\subparagraph*{Consequences of the duality theorem}
+
+If \(x \in X\) is a feasible solution of the primal problem \textit{(\ref{eq:LP-duality-primal})}, then \(y \in Y\) is a feasible solution of the dual problem \textit{(\ref{eq:LP-duality-dual})}, and the values of the respective objective functions coincide, \(c^T x = b^T y\), then \(x\) is optimal for the primal problem and \(y\) is optimal for the dual problem.
+Optimal solutions are denoted by \(x^\ast\) and \(y^\ast\).
+
+The following corollaries are immediate consequences of the duality theorem.
+
+\begin{corollary}
+  If the optimal cost in the primal problem is \(-\infty\), then the dual problem must be infeasible
+\end{corollary}
+
+\begin{corollary}
+  If the optimal cost in the primal problem is \(+\infty\), then the dual problem must be infeasible
+\end{corollary}
+
+\paragraph{Strong duality}
+
+\begin{theorem}[Strong duality]
+  If \(X = \left\{ x \mid Ax \geq b, x \geq 0 \right\} \neq \emptyset\) and \(\min\left\{ c^T \mid x \in X \right\}\) is finite, there exists \(x^\ast \in X, \, y^\ast \in Y\) such that \(c^T x^\ast = b^T y^\ast\).
+\end{theorem}
+
+\begin{proof}
+  Derive an optimal solution of the dual problem \textit{(\ref{eq:LP-duality-dual})} from one of the primal problem \textit{(\ref{eq:LP-duality-primal})} and
+  \[ x^\prime = \begin{bmatrix}
+      x_B^\ast \\ x_N^\ast
+    \end{bmatrix} \quad x^\ast_B = B^{-1} b, \ x_N^\ast = 0 \]
+  as optimal feasible solution of the primal problem, provided by the Simplex algorithm with the Bland's rule.
+
+  Consider \(\overline{y}^T = c_B^T B^{-1}\).
+  \begin{itemize}
+    \item Verify that \(\overline{y}\) is a feasible solution of the dual problem:
+          \begin{enumerate}
+            \item for the non basic variables \[ \overline{c}_N^T = c_N^T - \left( c_B^T B^{-1} \right) N = c_N^T - \overline{y}^T N = \displaystyle \overbrace{\geq 0^T}^{x^\ast \ \text{optimal}} \Rightarrow \overline{y}^T N \leq c_N^T \]
+            \item for the basic variables \[ \overline{c}_B^T = c_B^T - \left( c_B^T B^-1 \right) B = c_B^T - \overline{y}^T B = 0^T \Rightarrow y^T B \leq c_B^T \]
+          \end{enumerate}
+    \item According to the duality theorem, \[ \overline{y}^T b \leq c^T x^\ast \Rightarrow \overline{y}^T b = c^T x^\ast \]
+  \end{itemize}
+
+  Hence \(\overline{y}\) is an optimal solution of the dual problem: \(\overline{y} = y^\ast\).
+\end{proof}
+
+\subparagraph*{Consequences of the strong duality theorem}
+
+Since in a linear programming problem, only one of the three following cases can occur:
+
+\begin{itemize}
+  \item There exists an optimal solution
+  \item The problem is unbounded
+        \begin{itemize}
+          \item the optimal cost is \(+\infty\) for maximization problems
+          \item the optimal cost is \(-\infty\) for minimization problems
+        \end{itemize}
+  \item The problem is infeasible
+\end{itemize}
+
+This leads to nine possible combinations of solutions of the primal and the dual problems;
+all of them are shown in Table~\ref{tab:LP-duality-combinations}.
+
+\begin{table}[htbp]
+  \bigskip
+  \centering
+  \begin{tblr}{colspec={rlc|c|c}, vline{3}={0.5pt}}
+                                                       &                         & \SetCell[c=3]{c,b} \textit{dual}                                            \\
+                                                       &                         & \textit{finite optimum}          & \textit{unbounded} & \textit{infeasible} \\
+    \hline
+    \SetCell[r=3]{c,b} \rotatebox{90}{\textit{primal}} & \textit{finite optimum} & possible                         & impossible         & impossible          \\
+                                                       & \textit{unbounded}      & impossible                       & impossible         & possible            \\
+                                                       & \textit{infeasible}     & impossible                       & possible           & possible            \\
+  \end{tblr}
+  \bigskip
+  \caption{Possible combinations of solutions of the primal and the dual}
+  \label{tab:LP-duality-combinations}
+\end{table}
+
+\subsection{Complementary slackness conditions}
+
+An important relation between primal and dual optimal solutions is provided by the complementary slackness conditions, shown in Theorem~\ref{thm:LP-duality-complementary-slackness}.
+
+\begin{theorem}[Complementary slackness]
+  Let \(x \in X^\ast\) and \(y \in Y^\ast\) be feasible solutions to the primal and dual problem, respectively.
+  Then \(x\) and \(p\) are optimal for their respective problems if and only if
+  \begin{gather*}
+    \begin{aligned}
+      y_i^\ast \left( a^\prime_i x - b_i \right) = 0 \quad & \forall \, i \in \left\{ i = 1, \ldots, m \right\} \\
+      \left( c_j - p^\prime A_j \right) x_j^\ast = 0 \quad & \forall \, j \in \left\{ j = 1, \ldots, n \right\}
+    \end{aligned}
+  \end{gather*}
+  where \(a_i\) denotes the \(i\)-th row of \(A\) and \(A_j\) the \(j\)-th column of \(A\).
+  \label{thm:LP-duality-complementary-slackness}
+\end{theorem}
+
+At optimality, the product of each variable with the corresponding slack variable of the constraint of the relative dual problem must be zero.
 
 \end{document}
