@@ -16,8 +16,7 @@
 An algorithm for a problem is a sequence of instructions that allows to solve any of its instances.
 The execution time of an algorithm depends on various factors, most notably the instance and the computer.
 
-\bigskip
-\textbf{Properties}:
+\subparagraph*{Properties}
 
 \begin{itemize}
   \item An algorithm is \textbf{exact} if it provides an optimal solution for every instance.
@@ -128,8 +127,7 @@ A \textbf{graph} is a pair \(G = (N, E)\) with:
         \end{itemize}
 \end{itemize}
 
-\bigskip
-\textbf{Properties}:
+\subparagraph*{Properties}
 
 \begin{itemize}
   \item Two \textbf{nodes} \(i\) and \(j\) are \textbf{adjacent} if they are connected by an edge \((i, j)\) or \(\{i, j\}\)
@@ -379,7 +377,7 @@ An example of a graph representation is shown in Figure~\ref{fig:graph-represent
 
 \subsubsection{Graph reachability problem}
 
-\begin{problem}[graph reachability]
+\begin{problem}[Graph reachability]
 Given a directed graph \(G = (N, A)\) and a node \(s \in N\), the \textbf{graph reachability problem} consists in finding all nodes reachable from \(s\).
 \end{problem}
 
@@ -597,12 +595,10 @@ A representation of these concepts is shown in Figure~\ref{fig:subgraphs-trees}.
   \item \textbf{compact memory} storage
 \end{itemize}
 
-\bigskip
-\textbf{Model}:
+\subparagraph*{Model}
 an undirected graph \(G = (N, E), \, n = |N|, \, m = |E|\) and a cost function \(c: E \rightarrow \R\), that assigns a cost to each edge, with \(e = \{u, v\} \in E\).
 
-\bigskip
-\textbf{Required properties}
+\subparagraph*{Required properties}
 \begin{enumerate}
   \item Each \textbf{pair of nodes} must be in a \textbf{path}
         \begin{itemize}[label= \(\Rightarrow\)]
@@ -634,26 +630,22 @@ The objective is finding:
 
 \textbf{Idea}: iteratively build a spanning tree.
 
-\bigskip
-\textbf{Method}:
+\subparagraph*{Method}
 \begin{enumerate}
   \item Start from initial tree \((S, T)\) with \(S = \{u\}, S \subseteq N\) and \(T = \emptyset\)
   \item At each step, add to the current partial tree \((S, T)\) an edge of minimum cost among those which connect a node in \(S\) to a node in \(N \setminus S\)
 \end{enumerate}
 
-\bigskip
-\textbf{Goal}:
+\subparagraph*{Goal}
 \begin{itemize}[label=\(\rightarrow\)]
   \item \textit{Input}: connected graph \(G = (N, E)\) with edge costs.
   \item \textit{Output}: subset \(T \subseteq N\) of edges of \(G\) such that \(G_T = (N, T)\) is a minimum cost spanning tree of \(G\).
 \end{itemize}
 
-\bigskip
-\textbf{Complexity}:
+\subparagraph*{Complexity}
 if all edges are scanned at each iteration, the complexity order is \(\bigO{nm}\)
 
-\bigskip
-\textbf{Algorithm}:
+\subparagraph*{Algorithm}
 the pseudocode of the algorithm is shown in Code~\ref{lst:prims-algorithm}.
 Prim's algorithm is \textbf{greedy}:
 at each step a minimum cost edge is selected among those in the cut \(\delta(S)\) induced by the current set of nodes \(S\).
@@ -764,8 +756,7 @@ For sparse graphs, where \(m \ll \dfrac{n(n-1)}{2}\), a more efficient implement
 Kruskal's algorithm has the same Goal of Prim's algorithm but with a different approach;
 like the latter, is greedy.
 
-\bigskip
-\textbf{Method}:
+\subparagraph*{Method}
 
 \begin{enumerate}
   \item create a \textbf{forest} \(F\) where each vertex is a separate tree
@@ -780,12 +771,10 @@ like the latter, is greedy.
 At the termination of the algorithm, the forest forms a minimum spanning forest of the graph.
 If the graph is connected, the forest has a single component and forms a minimum spanning tree.
 
-\bigskip
-\textbf{Complexity}:
+\subparagraph*{Complexity}
 the complexity of the algorithm is \(\bigO{E \log}(E)\) with \(E\) the number of edges in the graph.
 
-\bigskip
-\textbf{Algorithm}:
+\subparagraph*{Algorithm}
 the Kruskal's algorithm is implemented in Code~\ref{lst:kruskal}.
 
 \begin{lstlisting}[caption={Kruskal's algorithm}, label={lst:kruskal}, float]
@@ -855,8 +844,7 @@ Given a directed graph \(G = (N, A)\) with a cost \(c_{ij} \in \R\) associated t
 
 \textbf{Idea}: consider the nodes in increasing order of length \textit{(cost)} of the shortest path from \(s\) to any one of the other nodes.
 
-\bigskip
-\textbf{Method}:
+\subparagraph*{Method}
 \begin{itemize}
   \item To each \textbf{node} \(j \in N\), a \textbf{label} \(L_j\) is associated
         \begin{itemize}
@@ -870,15 +858,13 @@ Given a directed graph \(G = (N, A)\) with a cost \(c_{ij} \in \R\) associated t
   \item A set of \textbf{shortest paths} from \(s\) to any node \(j \notin s\) can be retrieved backwards from \(t\) to \(s\) iterating over the predecessors
 \end{itemize}
 
-\bigskip
-\textbf{Goal}:
+\subparagraph*{Goal}
 \begin{itemize}[label=\(\rightarrow\)]
   \item \textit{Input}: graph \(G = (N, A)\), cost \(c_{ij} \geq 0 \, \forall \, i, j\), origin \(s \in N\)
   \item \textit{Output}: shortest path from \(s\) to all other nodes in \(G\)
 \end{itemize}
 
-\bigskip
-\textbf{Data structure}:
+\subparagraph*{Data structure}
 \begin{itemize}
   \item \(S \subseteq N\): subset of nodes whose labels are permanent
   \item \(X \subseteq N\): subset of nodes with temporary labels
@@ -890,16 +876,14 @@ Given a directed graph \(G = (N, A)\) with a cost \(c_{ij} \in \R\) associated t
   \item \(\text{predecessor}_j = \begin{cases}\text{predecessor of } j \text{ in the shortest path from } s \text{ to } j \quad& j \in S \\ u \text{ such that } L_u + c_{uj} = \min\{L_i + c_{ij} \mid   i \in S\} & j \notin S\end{cases}\)
 \end{itemize}
 
-\bigskip
-\textbf{Complexity}:
+\subparagraph*{Complexity}
 the complexity of the algorithm depends on the how the arc \((u, v)\) is selected among those of the current cut \(\delta^+(u)\).
 \begin{itemize}
   \item If all \(m\) arcs are scanned, the overall complexity would be \(\bigO{nm}\), hence \(\bigO{n^3}\)
   \item If all labels \(L_j\) are determined by appropriate updates (as in Prim's algorithm), only a single arc of \(\delta^+(j)\) is scanned, hence the complexity is \(\bigO{n^2}\)
 \end{itemize}
 
-\bigskip
-\textbf{Notes}:
+\subparagraph*{Notes}
 \begin{itemize}
   \item A set of shortest paths from \(s\) to all the nodes \(j \in N\) can be retrieved backwards from \(t\) to \(s\) iterating over the predecessors
   \item The union of a set of shortest paths from node \(s\) to all the other nodes of \(G\) is an arborescence rooted at \(s\)
@@ -1111,33 +1095,33 @@ An example of Dijkstra's algorithm is shown in Figure~\ref{fig:dijkstra-example}
 
 \subsubsection{Floyd-Warshall's algorithm}
 
-\textbf{Goal}:
+\subparagraph*{Goal}
 \begin{itemize}[label=\(\rightarrow\)]
   \item \textit{Input}: a directed graph \(G = (N, A)\) with an \(n \times n\) cost matrix \(C = [c_{ij}]\)
   \item \textit{Output}: for each pair of nodes \(i, j \in N\), the cost \(c_{ij}\) of the shortest path from \(i\) to \(j\)
 \end{itemize}
 
-\bigskip
-\textbf{Data structure}:
+\subparagraph*{Data structure}
 \begin{itemize}
   \item Two \(n \times n\) matrices \(D, P\) whose elements correspond, at the end of the algorithm, to:
         \begin{itemize}
-          \item[\(d_{ij}\)] the cost of the shortest path from \(i\) to \(j\)
-          \item[\(p_{ij}\)] the predecessor of \(j\) on the shortest path from \(i\) to \(j\)
+          \item \(d_{ij}\) the cost of the shortest path from \(i\) to \(j\)
+          \item \(p_{ij}\) the predecessor of \(j\) on the shortest path from \(i\) to \(j\)
         \end{itemize}
 \end{itemize}
 
-\bigskip
-\textbf{Method}:
+\subparagraph*{Method}
 \begin{enumerate}
-  \item Initialization of \(D\) and \(P\):
-        \[ p_{ij} = i \quad \forall \, i \]
-        \[ d_{ij} = \begin{cases} 0 \quad & i = j \\ c_{ij} & i \neq j \land (i, j) \in A \\ +\infty & \text{otherwise}  \end{cases} \]
-  \item Triangular operation: for each pair of nodes \(i, j\), where \(i \neq u, j \neq u\), check whether the path from \(i\) to \(j\) is shorter by going through \(u\) (i.e. \(d_{iu} + d_{uj} < d_{ij}\))
+  \item \textbf{Initialization} of \(D\) and \(P\):
+        \begin{gather*}
+          p_{ij} = i \quad \forall \, i \\
+          d_{ij} = \begin{cases} 0 \quad & i = j \\ c_{ij} & i \neq j \land (i, j) \in A \\ +\infty & \text{otherwise}  \end{cases}
+        \end{gather*}
+
+  \item \textbf{Triangular} operation: for each pair of nodes \(i, j\), where \(i \neq u, j \neq u\), check whether the path from \(i\) to \(j\) is shorter by going through \(u\) (i.e. \(d_{iu} + d_{uj} < d_{ij}\))
 \end{enumerate}
 
-\bigskip
-\textbf{Complexity}:
+\subparagraph*{Complexity}
 \begin{itemize}
   \item Since in the worst case the triangular operation is executed for all nodes \(u\) ad for each pair of nodes \(i, j\), the complexity is \(\bigO{n^3}\)
 \end{itemize}
@@ -1148,7 +1132,6 @@ The code for this algorithm is shown in Code~\ref{lst:floyd-warshall-algorithm}.
 \begin{lstlisting}[caption={Floyd-Warshall's algorithm}, label={lst:floyd-warshall-algorithm}, float]
 for j := 1 to n do
   p_id := i
-
   if i = j then
     d_ij := 0
   else if (i, j) in A then
@@ -1189,14 +1172,14 @@ end
 A directed graph \(G = (N, A)\) is \textbf{acyclic} if it does not contain any circuit.
 A directed acyclic graph \(G\) is referred to as a \DAG.
 
-\begin{property}[topological ordering]
+\begin{property}[Topological ordering]
   The nodes of any \DAG \(G\) can be ordered topologically, i.e. indexed so that for each arc \((i, j) \in A\) the index of \(i\) is less than the index of \(j\) \textit{(\(i \leq j\))}.
 \end{property}
 
 The topological order can be exploited by dynamic programming algorithms to compute efficiently the shortest paths in a \DAG.
 
 \begin{problem}[Problem description]
-Given a \DAG \(G = (N, A)\) with a cost \(c_{ij} \in \R\) and nodes \(s, t\), determine the shortest (or longest) path from \(s\) to \(t\).
+Given a \DAG \(G = (N, A)\) with a cost \(c_{ij} \in \R\) and nodes \(s, t\), determine the shortest \textit{(or longest)} path from \(s\) to \(t\).
 \end{problem}
 
 \subsubsection{Topological ordering method}
@@ -1205,12 +1188,12 @@ The method requires \(G = (N, A)\) to be a \DAG represented via the list of pred
 Then, it works as follows:
 
 \begin{enumerate}[label=\arabic*., ref=(\arabic*)]
-  \item\label{enum:topological-ordering-1} Assign the smallest positive integer not yet assigned to a node \(v \in N \) with \(\delta^-(v) = \emptyset\)
+  \item\label{enum:topological-ordering-1} \textbf{Assign} the smallest positive integer not yet assigned to a node \(v \in N \) with \(\delta^-(v) = \emptyset\)
   \begin{itemize}[label=\(\rightarrow\)]
     \item such node always exists because \(G\) does not contain circuits
   \end{itemize}
-  \item Delete the node \(v\) with all its incident arcs
-  \item Go to step  \ref{enum:topological-ordering-1} until all nodes have been assigned a number
+  \item \textbf{Delete} the node \(v\) with all its incident arcs
+  \item \textbf{Go} to step  \ref{enum:topological-ordering-1} until all nodes have been assigned a number
 \end{enumerate}
 
 \begin{figure}[htbp]
@@ -1258,20 +1241,19 @@ Then, it works as follows:
   \bigskip
 \end{figure}
 
-\bigskip
 This algorithm has complexity \(\bigO{|A|}\), because each node is assigned a number only once.
 Furthermore, all arcs incident to a node are deleted only once.
 
 \subsubsection{Dynamic programming for shortest path in \DAGs}
 
-Any shortest path from \(1\) to \(t\), called \(\pi_t\), with at least \(2\) arcs can be subdivided into two parts:
+Any \textbf{shortest path} from \(1\) to \(t\), called \(\pi_t\), with at least \(2\) arcs can be subdivided into two parts:
 
 \begin{itemize}
-  \item \(\pi_i\), the shortest subpath from \(s\) to \(i\)
-  \item \(\left( i, t \right)\), the remaining part
+  \item \(\pi_i\), the shortest \textbf{subpath} from \(s\) to \(i\)
+  \item \(\left( i, t \right)\), the \textbf{remaining part}
 \end{itemize}
 
-This decomposition is called the optimality principle of shortest paths in \DAGs.
+This decomposition is called the \textbf{optimality principle of shortest paths in \DAGs}.
 An illustration of this decomposition is shown in Figure \ref{fig:shortest-path-in-DAG}.
 
 \begin{figure}[htbp]
@@ -1312,8 +1294,7 @@ For \DAGs whose nodes are topologically ordered \(L_{t-1}, \ldots, L_1\) satisfy
 which can be solved in reversed order
 \[ L_1 = 0; L_2 = L_1 + c_{12}; \ldots; L_{t} = \displaystyle \min_{i < t - 1} \left\{ L_i + c_t \right\} \]
 
-\bigskip
-\textbf{Algorithm}:
+\subparagraph*{Algorithm}
 finally, the algorithm is shown in pseudocode in Code~\ref{lst:shortest-path-in-DAG}.
 
 \begin{lstlisting}[caption={Shortest path in \DAG}, label={lst:shortest-path-in-DAG}, float]
@@ -1350,13 +1331,12 @@ Some pair of activities allow a precedent constraint: \(A_i \propto A_j\) indica
 
 A project can be represented by a directed graph \(G = (N, A)\) where:
 \begin{itemize}
-  \item each arc corresponds to an activity
-  \item the arc length represent the duration of the corresponding activity
+  \item each \textbf{arc} corresponds to an \textbf{activity}
+  \item the \textbf{arc length} represent the \textbf{duration} of the corresponding activity
 \end{itemize}
 \end{problem}
 
 \bigskip
-
 In order to account for precedence constraints, the arcs must be positioned such that for activities \(A_i \propto A_j\) there exists a directed path where the arc associated to \(A_i\) precedes the arc associated to \(A_j\).
 Such notation is shown in Figure \ref{fig:precedence-relation-in-project-planning}.
 
@@ -1385,7 +1365,6 @@ Such notation is shown in Figure \ref{fig:precedence-relation-in-project-plannin
 Therefore, a nove \(v\) marks an event corresponding to the end fo all the activities \(\left( i, v \right) \in \delta^-(v)\) and the \textit{(possible)} start of all the activities \(\left( v, j \right) \in \delta^+(v)\).
 
 \bigskip
-
 \begin{property}
   The directed graph \(G\) representing a project is acyclic \textit{(is a \DAG)}.
 \end{property}
@@ -1434,13 +1413,13 @@ construct the graph \(G\) representing the project.
 \subparagraph*{Method}
 
 \begin{enumerate}
-  \item Find a topological order of the nodes
-  \item Consider the nodes by increasing indices and for each \(h \in N\) find the earliest time \(T_{min_h}\) at which the event associated to node \(h\) can occur
+  \item Find a topological \textbf{order of the nodes}
+  \item Consider the nodes by \textbf{increasing indices} and for each \(h \in N\) find the earliest time \(T_{min_h}\) at which the event associated to node \(h\) can occur
         \begin{itemize}[label = \(\rightarrow\)]
           \item \(T_{min_h}\) corresponds to the minimum project duration
         \end{itemize}
-  \item Consider the nodes by decreasing indices and for each \(h \in N\) find the latest time \(T_{max_h}\) at which the event associated to node \(h\) can occur without delaying the project completion date beyond \(T_{min_n}\)
-  \item For each activity \(\left( i, j \right) \in A\) find the slack
+  \item Consider the nodes by \textbf{decreasing indices} and for each \(h \in N\) find the latest time \(T_{max_h}\) at which the event associated to node \(h\) can occur without delaying the project completion date beyond \(T_{min_n}\)
+  \item For each activity \(\left( i, j \right) \in A\) find the \textbf{slack}
         \begin{itemize}[label = \(\rightarrow\)]
           \item the slack is calculated as \(\sigma{ij} = T_{max_j} - T_{min_i} - d_{ij}\)
         \end{itemize}
@@ -1452,8 +1431,7 @@ construct the graph \(G\) representing the project.
   \item \textit{Output}: \(\left( T_{min_i}, T_{max_i} \right), i = 1, \ldots, n\)
 \end{itemize}
 
-\bigskip
-\textbf{Algorithm}:
+\subparagraph*{Algorithm}
 finally, the algorithm is shown in pseudocode in Code~\ref{lst:critical-path-method}.
 
 \begin{lstlisting}[caption={Critical path method}, label={lst:critical-path-method}, float]
@@ -1468,9 +1446,8 @@ for i = n-1 to 1 do
 end
 \end{lstlisting}
 
-\bigskip
-\textbf{Complexity}:
-the overall complexity is \(\bigO{n+m} \approx \bigO{m}\), due to the sum of
+\subparagraph*{Complexity}
+the overall complexity is \(\bigO{n+m} \approx \bigO{m}\), due to the sum of:
 
 \begin{itemize}
   \item complexity of the topological sort - \(\bigO{n+m}\)
@@ -1487,8 +1464,8 @@ At least one always exists.
 
 \paragraph{Gantt charts}
 
-A Gantt chart is a graphical representation of a project schedule.
-It was introduced in 1896 by Henry Gantt, an American mechanical engineer and management consultant.
+A \textbf{Gantt chart} is a graphical representation of a project schedule.
+It was introduced in \textit{1896} by \textit{Henry Gantt}, an American mechanical engineer and management consultant.
 
 There are two types of Gantt charts:
 
@@ -1514,7 +1491,8 @@ It has many indirect applications, such as:
   \item A \textbf{feasible flow} \(x\) from \(s\) to \(t\) is a vector \(x \in \R^m\) with a component \(x_{ij}\) for each arc \((i, j) \in A\) satisfying the capacity constraint \[0 \leq x_{ij} \leq k_{ij}, \quad \forall \, \left( i, j \right) \in A\]
         and the flow balance constraint at each intermediate node \(u \in \left\{ V \setminus \{s, t\} \right\}\):
         \[\displaystyle \sum_{\left( i, u \right) \in \delta^{-}(u)} x_{iu} = \displaystyle \sum_{\left( u, j \right) \in \delta^{+}(u)} x_{uj} \quad \forall \, u \in N \setminus \left\{ s, t \right\} \]
-  \item The value of \textbf{flow} \(x\) is \(\phi = \displaystyle \sum_{\left( s, j \right) \in \delta^{+}(s)} x_{sj}\)
+  \item The value of \textbf{flow} \(x\) is
+  \[\phi = \displaystyle \sum_{\left( s, j \right) \in \delta^{+}(s)} x_{sj}\]
   \item Given a network and a feasible flow \(x\), an arc \(\left( i, j \right) \in A\) is \textbf{saturated} if \(x_{ij} = k_{ij}\) and \textbf{empty} if \(x_{ij} = 0\)
 \end{itemize}
 
@@ -1609,7 +1587,7 @@ where \(\phi\) denotes the value of the \textbf{feasible flow} \(x\);
 \end{property}
 
 \bigskip
-\begin{property}[weak duality]
+\begin{property}[Weak duality]
   For every feasible flow \(s\) from \(s\) to \(t\) and every cut \(\delta(S), \ s \in V\) separating \(s\) from \(t\):
   \[ \phi(s) \leq k(S) \quad \left( \text{value of the flow } \leq \text{ capacity of the cut} \right)\]
   \label{prop:weak-duality}
@@ -1634,12 +1612,12 @@ The property \textit{(\ref{prop:weak-duality})} for any feasible flow \(x\) and 
 
 \subsubsection{Ford-Fulkerson algorithm}
 
-\textbf{Idea}:
+\subparagraph*{Idea}
 start from a feasible flow \(x\) and try to iteratively increase its value \(\phi\) by sending, at each iteration, an additional amount of product along a directed \textit{(or undirected)} path from \(s\) to \(t\) with a strictly positive residual capacity.
 
 \begin{itemize}
-  \item If \(\left( i, j \right)\) is not saturated (i.e. \(x_{ij} < k_{ij}\)), then \(\left( i, j \right)\) is called a \textbf{residual arc} and \(x_{ij}\) can be increased
-  \item If \(\left( i, j \right)\) is not empty (i.e. \(x_{ij} \geq 0\)), then \(\left( i, j \right)\) is called a \textbf{reverse arc} and \(x_{ij}\) can be decreased while respecting the flow balance equations
+  \item If \(\left( i, j \right)\) is \textbf{not saturated} \textit{(i.e. \(x_{ij} < k_{ij}\))}, then \(\left( i, j \right)\) is called a \textbf{residual arc} and \(x_{ij}\) can be increased
+  \item If \(\left( i, j \right)\) is \textbf{not empty} \textit{(i.e. \(x_{ij} \geq 0\))}, then \(\left( i, j \right)\) is called a \textbf{reverse arc} and \(x_{ij}\) can be decreased while respecting the flow balance equations
 \end{itemize}
 
 \bigskip
@@ -1649,7 +1627,7 @@ An arc \(\left( i, j \right)\) in a \(s-t\) cut, where \(s \in S,\ t \in S^\prim
   \item \textbf{backward} if \(s \in S^\prime, t \in S\)
 \end{itemize}
 
-The following Property (\ref{prop:augmenting-path}) is the key to the Ford-Fulkerson algorithm.
+The following Property \textit{(\ref{prop:augmenting-path})} is the key to the Ford-Fulkerson algorithm.
 \begin{property}[augmenting path]
   A path \(P\) from \(s\) to \(t\) is an \textbf{augmenting path} with respect to the current feasible flow \(x\) if \(x_{ij} <k_{ij}\) for any forward arc and \(x_{ij} > 0\) for any backward arc.
   \label{prop:augmenting-path}
@@ -1681,8 +1659,7 @@ At each iteration:
   \item Update the feasible flow \(x\) and the residual network \(\overline{G}\)
 \end{itemize}
 
-\bigskip
-\textbf{Goal}:
+\subparagraph*{Goal}
 \begin{itemize}[label=\(\rightarrow\)]
   \item \textit{Input}: graph \(G = (N. A)\) with capacity \(k_{ij} > 0\) for any \((i, j) \in A, \ s,t \in N\)
   \item \textit{Output}: a feasible flow \(x\) from \(s\) to \(t\) of maximum value \(\phi^\ast\)
@@ -1713,13 +1690,12 @@ do
 until optimum = true
 \end{lstlisting}
 
-\bigskip
-\textbf{Complexity}:
+\subparagraph*{Complexity}
 \begin{itemize}
   \item Since \(\delta > 0\), the value \(\phi\) increases at each iteration
-  \item If \(k_{ij} \mathbb{N} \, \forall \, i, j, \ x \in \mathbb{N}, \ \overline{k}_{ij} \in \mathbb{N}, \ \delta \geq 1\), then there are at most \(\phi^\ast\) increases
+  \item If \(k_{ij} \in \mathbb{N} \, \forall \, i, j\), \(x \in \mathbb{N}\overline{k}_{ij} \in \mathbb{N}\), and`' \(\delta \geq 1\), then there are at most \(\phi^\ast\) increases
   \item Since
-        \[ phi^\ast \leq k\left( \left\{ s \right\} \right) \leq m k_{max}, \quad m = |A|, \quad k_{max} = \max\left\{ k_{ij} \middle\vert \left( i, j \right) \in A \right\} \]
+        \[ phi^\ast \leq k\left( \left\{ s \right\} \right) \leq m k_{max}, \quad m = |A|, \quad k_{max} = \max\left\{ k_{ij} \mid \left( i, j \right) \in A \right\} \]
         and each cycle is \(\bigO{m}\), the overall complexity is \(\bigO{m k_{max}^2}\).
 \end{itemize}
 
@@ -1756,7 +1732,7 @@ until optimum = true
 
 The \textit{Ford-Fulkerson} algorithm implies the following Theorem \textit{(\ref{thm:strong-duality})}.
 
-\begin{theorem}[strong duality]
+\begin{theorem}[Strong duality]
   The value of a feasible flow of maximum value is equal to the capacity of a cut of minimum capacity.
   \label{thm:strong-duality}
 \end{theorem}
@@ -1787,8 +1763,7 @@ Assign the task to each engineer such that:
   \item the tasks assigned to each engineer are the ones they can perform
 \end{itemize}
 
-\bigskip
-\textbf{Graphical model}:
+\subparagraph*{Graphical model}
 bipartite graph of competences.
 An example is shown in Figure \ref{fig:assignment-example}.
 
@@ -1963,7 +1938,7 @@ The \textbf{General Form} \textit{(or canonical form)} \textit{(Equation~\ref{eq
 \begin{gather}
   \begin{aligned}
     \min \         & z = c^T x &                               \\
-    \text{s.t.} \  & Ax = b    & \text{equality constraints} \\
+    \text{s.t.} \  & Ax = b    & \text{equality constraints}   \\
                    & x \geq 0  & \text{non negative variables}
   \end{aligned}
   \label{eq:linear-programming-standard-form}
@@ -2576,10 +2551,10 @@ Two cases can be distinguished:
 \begin{enumerate}
   \item \(d \geq 0\), then \(x + \theta d \geq 0\) for all \(\theta \geq 0\), the vector is never infeasible and \(\theta^\ast = \infty\)
   \item \(d_i \leq 0\) for some \(i\), then \(x_i + \theta d_i \geq 0 \Rightarrow \theta \leq -\sfrac{x_i}{d_i}\).
-  Since this constraint must be satisfied for all \(i\), the largest possible value of \(\theta\) is
-  \begin{equation}
-        \theta^\ast = \min_{i=1, \ldots, m} \left\{ -\dfrac{x_i}{d_i} \,\middle\vert\, d_i \leq 0 \right\}
-  \end{equation}
+        Since this constraint must be satisfied for all \(i\), the largest possible value of \(\theta\) is
+        \begin{equation}
+          \theta^\ast = \min_{i=1, \ldots, m} \left\{ -\dfrac{x_i}{d_i} \,\middle\vert\, d_i \leq 0 \right\}
+        \end{equation}
         Recalling that \(x_i\) is a non basic variable, then either \(x_i\) is the entering variable and \(d_i = 1\), or else \(d_i = 0\);
         in either case it's non negative and the formula can be re written as
         \begin{equation}
