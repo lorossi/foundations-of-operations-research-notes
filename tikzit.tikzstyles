@@ -4,8 +4,8 @@
 % \tikzstyle{NAME}=[PROPERTY LIST]
 
 % Node styles
-\tikzstyle{right align}=[draw=none, tikzit fill=cyan, anchor=east]
-\tikzstyle{left align}=[draw=none, tikzit fill=green, anchor=west]
+\tikzstyle{left align}=[draw=none, tikzit fill=cyan, anchor=east]
+\tikzstyle{right align}=[draw=none, tikzit fill=green, anchor=west]
 \tikzstyle{bottom align}=[draw=none, tikzit fill={rgb,255: red,128; green,0; blue,128}, anchor=north]
 \tikzstyle{top align}=[draw=none, tikzit fill=orange, anchor=south]
 \tikzstyle{black}=[fill=black, shape=circle, text=white, inner sep=2pt, minimum size=15pt, draw=black]

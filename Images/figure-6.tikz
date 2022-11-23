@@ -4,9 +4,9 @@
 		\node [style=none] (1) at (2, -5) {};
 		\node [style=none] (2) at (7, -3.75) {};
 		\node [style=none] (3) at (7.5, 2) {};
-		\node [style=left align, text={rgb,255: red,191; green,0; blue,64}] (5) at (4.25, 0) {\(d\)};
+		\node [style=right align, text={rgb,255: red,191; green,0; blue,64}] (5) at (4.25, 0) {\(d\)};
 		\node [style=none] (6) at (4, 0) {};
-		\node [style=right align] (7) at (-0.75, 2) {\(P\)};
+		\node [style=left align] (7) at (-0.75, 2) {\(P\)};
 		\node [style=none] (8) at (4, 3.5) {};
 		\node [style=bottom align] (9) at (2, -5.25) {\(x^1\)};
 		\node [style=bottom align] (10) at (7, -4) {\(x^2\)};

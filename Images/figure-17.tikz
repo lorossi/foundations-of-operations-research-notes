@@ -14,8 +14,8 @@
 		\node [style=none] (11) at (8.25, -0.75) {};
 		\node [style=none] (12) at (0, -1.5) {};
 		\node [style=none] (13) at (8, -1.5) {};
-		\node [style=left align] (14) at (9.5, -0.75) {\textit{objective function}};
-		\node [style=left align] (15) at (9.5, -2.25) {\(m\) \textit{rows}};
+		\node [style=right align] (14) at (9.5, -0.75) {\textit{objective function}};
+		\node [style=right align] (15) at (9.5, -2.25) {\(m\) \textit{rows}};
 		\node [style=none] (16) at (8.25, -2.25) {};
 	\end{pgfonlayer}
 	\begin{pgfonlayer}{edgelayer}

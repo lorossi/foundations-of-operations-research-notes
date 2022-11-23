@@ -3,7 +3,7 @@
 		\node [style=none] (0) at (0, 0) {};
 		\node [style=none] (1) at (0, -10) {};
 		\node [style=none] (2) at (14, -10) {};
-		\node [style=left align] (4) at (14.25, -10) {\(n\)};
+		\node [style=right align] (4) at (14.25, -10) {\(n\)};
 		\node [style=none] (5) at (14, 0) {};
 		\node [style=none] (6) at (10.9, -5.65) {};
 		\node [style=none] (7) at (10.9, -10) {};
