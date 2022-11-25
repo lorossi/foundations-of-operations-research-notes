@@ -1,0 +1,30 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=white, minimum width=45pt] (0) at (0, 0) {\shortstack{\textit{LP}\\\(\left(\frac{15}{4}, \frac{9}{4}\right)\)}};
+		\node [style=white, minimum width=45pt] (1) at (-5, -5) {\shortstack{\(S_1\) \\ \(\left(3, 3\right)\)}};
+		\node [style=white, minimum width=45pt] (2) at (5, -5) {\shortstack{\(S_2\) \\ \(\left(4, \frac{9}{5}\right)\)}};
+		\node [style=white, minimum width=45pt] (3) at (0, -10) {\shortstack{\(S_3\)\\\(\left(\frac{40}{9}, 1\right)\)}};
+		\node [style=white, minimum width=45pt] (4) at (10, -10) {\shortstack{\(S_4\)\\\(F_4 = \emptyset\)}};
+		\node [style=white, minimum width=45pt] (5) at (5, -15) {\shortstack{\(S_6\)\\\(\left(5, 0\right)\)}};
+		\node [style=white, minimum width=45pt] (6) at (-5, -15) {\shortstack{\(S_5\)\\\(\left(4, 1\right)\)}};
+		\node [style=none] (7) at (0, 2.25) {root};
+		\node [style=left align] (12) at (-2.25, -1.5) {\(x_1 \leq 3\)};
+		\node [style=right align] (13) at (2, -1.5) {\(x_1 \geq 4\)};
+		\node [style=left align] (14) at (2.75, -6.5) {\(x_2 \leq 1\)};
+		\node [style=right align] (15) at (7.25, -6.5) {\(x_2 \geq 2\)};
+		\node [style=right align] (16) at (2.25, -11.75) {\(x_1 \geq 5\)};
+		\node [style=left align] (17) at (-2.25, -11.75) {\(x_1 \leq 4\)};
+		\node [style=none, text={rgb,255: red,191; green,0; blue,64}] (18) at (-5, -7.25) {integer};
+		\node [style=none, text={rgb,255: red,191; green,0; blue,64}] (19) at (10, -12.25) {infeasible};
+		\node [style=none, text={rgb,255: red,191; green,0; blue,64}] (20) at (-5, -17.25) {integer};
+		\node [style=none, text={rgb,255: red,191; green,0; blue,64}] (21) at (5, -17.25) {optimal};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=solid arrow] (0) to (1);
+		\draw [style=solid arrow] (0) to (2);
+		\draw [style=solid arrow] (2) to (4);
+		\draw [style=solid arrow] (2) to (3);
+		\draw [style=solid arrow] (3) to (6);
+		\draw [style=solid arrow] (3) to (5);
+	\end{pgfonlayer}
+\end{tikzpicture}

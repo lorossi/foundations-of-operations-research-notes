@@ -1,0 +1,64 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (0) at (0, 0) {};
+		\node [style=none] (1) at (0, 6) {};
+		\node [style=none] (2) at (-0.25, 5) {};
+		\node [style=none] (3) at (0.25, 5) {};
+		\node [style=none] (4) at (-0.25, 4) {};
+		\node [style=none] (5) at (0.25, 4) {};
+		\node [style=none] (6) at (-0.25, 3) {};
+		\node [style=none] (7) at (0.25, 3) {};
+		\node [style=none] (8) at (-0.25, 2) {};
+		\node [style=none] (9) at (0.25, 2) {};
+		\node [style=none] (10) at (-0.25, 1) {};
+		\node [style=none] (11) at (0.25, 1) {};
+		\node [style=none] (12) at (0, 0) {};
+		\node [style=none] (13) at (6, 0) {};
+		\node [style=none] (14) at (5, 0.25) {};
+		\node [style=none] (15) at (5, -0.25) {};
+		\node [style=none] (16) at (4, 0.25) {};
+		\node [style=none] (17) at (4, -0.25) {};
+		\node [style=none] (18) at (3, 0.25) {};
+		\node [style=none] (19) at (3, -0.25) {};
+		\node [style=none] (20) at (2, 0.25) {};
+		\node [style=none] (21) at (2, -0.25) {};
+		\node [style=none] (22) at (1, 0.25) {};
+		\node [style=none] (23) at (1, -0.25) {};
+		\node [style=none] (24) at (0.5, 0) {};
+		\node [style=none] (25) at (5.5, 0) {};
+		\node [style=none] (26) at (3.25, 5) {};
+		\node [style=small red] (27) at (2.5, 4) {};
+		\node [style=small black] (28) at (2, 3) {};
+		\node [style=small black] (29) at (3, 3) {};
+		\node [style=small black] (30) at (3, 4) {};
+		\node [style=small black] (31) at (2, 4) {};
+		\node [style=small black] (32) at (2, 5) {};
+		\node [style=small black] (33) at (3, 5) {};
+		\node [style=none] (34) at (0, 8) {};
+		\node [style=none] (35) at (2.5, 4.25) {};
+		\node [style=none] (36) at (5.5, 9) {};
+		\node [style=none] (37) at (3, 5.25) {};
+		\node [style=left align] (38) at (-0.25, 8) {solution of the \textit{LP} problem};
+		\node [style=right align] (39) at (5.75, 9) {solutions of the \textit{ILP} problem};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=light fill] (26.center)
+			 to (24.center)
+			 to (25.center)
+			 to cycle;
+		\draw [style=big arrow] (0.center) to (1.center);
+		\draw [style=big] (2.center) to (3.center);
+		\draw [style=big] (4.center) to (5.center);
+		\draw [style=big] (6.center) to (7.center);
+		\draw [style=big] (8.center) to (9.center);
+		\draw [style=big] (10.center) to (11.center);
+		\draw [style=big arrow] (12.center) to (13.center);
+		\draw [style=big] (14.center) to (15.center);
+		\draw [style=big] (16.center) to (17.center);
+		\draw [style=big] (18.center) to (19.center);
+		\draw [style=big] (20.center) to (21.center);
+		\draw [style=big] (22.center) to (23.center);
+		\draw [style=red arrow, in=90, out=0] (34.center) to (35.center);
+		\draw [style=big arrow, in=90, out=180] (36.center) to (37.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

@@ -68,23 +68,24 @@ Two classes of algorithms are considered, according to their worst case order of
   \item \textbf{Exponential}: \(\bigO{d^n}\) for a constant \(d > 0, d \in \R\)
 \end{itemize}
 
-Algorithms with a hight order Polynomial complexity are not considered efficient.
+Algorithms with a high order Polynomial complexity are not considered efficient;
+a comparison of the two classes, assuming that \(1 \, \mu s\) is needed for each elementary operation, is shown in Table~\ref{tab:complexity-classes}.
 
-A comparison of the two classes, assuming that \(1 \, \mu s\) is needed for each elementary operation, is shown in Table~\ref{tab:complexity-classes}.
-
-\begin{table}
+\begin{table}[htbp]
   \centering
   \bigskip
-  \begin{tblr}{c|c|c}
-    \(n\)  & \(n^2\)          & \(2^n\)                \\
+  \begin{tblr}{colspec={c|c|c}}
+    \(n\)    & \(n^2\)          & \(2^n\)                               \\
     \hline
-    \(1\)  & \(1 \, \mu s\)   & \(1 \, \mu s\)         \\
-    \(10\) & \(100 \, \mu s\) & \(1.024 \, ms\)        \\
-    \(20\) & \(400 \, \mu s\) & \(\approx 1.04\, s\)   \\
-    \(30\) & \(900 \, \mu s\) & \(\approx 18 \, m\)    \\
-    \(40\) & \(1.6 \, ms\)    & \(\approx 13 \, d\)    \\
-    \(50\) & \(2.5 \, ms\)    & \(\approx 36 \, y\)    \\
-    \(60\) & \(3.6 \, ms\)    & \(\approx 36535 \, y\) \\
+    \(1\)    & \(1 \, \mu s\)   & \(1 \, \mu s\)                        \\
+    \(5\)    & \(25 \, \mu s\)  & \(32 \, \mu s\)                       \\
+    \(10\)   & \(100 \, \mu s\) & \(1.024 \, ms\)                       \\
+    \(20\)   & \(400 \, \mu s\) & \(\approx 1.04\, s\)                  \\
+    \(30\)   & \(900 \, \mu s\) & \(\approx 18 \, m\)                   \\
+    \(40\)   & \(1.6 \, ms\)    & \(\approx 13 \, d\)                   \\
+    \(50\)   & \(2.5 \, ms\)    & \(\approx 36 \, y\)                   \\
+    \(100\)  & \(10 \, ms\)     & \(\approx 4.017 \cdot 10^{16} \, y\)  \\
+    \(1000\) & \(1 \, s\)       & \(\approx 3.395 \cdot 10^{287} \, y\) \\
   \end{tblr}
   \caption{Complexity classes}
   \label{tab:complexity-classes}
@@ -137,14 +138,14 @@ A \textbf{graph} is a pair \(G = (N, E)\) with:
           \item \textbf{directed} graphs: the in-degree \textit{(out-degree)} of a node is the number of arcs that have it as successor \textit{(predecessor)}
         \end{itemize}
   \item A \textbf{path} from \(i \in N \text{ to } j \in N\) is a sequence of edges in a undirected graph
-        \[ p = \left\langle \{v_1, v_2\}, \{v_2, v_3\}, \ldots, \{v_{k-1}, v_k\}\right\rangle \]
-        connecting nodes \(v_1, \ldots, v_k\), with \(\{v_i, v_{i+1} \in E\}\) for \(i = 1, \ldots, k-1\)
+        \[ p = \left\langle \{v_1, v_2\}, \{v_2, v_3\}, \, \ldots \,, \{v_{k-1}, v_k\}\right\rangle \]
+        connecting nodes \(v_1, \, \ldots \,, v_k\), with \(\{v_i, v_{i+1} \in E\}\) for \(i = 1, \, \ldots \,, k-1\)
   \item A \textbf{directed path} \(i \in N \text{ to } j \in N\) is a sequence of arcs in a directed graph
-        \[ p = \left\langle (v_1, v_2), (v_2, v_3), \ldots, (v_{k-1}, v_k)\right\rangle \]
-        connecting nodes, with  \((v_i, v_{i+1} \in E)\)  for \(i = 1, \ldots, k-1\)
-  \item A \textbf{cycle} is a path \[ \left\langle v_1, v_2, \ldots, v_1 \right\rangle \] where the first and last nodes are the same
+        \[ p = \left\langle (v_1, v_2), (v_2, v_3), \, \ldots \,, (v_{k-1}, v_k)\right\rangle \]
+        connecting nodes, with  \((v_i, v_{i+1} \in E)\)  for \(i = 1, \, \ldots \,, k-1\)
+  \item A \textbf{cycle} is a path \[ \left\langle v_1, v_2, \, \ldots \,, v_1 \right\rangle \] where the first and last nodes are the same
         \begin{itemize}
-          \item A \textbf{directed cycle} is path \[ \left\langle \{v_1, v_2\}, \{v_2, v_3\}, \ldots, \{v_{k-1}, v_k\}, \{v_k, v_1\}\right\rangle \]
+          \item A \textbf{directed cycle} is path \[ \left\langle \{v_1, v_2\}, \{v_2, v_3\}, \, \ldots \,, \{v_{k-1}, v_k\}, \{v_k, v_1\}\right\rangle \]
                 where the first and the last nodes are the same
         \end{itemize}
   \item Nodes \(u\) and \(v\) are \textbf{connected} if exists a path connecting them
@@ -434,7 +435,7 @@ Let \(G = (N, E)\) be a graph.
 Then:
 
 \begin{itemize}
-  \item \(G^\prime = (N^\prime, E^\prime)\) is a \textbf{subgraph} of \(G\) if \(N^\prime \subseteq N\) and \(E^\prime \subseteq E\)
+  \item \(G^T = (N^\prime, E^\prime)\) is a \textbf{subgraph} of \(G\) if \(N^\prime \subseteq N\) and \(E^\prime \subseteq E\)
   \item A \textbf{tree} \(G_T = (N^\prime, T)\) of \(G\) is a connected, acyclic, subgraph of \(G\)
   \item \(G_T = (N^\prime, T)\) is a \textbf{spanning tree} of \(G\) if it contains all the nodes \textit{(\(N^\prime = N\))}
   \item The \textbf{leaves} of a tree are the nodes with degree \(1\)
@@ -833,7 +834,7 @@ Given a directed graph \(G = (N, A)\) with a cost \(c_{ij} \in \R\) associated t
 \end{itemize}
 
 \begin{property}
-  A path \(\langle (i_1, i_2), (i_2, i_3), \ldots, (i_{k-1}, i_k)  \rangle\) is \textbf{simple} if no node is visited more than once
+  A path \(\langle (i_1, i_2), (i_2, i_3), \, \ldots \,, (i_{k-1}, i_k)  \rangle\) is \textbf{simple} if no node is visited more than once
 \end{property}
 
 \begin{property}
@@ -883,7 +884,7 @@ the complexity of the algorithm depends on the how the arc \((u, v)\) is selecte
   \item If all labels \(L_j\) are determined by appropriate updates (as in Prim's algorithm), only a single arc of \(\delta^+(j)\) is scanned, hence the complexity is \(\bigO{n^2}\)
 \end{itemize}
 
-\subparagraph*{Notes}
+\subparagraph*{Remarks}
 \begin{itemize}
   \item A set of shortest paths from \(s\) to all the nodes \(j \in N\) can be retrieved backwards from \(t\) to \(s\) iterating over the predecessors
   \item The union of a set of shortest paths from node \(s\) to all the other nodes of \(G\) is an arborescence rooted at \(s\)
@@ -925,7 +926,7 @@ end
   \begin{enumerate}
     \item A the \(k\)-th step:
           \begin{itemize}
-            \item \(S = \{s, i_1, \ldots, i_{k-1}\}\)
+            \item \(S = \{s, i_1, \, \ldots \,, i_{k-1}\}\)
             \item \(\begin{cases}\text{cost of a minimum cost path from } s \text{ to } j & j \in S \\ \text{cost of a minimum cost path with all intermediate nodes in } S \quad & j \notin S\end{cases}\)
           \end{itemize}
     \item By induction on the number \(k\) of steps:
@@ -1164,7 +1165,7 @@ end
 
 \begin{proof}
   assume that the nodes of \(G\) are numbered from \(1\) to \(n\).
-  Verify that, if the node index order is followed, after the \(u\)-th cycle the value \(d_{ij}\) \textit{(for any \(i, j\))} corresponds to the cost of a shortest path from \(i\) to \(j\) with at most \(u\) intermediate nodes (\(\left\{ 1, \ldots, u \right\}\))
+  Verify that, if the node index order is followed, after the \(u\)-th cycle the value \(d_{ij}\) \textit{(for any \(i, j\))} corresponds to the cost of a shortest path from \(i\) to \(j\) with at most \(u\) intermediate nodes (\(\left\{ 1, \, \ldots \,, u \right\}\))
 \end{proof}
 
 \subsection{Optimal paths in directed, acyclic graphs}
@@ -1276,7 +1277,7 @@ An illustration of this decomposition is shown in Figure \ref{fig:shortest-path-
 The strategy to find the shortest path is:
 
 \begin{enumerate}
-  \item For each node \(i = 1, \ldots, t\) let \(L_i\) be the cost of a shortest path from \(1\) to \(i\)
+  \item For each node \(i = 1, \, \ldots \,, t\) let \(L_i\) be the cost of a shortest path from \(1\) to \(i\)
         \begin{itemize}[label=\(\rightarrow\)]
           \item \(L_t = \displaystyle \min_{(i, t) \in \delta^-(t)} \left\{ L_i + c_{it} \right\}\)
           \item the minimum is taken over all possible predecessors \(i\) of \(t\)
@@ -1288,11 +1289,11 @@ The strategy to find the shortest path is:
         \end{itemize}
 \end{enumerate}
 
-For \DAGs whose nodes are topologically ordered \(L_{t-1}, \ldots, L_1\) satisfy the same type of recursive relations:
+For \DAGs whose nodes are topologically ordered \(L_{t-1}, \, \ldots \,, L_1\) satisfy the same type of recursive relations:
 
-\[ L_{t-1} = \displaystyle \min_{i < t-1} \left\{ L_i + c_{i, t-1} \right\}; \ldots; L_2 = \displaystyle \min_{i=1}\left\{ L_i + c_{i2} \right\} = L_1 + c_{12}; L_1 = 0 \]
+\[ L_{t-1} = \displaystyle \min_{i < t-1} \left\{ L_i + c_{i, t-1} \right\}; \, \ldots \,; L_2 = \displaystyle \min_{i=1}\left\{ L_i + c_{i2} \right\} = L_1 + c_{12}; L_1 = 0 \]
 which can be solved in reversed order
-\[ L_1 = 0; L_2 = L_1 + c_{12}; \ldots; L_{t} = \displaystyle \min_{i < t - 1} \left\{ L_i + c_t \right\} \]
+\[ L_1 = 0; L_2 = L_1 + c_{12}; \, \ldots \,; L_{t} = \displaystyle \min_{i < t - 1} \left\{ L_i + c_t \right\} \]
 
 \subparagraph*{Algorithm}
 finally, the algorithm is shown in pseudocode in Code~\ref{lst:shortest-path-in-DAG}.
@@ -1326,7 +1327,7 @@ This is due to the optimality principle, already explored in the previous sectio
 \subsection{Project planning}
 
 \begin{problem}[Problem definition]
-A project consists of a set of \(m\) activities with their (estimated) duration: activity \(A_i\) has duration \(d_i \geq 0, i = 1, \ldots, m\).
+A project consists of a set of \(m\) activities with their (estimated) duration: activity \(A_i\) has duration \(d_i \geq 0, i = 1, \, \ldots \,, m\).
 Some pair of activities allow a precedent constraint: \(A_i \propto A_j\) indicated that \(A_i\) must be performed before \(A_j\).
 
 A project can be represented by a directed graph \(G = (N, A)\) where:
@@ -1370,7 +1371,7 @@ Therefore, a nove \(v\) marks an event corresponding to the end fo all the activ
 \end{property}
 
 \begin{proof}
-  by contradiction, if \(A_{i1} \propto A_{12} \propto \ldots \propto A_{jk} \propto A_{kj}\) there would be a logical inconsistency.
+  by contradiction, if \(A_{i1} \propto A_{12} \propto \, \ldots \, \propto A_{jk} \propto A_{kj}\) there would be a logical inconsistency.
 \end{proof}
 
 \subsubsection{Optimal paths}
@@ -1428,7 +1429,7 @@ construct the graph \(G\) representing the project.
 \subparagraph*{Goal}
 \begin{itemize}[label=\(\rightarrow\)]
   \item \textit{Input:} graph \(G = (N, A)\) with \(n = |N|\) and the duration \(d_{ij}\) associated to each \(\left( i, j \right) \in A\)
-  \item \textit{Output}: \(\left( T_{min_i}, T_{max_i} \right), i = 1, \ldots, n\)
+  \item \textit{Output}: \(\left( T_{min_i}, T_{max_i} \right), i = 1, \, \ldots \,, n\)
 \end{itemize}
 
 \subparagraph*{Algorithm}
@@ -1492,13 +1493,14 @@ It has many indirect applications, such as:
         and the flow balance constraint at each intermediate node \(u \in \left\{ V \setminus \{s, t\} \right\}\):
         \[\displaystyle \sum_{\left( i, u \right) \in \delta^{-}(u)} x_{iu} = \displaystyle \sum_{\left( u, j \right) \in \delta^{+}(u)} x_{uj} \quad \forall \, u \in N \setminus \left\{ s, t \right\} \]
   \item The value of \textbf{flow} \(x\) is
-  \[\phi = \displaystyle \sum_{\left( s, j \right) \in \delta^{+}(s)} x_{sj}\]
+        \[\phi = \displaystyle \sum_{\left( s, j \right) \in \delta^{+}(s)} x_{sj}\]
   \item Given a network and a feasible flow \(x\), an arc \(\left( i, j \right) \in A\) is \textbf{saturated} if \(x_{ij} = k_{ij}\) and \textbf{empty} if \(x_{ij} = 0\)
 \end{itemize}
 
 \bigskip
 A problem related to flow is defined as follows \textit{(Definition~\ref{def:flow-problem})}.
-\begin{definition}[flow Problem definition]
+
+\begin{definition}[Flow Problem]
   Given a network \(G = \left( V, A \right)\) with an integer capacity \(k_{ij}\) for each arc \((i, j) \in A\), find a feasible flow \(x\) from \(s\) to \(t\) with maximum value.
 
   If multiple sources or sink are present while only one product is considered, dummy notes \(s^\ast\) and \(t^\ast\) can be added \textit{(as shown in Figure~\ref{fig:multiple-sources-sinks})}.
@@ -1588,10 +1590,11 @@ where \(\phi\) denotes the value of the \textbf{feasible flow} \(x\);
 
 \bigskip
 \begin{property}[Weak duality]
+  \label{prop:weak-duality}
   For every feasible flow \(s\) from \(s\) to \(t\) and every cut \(\delta(S), \ s \in V\) separating \(s\) from \(t\):
   \[ \phi(s) \leq k(S) \quad \left( \text{value of the flow } \leq \text{ capacity of the cut} \right)\]
-  \label{prop:weak-duality}
 \end{property}
+
 \begin{proof}
   By definition of value of the flow through the cut \(\delta(S\):
   \[ \phi(S) = \displaystyle \sum_{\left( i, j \right) \in \delta^+(S)} x_{ij} - \sum_{\left( i, j \right) \in \delta^-(S)} x_{ij} \]
@@ -1636,12 +1639,12 @@ The following Property \textit{(\ref{prop:augmenting-path})} is the key to the F
 Then the algorithm works by sending \(\delta\) additional units of product can be sent from \(s\) to \(t\):
 
 \begin{itemize}
-  \item \(+\delta\) along forward arcs
-  \item \(-\delta\) along backward arcs
+  \item \(+\delta\) along \textbf{forward} arcs
+  \item \(-\delta\) along \textbf{backward} arcs
 \end{itemize}
 
 \bigskip
-Given a feasible flow \(x\) for \(G = (V, A)\), a \textbf{residual network} \(\overline{G} = (V \overline{A})\) associated to \(x\) is defined as follows:
+Given a feasible flow \(x\) for \(G = (V, A)\), a \textbf{residual network} \(\overline{G} = \left(V, \overline{A}\right)\) associated to \(x\) is defined as follows:
 
 \begin{itemize}
   \item If \(\left( i, j \right) \in A\) is not empty, \(\left( j, i \right) \in \overline{A}\) with \(\overline{k}_{ij} = x_{ij} > 0\)
@@ -1693,7 +1696,7 @@ until optimum = true
 \subparagraph*{Complexity}
 \begin{itemize}
   \item Since \(\delta > 0\), the value \(\phi\) increases at each iteration
-  \item If \(k_{ij} \in \mathbb{N} \, \forall \, i, j\), \(x \in \mathbb{N}\overline{k}_{ij} \in \mathbb{N}\), and`' \(\delta \geq 1\), then there are at most \(\phi^\ast\) increases
+  \item If \(k_{ij} \in \N \, \forall \, i, j\), \(x \in \N\overline{k}_{ij} \in \N\), and`' \(\delta \geq 1\), then there are at most \(\phi^\ast\) increases
   \item Since
         \[ phi^\ast \leq k\left( \left\{ s \right\} \right) \leq m k_{max}, \quad m = |A|, \quad k_{max} = \max\left\{ k_{ij} \mid \left( i, j \right) \in A \right\} \]
         and each cycle is \(\bigO{m}\), the overall complexity is \(\bigO{m k_{max}^2}\).
@@ -1777,8 +1780,8 @@ An example is shown in Figure \ref{fig:assignment-example}.
 \end{figure}
 
 \bigskip
-\begin{definition}[matching]
-  Given an undirected graph \(G = \left( V, E \right)\), a \textit{matching} is a subset \(M \subseteq E\) such that:
+\begin{definition}[Matching]
+  Given an undirected graph \(G = \left( V, E \right)\), a \textbf{matching} is a subset \(M \subseteq E\) such that:
   \begin{itemize}
     \item \(M\) is a set of edges
     \item each vertex of \(V\) is incident to at most one edge of \(M\)
@@ -1809,19 +1812,22 @@ There is a correspondence between the feasible flows from source to sink of valu
 \subsection{Optimization problems}
 
 \textbf{Optimization problems} are problems that require to find the best solution among a set of possible solutions.
+A formal definition is shown in \ref{def:instance-lp}.
 
-\begin{itemize}
-  \item An \textbf{instance} of an optimization problem is a pair \(\left( F, c \right)\) where:
-        \begin{itemize}
-          \item \(F\) is the \textbf{domain} of feasible point
-          \item \(c\) is the \textbf{cost function}, a mapping \(c :  F \rightarrow \R\)
-          \item the problem is finding an \(f \in F\) such that \(c\left( f \right) \leq c\left( y \right) \, \forall \, y \in F\)
-                \begin{itemize}
-                  \item such point is called a \textbf{globally optimal} \textit{(or just optimal)} solution to the given instance.
-                \end{itemize}
-        \end{itemize}
-  \item An \textbf{optimization problem} is a set of \(I\) instances of a given optimization problem.
-\end{itemize}
+\begin{definition}[Instance of a Linear Programming problem]
+  \label{def:instance-lp}
+  The \textbf{instance} of an optimization problem is a pair \(\left( F, c \right)\) where:
+  \begin{itemize}
+    \item \(F\) is the \textbf{domain} of feasible point
+    \item \(c\) is the \textbf{cost function}, a mapping \(c :  F \rightarrow \R\)
+    \item the problem is finding an \(f \in F\) such that \(c\left( f \right) \leq c\left( y \right) \, \forall \, y \in F\)
+          \begin{itemize}
+            \item such point is called a \textbf{globally optimal} \textit{(or just optimal)} solution to the given instance.
+          \end{itemize}
+  \end{itemize}
+
+  An \textbf{optimization problem} is a set of \(I\) instances of a given optimization problem.
+\end{definition}
 
 \bigskip
 \begin{definition}
@@ -1839,7 +1845,7 @@ There is a correspondence between the feasible flows from source to sink of valu
 
   \begin{itemize}
     \item the \textbf{objective function} \(f: X \rightarrow \R\) is \textbf{linear}
-    \item the \textbf{feasible region} \(X \left\{ x \in \R^n \mid   g_i(x) \, r_i \, 0 \land i \in \left\{ 1, \ldots, m \right\}\right\}\) with: \[r_i \in \left\{ =, \geq, \leq \right\} \ \text{and} \ g_i: \R^n \rightarrow \R\] are \textbf{linear} functions for \(i \in \left\{ 1, \ldots, m \right\}\)
+    \item the \textbf{feasible region} \(X \left\{ x \in \R^n \mid   g_i(x) \, r_i \, 0 \land i \in \left\{ 1, \, \ldots \,, m \right\}\right\}\) with: \[r_i \in \left\{ =, \geq, \leq \right\} \ \text{and} \ g_i: \R^n \rightarrow \R\] are \textbf{linear} functions for \(i \in \left\{ 1, \, \ldots \,, m \right\}\)
 
     \item \(x^\ast \in \R^n\) is an \textbf{optimal solution} of the \LP \ref{eq:linear-programming} if \(f(x^\ast) \leq f(x) \, \forall \, x \in X\)
   \end{itemize}
@@ -1859,7 +1865,7 @@ Two forms of \LP are commonly used:
             \text{s.t.} \  & a_{11} x^1 + \cdot + a_{1n} x_n \left( \leq, =, \geq \right) b_1 \\
                            & \vdots                                                           \\
                            & a_{m1} x^1 + \cdot + a_{mn} x_n \left( \leq, =, \geq \right) b_m \\
-                           & x^1, \ldots, x_n \geq 0
+                           & x^1, \, \ldots \,, x_n \geq 0
           \end{aligned}
         \end{gather*}
 
@@ -1907,12 +1913,18 @@ The \LP model is based on the following \textbf{assumptions}:
 \begin{itemize}
   \item \textbf{Linearity} \textit{(proportionality and additivity)} of the objective function and constraints
         \begin{itemize}[label=\(\rightarrow\)]
-          \item \textbf{proportionality}: \( \textit{contribution of each variable} \, = \, \textit{constant} \, \times \ \textit{variable} \). It does not account for economies of scale
-          \item \textbf{additivity}: \(\textit{total contribution} \, =\sum_i \textit{contribution of each variable} \ i\). It does not account for competing activities (their sum is not necessarily the total contribution)
+          \item \textbf{proportionality}: \( \textit{contribution of each variable} \, = \, \textit{constant} \, \times \ \textit{variable} \)
+                \begin{itemize}[label=\xmarkthin]
+                  \item It does not account for economies of scale
+                \end{itemize}
+          \item \textbf{additivity}: \(\textit{total contribution} \, =\sum_i \textit{contribution of each variable} \ i\)
+                \begin{itemize}[label=\xmarkthin]
+                  \item It does not account for competing activities \textit{(their sum is not necessarily the total contribution)}
+                \end{itemize}
         \end{itemize}
-  \item \textbf{Divisibility} of the variables, as they can assume fractional (rational) values
+  \item \textbf{Divisibility} of the variables, as they can assume fractional \textit{(rational)} values
   \item \textbf{Parameters} are assumed to be \textbf{constants} which can be estimated with a sufficient degree of accuracy
-        \begin{itemize}[label=\(\rightarrow\)]
+        \begin{itemize}[label=\xmarkthin]
           \item more complex mathematical programs are needed to account for uncertainty in the parameter values
         \end{itemize}
 \end{itemize}
@@ -1921,30 +1933,32 @@ The \LP model is based on the following \textbf{assumptions}:
 
 \subsection{Equivalent Forms}
 
-The \textbf{General Form} \textit{(or canonical form)} \textit{(Equation~\ref{eq:linear-programming-general-form})} of a \LP can be expressed in the equivalent \textbf{Standard Form} \textit{(Equation~\ref{eq:linear-programming-standard-form})}.
+The \textbf{General Form} \textit{(or canonical form)} \textit{(Definition~\ref{def:linear-programming-general-form})} of a \LP can be expressed in the equivalent \textbf{Standard Form} \textit{(Definition~\ref{def:linear-programming-standard-form})}.
 
-\begin{gather}
-  \begin{aligned}
-    \min (\max) \  & z = c^T x                                                                                                \\
-    \text{s.t.} \  & A_1 x \geq b_1 \quad                                                 & \text{inequality constraints}     \\
-                   & A_2 x \leq b_2 \quad                                                 & \text{inequality constraints}     \\
-                   & A_3 x = b_3 \quad                                                    & \text{equality constraints}       \\
-                   & x_j \geq 0,\ j \in J \subseteq \left\{ 1, \ldots, n \right\} \quad   & \text{non-negativity constraints} \\
-                   & x_j \ \text{free}, \ j \in \left\{ 1, \ldots, n \right\} \setminus J & \text{free variables}
-  \end{aligned}
-  \label{eq:linear-programming-general-form}
-\end{gather}
+\begin{definition}[General form of a \LP problem]
+  \label{def:linear-programming-general-form}
+  The \textbf{General Form} of a \LP is:
+  \begin{align*}
+    \min (\max) \  & z = c^T x                                                                                                      \\
+    \text{s.t.} \  & A_1 x \geq b_1 \quad                                                       & \text{inequality constraints}     \\
+                   & A_2 x \leq b_2 \quad                                                       & \text{inequality constraints}     \\
+                   & A_3 x = b_3 \quad                                                          & \text{equality constraints}       \\
+                   & x_j \geq 0,\ j \in J \subseteq \left\{ 1, \, \ldots \,, n \right\} \quad   & \text{non-negativity constraints} \\
+                   & x_j \ \text{free}, \ j \in \left\{ 1, \, \ldots \,, n \right\} \setminus J & \text{free variables}
+  \end{align*}
+\end{definition}
 
-\begin{gather}
-  \begin{aligned}
+\begin{definition}[Standard Form of a \LP problem]
+  \label{def:linear-programming-standard-form}
+  The \textbf{Standard Form} of a \LP is the following:
+  \begin{align*}
     \min \         & z = c^T x &                               \\
     \text{s.t.} \  & Ax = b    & \text{equality constraints}   \\
                    & x \geq 0  & \text{non negative variables}
-  \end{aligned}
-  \label{eq:linear-programming-standard-form}
-\end{gather}
+  \end{align*}
+\end{definition}
 
-The two forms are equivalent, as simple transformation rules allow to pass from one form to the other;
+The two forms are \textbf{equivalent}, as simple transformation rules allow to pass from one form to the other;
 the transformations may involve adding and or deleting variables and constraints, as the next Section shows.
 
 \subsubsection{Transformation rules}
@@ -1980,8 +1994,11 @@ the transformations may involve adding and or deleting variables and constraints
 
 \subsection{Graphical solutions}
 
-A \textbf{level curve} of value \(z\) of a function \(f\) is the set of points in \(\R^n\) where \(f\) is constant and has value \(z\):
-\[\left\{ x \in \R^n \mid f(x) = z \right\}\]
+\begin{definition}[Level curve]
+  \label{def:level-curve}
+  A \textbf{level curve} of value \(z\) of a function \(f\) is the set of points \(P\) in \(\R^n\) where \(f\) is constant and has value \(z\):
+  \[P = \left\{ x \in \R^n \mid f(x) = z \right\}\]
+\end{definition}
 
 \bigskip
 Consider a \LP with inequality constraints \textit{(as it's easier to visualize)}.
@@ -2008,7 +2025,7 @@ Consider a \LP with inequality constraints \textit{(as it's easier to visualize)
         \end{itemize}
   \item The segment defined by all the convex combinations of \(y^1\) and \(y^2\), \(y^1, y^2 \in S\), is called a \textbf{convex hull}
         \begin{itemize}[label=\(\rightarrow\)]
-          \item \(\left[ y^1, y^2 \right] = \left\{ x \in \R^n \mid   x = \alpha y^1 + \left( 1-\alpha \right) y^2 \land \alpha \in \left[ 0, 1 \right] \right\}\)
+          \item \(\left[ y^1, y^2 \right] = \left\{ x \in \R^n \,\middle\vert\,   x = \alpha y^1 + \left( 1-\alpha \right) y^2 \land \alpha \in \left[ 0, 1 \right] \right\}\)
         \end{itemize}
   \item A \textbf{polyhedron} \(P\) is a convex set of \(\R^n\)
         \begin{itemize}
@@ -2073,8 +2090,8 @@ The \textbf{Weyl-Minkoswki Theorem} describes the representation of a polyhedron
 Its formulation is expressed in the \textit{Theorem~\ref{thm:weyl-minkowski}}.
 
 \begin{theorem}[Weyl-Minkoswki]
-  Every point \(x\) of a polyhedron \(P\) can be expressed as a convex combination of its vertices \(x^1, \ldots, x^k\) plus \textit{(if needed)} an unbounded \textbf{feasible direction} \(d\) of \(P\):
-  \[ x = \alpha_1 x^1 + \ldots + \alpha_k x^k + d \]
+  Every point \(x\) of a polyhedron \(P\) can be expressed as a convex combination of its vertices \(x^1, \, \ldots \,, x^k\) plus \textit{(if needed)} an unbounded \textbf{feasible direction} \(d\) of \(P\):
+  \[ x = \alpha_1 x^1 + \, \ldots \, + \alpha_k x^k + d \]
   where the multipliers \(\alpha_i \geq 0\) satisfy the constraint \(\displaystyle\sum_{i=1} \alpha_i = 1\).
   \label{thm:weyl-minkowski}
 \end{theorem}
@@ -2106,8 +2123,8 @@ The unbounded feasible direction is needed if the polyhedron is unbounded; Figur
   \bigskip
 \end{figure}
 
-\subparagraph*{Consequences:}
-every point \(x\) of polytope \(P\) can be expressed as a convex combination of its vertices.
+\subparagraph*{Consequences of the theorem}
+Every point \(x\) of polytope \(P\) can be expressed as a convex combination of its vertices.
 Then the \textit{Weyl-Minkowski theorem} can be used to describe any point.
 An example of this is shown in Figure~\ref{fig:polytope-example}.
 
@@ -2115,7 +2132,7 @@ An example of this is shown in Figure~\ref{fig:polytope-example}.
   \bigskip
   \centering
   \tikzfig[0.7]{figure-8.tikz}
-  \caption{Example of polytope: \(x = \alpha_1 x^1 + \alpha_1 x^2 + \alpha_3 x^3\) with \(\alpha_1 + \alpha_2 + \alpha_3 = 1, \alpha_i \geq 0, d = 0\)}
+  \caption{Example of polytope: \(x = \alpha_1 x^1 + \alpha_2 x^2 + \alpha_3 x^3\) with \(\alpha_1 + \alpha_2 + \alpha_3 = 1, \alpha_i \geq 0, d = 0\)}
   \label{fig:polytope-example}
   \bigskip
 \end{figure}
@@ -2246,16 +2263,16 @@ Due to the fundamental theorem of Linear Programming \textit{(Theorem~\ref{thm:w
 since the geometrical definition of vertex cannot be exploited algorithmically, an algebraic definition is needed.
 
 A vertex corresponds to the intersection of the hyperplanes associated to \(n\) inequalities.
-If a polyhedron is expressed in standard form
-\[ P = \left\{ x \in \R^n \mid   Ax = b, x \geq 0 \right\}\]
-it is possible to transform it into a inequality
-\[ P = \left\{ x \in \R^n \mid   Ax \leq b, x \geq 0 \right\}\]
-and later transform it back into standard form
-\[ P^\prime = \left\{ x \in \R^n \mid   Ax -s = b, s \geq 0, x \geq 0 \right\} \]
-where \(P^\prime\) is the polyhedron of feasible solutions of the original problem.
-Finally, by renaming
+If a polyhedron is expressed in standard form:
+\[ P = \left\{ x \in \R^n \mid  Ax = b, x \geq 0 \right\}\]
+At is possible to transform it into a inequality \textit{(as it is easier to work with)}:
+\[ P = \left\{ x \in \R^n \mid  Ax \leq b, x \geq 0 \right\}\]
+And later transform it back into standard form, adding a slack variable \(s\):
+\[ P^T = \left\{ x \in \R^n \mid   Ax -s = b, s \geq 0, x \geq 0 \right\} \]
+where \(P^T\) is the polyhedron of feasible solutions of the original problem.
+Finally, by defining the matrices:
 \[ A \coloneqq \left[ \, A \,|\, I \, \right], \quad x \coloneqq \left( \, x^T \,|\, s^T \right) \]
-the system of equation is represented in matrix form, where \(A\) has \(m\) rows.
+the system of equation is represented in matrix form, where \(A\) has \(m\) rows and \(n\) columns.
 
 \bigskip
 \begin{property}
@@ -2278,7 +2295,6 @@ the system of equation is represented in matrix form, where \(A\) has \(m\) rows
 
 The above Theorem~\ref{thm:extreme-points-solution} \textbf{applies to polyhedra in standard form}, as well as to bounded polyhedra \textit{(as they don't contain a line)}.
 
-\bigskip
 \begin{theorem}
   Consider the \LP problem of minimizing \(c^T x\) over a polyhedron \(P\).
   Suppose that \(P\) has at least one extreme point.
@@ -2287,7 +2303,7 @@ The above Theorem~\ref{thm:extreme-points-solution} \textbf{applies to polyhedra
 \end{theorem}
 
 For a general \LP problem. if the feasible set has no extreme point, then Theorem~\ref{thm:extreme-points-solution-2} does not apply;
-however, the problem can be transformed into an equivalent one in standard form, establishing the following Corollary \textit{(\ref{cor:extreme-point-solution-2})}.
+however, the problem can be transformed into an equivalent one in standard form, establishing the following Corollary.
 
 \begin{corollary}
   Consider the \LP problem of minimizing \(c^T x\) over a polyhedron \(P\).
@@ -2314,14 +2330,25 @@ This is equivalent to assume that there are no redundant constraints.
         \end{itemize}
 
         The \textbf{basis} of matrix \(A\) is a subset of \(m\) columns of \(A\) that are linearly independent and form an \(m \times m\) non singular matrix \(B\).
-        \[ A = [ \overbrace{B}^m | \overbrace{N}^{m-n} ] \]
+        \[ A = [\, B \mid N \, ] \]
+        where
+        \begin{align*}
+          B \quad & \text{has} \ m \ \text{columns}   \\
+          N \quad & \text{has} \ n-m \ \text{columns}
+        \end{align*}
 \end{itemize}
 
 \subsubsection{Basic solutions}
 \label{sec:basic-solutions}
 
-Let \(x^T = [ \overbrace{x_B^T}^{m\textit{ components}} |  \overbrace{x_N^T}^{m-n \textit{ components}}]\).
-Then any system \(Ax = b\) can be written as \(B _{x_B} + N_{x_N} = b\), and for any set of values of \(x_N\), if \(B\) is not singular, then \(x_B = B^{-1} (b - N_{x_N})\).
+Consider the vector \(x^T = \left[ \ x_B^T \ \middle\vert \ x_N^T \ \right]\) where:
+
+\begin{align*}
+  x_B^T \quad & \text{has} \ m \ \text{components}   \\
+  x_N^T \quad & \text{has} \ m-n \ \text{components}
+\end{align*}
+
+Then any system \(Ax = b\) can be written as \(B _{x_B} + N_{x_N} = b\), and for any set of values of \(x_N\), if \(B\) is not singular (if \(\det(B) \neq 0\)), then \(x_B = B^{-1} (b - N_{x_N})\).
 
 \subparagraph*{Definitions}
 \begin{itemize}
@@ -2330,29 +2357,25 @@ Then any system \(Ax = b\) can be written as \(B _{x_B} + N_{x_N} = b\), and for
           \item two basic solutions are called adjacent if there are \(n-1\) linearly independent constraints active in both of them
         \end{itemize}
   \item A \textbf{feasible solution} is any vector \(x \geq 0\) such that \(Ax = b\)
+  \item An \textbf{unfeasible solution} is any vector \(x < 0\) such that \(Ax = b\)
   \item A feasible solution with \(x_B \geq 0\) is a \textbf{basic feasible solution} with basis \(B\)
         \begin{itemize}
           \item \(\forall \, j \notin B, \ x_j = 0\) \textit{(all the non zero variables are in \(B\))}
           \item a \textbf{basic feasible solution} has \(n\) linearly independent constants
           \item the variables in \(x_B\) are the \textbf{basic variables} and those in \(x_N\) are non \textbf{basic variables}
-          \item by construction, \(\left( x_B^T, x_N^T \right)\) satisfy \(Ax = b\)
+          \item by construction, \(\left( x_B^T \, , \, x_N^T \right)\) satisfy \(Ax = b\)
         \end{itemize}
   \item A basic feasible solution is \textbf{degenerate} if it contains at least one basic variable with value \(0\)
         \begin{itemize}
           \item a basis uniquely determines a basic solution
-          \item tow different bases may lead to the same basic solution
+          \item two different bases may lead to the same basic solution
         \end{itemize}
 \end{itemize}
 
-\bigskip
 \begin{theorem}[Basic feasible solutions]
-  \(x \in \R^n\) is a basic feasible solution if and only if \(x\) is a vertex of the polyhedron \(P = \left\{ x \in \R^n \mid   Ax = b, x \geq 0 \right\}\)
+  \(x \in \R^n\) is a \textbf{basic feasible solution}, or \BFS, if and only if \(x\) is a vertex of the polyhedron \(P = \left\{ x \in \R^n \mid   Ax = b, x \geq 0 \right\}\)
 \end{theorem}
 
-\bigskip
-A basic feasible solution is now on referred to as \BFS for brevity.
-
-\bigskip
 \begin{property}[Number of solutions]
   At most, there exists one basic feasible solution for each choice of the \(n-m\) non basic variables out of the \(n\) variables:
   \[\text{\# basic feasible solutions} \leq
@@ -2369,21 +2392,20 @@ A basic feasible solution is now on referred to as \BFS for brevity.
 \subsection{Simplex method}
 
 The Simplex method provides a systematic way to find the optimal solution of a \LP problem;
-given an \LP in standard form
+given an \LP in standard form:
 
-\begin{gather*}
-  \begin{aligned}
-    \min \quad        & z = c^T x \\
-    \text{s.t.} \quad & Ax = b    \\
-                      & x \geq 0
-  \end{aligned}
-\end{gather*}
+\begin{align*}
+  \min \quad        & z = c^T x \\
+  \text{s.t.} \quad & Ax = b    \\
+                    & x \geq 0
+\end{align*}
 
-it examines a sequence of basic feasible solutions with non increasing objective function values, until an optimal solution is reached or the problem is found to be unbounded.
+it examines a sequence of \textbf{basic feasible solutions} with non increasing objective function values, until an optimal solution is reached or the problem is found to be unbounded.
 At each iteration, the basic feasible solution is replaced by a new one that is closer to the optimal solution.
 
 In other, \textit{simpler}, words, it generates a path \textit{(a sequence of adjacent vertices)} along the edges of the polyhedron \(P\) that leads to the optimal solution.
 
+\bigskip
 The simplex method is articulated in \(3\) steps:
 
 \begin{enumerate}[label=\arabic*., ref=(\arabic*)]
@@ -2394,38 +2416,36 @@ The simplex method is articulated in \(3\) steps:
 
 \bigskip
 The solution found in step~\ref{enum:simplex-method-3} may be optimal only in a local sense;
-in \LP, however, local optimality implies global optimality thanks to the following Property \textit{(\ref{prop:optimal-vertex})}.
+in \LP, however, local optimality implies global optimality thanks to the following Property.
 
 \begin{property}[Optimality of a vertex]
   If the \LP problem requires minimizing \textit{(or maximizing)} a convex function over a convex set, then the local optimum is also the global optimum.
   \label{prop:optimal-vertex}
 \end{property}
 
-\subsubsection{Optimality condition of a LP solution}
+\subsubsection{Optimality condition of a \LP solution}
 
-Given a \LP
-\begin{gather*}
-  \begin{aligned}
-    \min \quad        & z = c^T x \\
-    \text{s.t.} \quad & Ax = b    \\
-                      & x \geq 0
-  \end{aligned}
-\end{gather*}
+Given a \LP:
+
+\begin{align*}
+  \min \quad        & z = c^T x \\
+  \text{s.t.} \quad & Ax = b    \\
+                    & x \geq 0
+\end{align*}
 
 Suppose that \(x \in P\) is a basic feasible solution and move away from it in the direction of a vector \(d \in \R^n\);
 clearly, \(d\) should not immediately lead to a point outside \(P\), otherwise the solution would not be feasible any more.
-Then the Definition~\ref{def:feasible-direction} applies.
 
-\begin{definition}[feasible direction]
+\begin{definition}[Feasible direction]
+  \label{def:feasible-direction}
   Let \(x\) be an element of polyhedron \(P\).
   A vector \(d \in \R^n\) is said to be a \textbf{feasible direction} at \(x\) if there exists a positive scalar \(\theta\) such that \(x + \theta d \in P\).
-  \label{def:feasible-direction}
 \end{definition}
 
 \bigskip
-Let \(x\) be a basic feasible solution to the standard form problem, let \(B(1), \ldots, B(m)\) the indices of the basic variables and let \(B = \left[ A_{B(1)}, \ldots, A_{B(n)} \right]\) be the corresponding basis matrix.
+Let \(x\) be a basic feasible solution to the standard form problem, let \(B(1), \, \ldots \,, B(m)\) the indices of the basic variables, and let \(B = \left[ A_{B(1)}, \, \ldots \,, A_{B(n)} \right]\) be the corresponding basis matrix.
 
-In particular, \(x_i = 0\) for all non basic variables, while the vector \(x_B = \left( x_{B(1)}, \ldots, x_{B(m)} \right)\) of basic variables if given by
+In particular, \(x_i = 0\) for all non basic variables, while the vector \(x_B = \left( x_{B(1)}, \, \ldots \,, x_{B(m)} \right)\) of basic variables if given by
 \[x_B = B^{-1}b\]
 
 By selecting a non basic variable \(x_j\) (initially at zero) and increasing its value to \(\theta\) while keeping all the other non basic variables to zero, a new basic feasible solution \(x + \theta d\) is obtained.
@@ -2434,7 +2454,7 @@ Algebraically:
     1 \quad & \text{ if } i = j  \\
     0 \quad & \text{ otherwise }
   \end{cases} \]
-At the same time, the vector \(x_B\) changes to \(x_B + \theta d_B\), where \(d_B = (d_{B(1)}, \ldots, d_{B(m)})\) is the vector with those components of \(d\) that correspond to the basic variables.
+At the same time, the vector \(x_B\) changes to \(x_B + \theta d_B\), where \(d_B = (d_{B(1)}, \, \ldots \,, d_{B(m)})\) is the vector with those components of \(d\) that correspond to the basic variables.
 
 Given that only the feasible solutions are relevant, it's necessary true that \(A \left( x + \theta d \right) = b\) and since \(x\) is feasible, \(A x = b\).
 At the same time, since \(\theta > 0\), it must hold
@@ -2464,28 +2484,28 @@ Two cases are possible:
 
 \bigskip
 Now let \(d\) be the \(j\)-th basic direction at \(x\).
-The rate of change of the objective function along \(d\) is given by \(c^\prime_B d_B + c_j\), where \(c_B = \left( c_{B(1)}, \ldots, c_{B(,)} \right)\).
+The rate of change of the objective function along \(d\) is given by \(c^T_B d_B + c_j\), where \(c_B = \left( c_{B(1)}, \, \ldots \,, c_{B(,)} \right)\).
 
 Using Equation~\ref{eq:feasible-direction-2}, the rate of change of the objective function along \(d\) is:
-\[ c_j - c^\prime_B B^{-1} A_j \]
+\[ c_j - c^T_B B^{-1} A_j \]
 While quantity is important enough to warrant a Definition \textit{(\ref{def:reduced-cost})},
-intuitively, \(c_j\) is the cost per unit increase in the variable \(x_j\), and the term \(-c^\prime_B B^{-1} A_j\) is the cost of the compensating change in the basic variables necessitated by the constraint \(Ax = b\).
+intuitively, \(c_j\) is the cost per unit increase in the variable \(x_j\), and the term \(-c^T_B B^{-1} A_j\) is the cost of the compensating change in the basic variables necessitated by the constraint \(Ax = b\).
 
-\begin{definition}[reduced costs]
+\begin{definition}[Reduced costs]
   Let \(x\) be a basic solution with an associated basis matrix \(B\).
   Let \(c_B\) be the vector of costs of the basic variables.
   For each \(j\), the \textbf{reduced costs} \(\overline{c}_j\) of the non basic variable \(x_j\) are defined as
-  \[ \overline{c}_j = c_j - c^\prime_B B^{-1} A_j \]
+  \[ \overline{c}_j = c_j - c^T_B B^{-1} A_j \]
   \label{def:reduced-cost}
 \end{definition}
 
 \bigskip
 Consider \textit{Definition~\ref{def:reduced-cost}} for the case of a basic variable.
-Since \(B\) is the matrix \(\left[ A_{B(1)}, \ldots, A_{B(m)} \right]\), then \(B^{-1}[A_{B(1)}, \ldots, A_{B(m)}] = I\) \textit{(is the identity matrix)}.
+Since \(B\) is the matrix \(\left[ A_{B(1)}, \, \ldots \,, A_{B(m)} \right]\), then \(B^{-1}[A_{B(1)}, \, \ldots \,, A_{B(m)}] = I\) \textit{(is the identity matrix)}.
 In particular, \(B^{-1} A_{B(i)}\) is the \(i\)-th column of the identity matrix, which is the \(i\)-th unit vector\(e_i\).
 
 Therefore, for every basic variable \(x_{B(i)}\), the reduced cost is:
-\[ \overline{c}_{B(i)} = c_{B(i)} - c^\prime_B B^{-1} A_{B(i)} = c_{B(i)} - c^\prime_B e_i = c_{B(i)} -  c_{B(i)} = 0 \]
+\[ \overline{c}_{B(i)} = c_{B(i)} - c^T_B B^{-1} A_{B(i)} = c_{B(i)} - c^T_B e_i = c_{B(i)} -  c_{B(i)} = 0 \]
 so the reduced cost of a basic variable is always zero.
 The next Theorem \textit{(\ref{thm:reduced-cost})} shows that the reduced cost of a non basic variable is always non negative.
 
@@ -2507,12 +2527,12 @@ checking if the degenerate basic feasible solution \(x\) is optimal is not as si
 
 Finally, the Definition~\ref{def:optimal-matrix} states the requirements for a matrix to be optimal.
 
-\begin{definition}[optimal matrix]
+\begin{definition}[Optimal matrix]
   A matrix \(B\) is \textbf{optimal} if and only if it is a basis matrix for an optimal basic feasible solution, i.e. the following conditions are both satisfied:
 
   \begin{itemize}
     \item \(B^{-1} b \geq 0\)
-    \item \(\overline{c}^\prime = c^\prime - c^\prime_B B^{-1} A \geq 0\)
+    \item \(\overline{c}^T = c^T - c^T_B B^{-1} A \geq 0\)
   \end{itemize}
   \label{def:optimal-matrix}
 \end{definition}
@@ -2540,7 +2560,7 @@ Since costs decrease along the direction \(d\), the goal is to move as far as po
 the farthest point will be \(x + \theta^\ast d\), where
 \[ \theta^\ast = \max \left\{ \theta \geq 0 \mid x + \theta d \in P \right\}\]
 The associated cost change is
-\[ \Delta c = \theta^\ast c^\prime d = \theta^\ast \overline{c}_j \]
+\[ \Delta c = \theta^\ast c^T d = \theta^\ast \overline{c}_j \]
 
 \bigskip
 It's then necessary to determine the closed formula for \(\theta^\ast\).
@@ -2553,12 +2573,12 @@ Two cases can be distinguished:
   \item \(d_i \leq 0\) for some \(i\), then \(x_i + \theta d_i \geq 0 \Rightarrow \theta \leq -\sfrac{x_i}{d_i}\).
         Since this constraint must be satisfied for all \(i\), the largest possible value of \(\theta\) is
         \begin{equation}
-          \theta^\ast = \min_{i=1, \ldots, m} \left\{ -\dfrac{x_i}{d_i} \,\middle\vert\, d_i \leq 0 \right\}
+          \theta^\ast = \min_{i=1, \, \ldots \,, m} \left\{ -\dfrac{x_i}{d_i} \,\middle\vert\, d_i \leq 0 \right\}
         \end{equation}
         Recalling that \(x_i\) is a non basic variable, then either \(x_i\) is the entering variable and \(d_i = 1\), or else \(d_i = 0\);
         in either case it's non negative and the formula can be re written as
         \begin{equation}
-          \theta^\ast = \min_{i=1, \ldots, m} \left\{ - \dfrac{x_{B(i)}}{d_{B(i)}} \,\middle\vert\, d_{B(i)} < 0 \right\}
+          \theta^\ast = \min_{i=1, \, \ldots \,, m} \left\{ - \dfrac{x_{B(i)}}{d_{B(i)}} \,\middle\vert\, d_{B(i)} < 0 \right\}
           \label{eq:theta-star}
         \end{equation}
         Note that \(\theta^\ast > 0\) since \(x_{B(i)} > 0 \ \forall \, i\).
@@ -2575,19 +2595,18 @@ Since \(x_j=0\) and \(d_j=1\), then \(y_j = \theta^\ast > 0\).
 Let \(l\) be a minimizing index of \ref{eq:theta-star};
 the following conditions must hold:
 
-\begin{gather*}
-  - \dfrac{x_{B(l)}}{d_{B(l)}} = \min_{i=1, \ldots, m} \left\{ - \dfrac{x_{B(i)}}{d_{B(i)}} \,\middle\vert\, d_{B(i)} < 0 \right\} = \theta^\ast \\
-  d_{B(l)}  < 0 \\
-  x_{B(l)} + \theta^\ast d_{B(l)}  = 0
-\end{gather*}
+\begin{align*}
+  - \dfrac{x_{B(l)}}{d_{B(l)}}    & = \min_{i=1, \, \ldots \,, m} \left\{ - \dfrac{x_{B(i)}}{d_{B(i)}} \,\middle\vert\, d_{B(i)} < 0 \right\} = \theta^\ast \\
+  d_{B(l)}                        & < 0                                                                                                                     \\
+  x_{B(l)} + \theta^\ast d_{B(l)} & = 0
+\end{align*}
 
 The basic variable \(x_{B(l)}\) is now \(0\), while the non basic variable \(x_j\) is \(y_j = \theta^\ast > 0\):
 the basis has changed, and the new basis is \(\overline{B} = B \setminus \{ x_{B(l)} \} \cup \{ x_j \}\) \textit{(\(x_{B(l)}\) has left the basis, \(x_j\) has entered the basis)}.
 The new matrix is now:
 \[ \overline{B} = \left[ A_{B(1)} \mid  \cdots \mid A_{B(l-1)} \mid A_j \mid A_{B(l+1)} \mid \cdots \mid A_{B(m)} \right] \]
 
-\bigskip
-Equivalently, the set of basic indices \(B = \{ B(1), \ldots, B(m) \}\) can be updated as follows:
+Equivalently, the set of basic indices \(B = \{ B(1), \, \ldots \,, B(m) \}\) can be updated as follows:
 \[\overline{B}(i) = \begin{cases}
     B(i) \quad & \text{ if } i \neq l \\
     j \quad    & \text{ if } i = l
@@ -2607,8 +2626,8 @@ The previous steps can then be summarized in the following Theorem.
 
 A single iteration of the Simplex method consists of the following steps:
 
-\begin{enumerate}[label=\textbf{\arabic*.}, ref=(\arabic*)]
-  \item \label{enum:simplex-iteration-1}start with a basis consisting of the basics columns \(A_{B(1)}, \ldots, A_{B(m)}\) and an associated basic feasible solution \(x\)
+\begin{enumerate}[label=\arabic*., ref=(\arabic*)]
+  \item \label{enum:simplex-iteration-1}start with a basis consisting of the basics columns \(A_{B(1)}, \, \ldots \,, A_{B(m)}\) and an associated basic feasible solution \(x\)
   \item \label{enum:simplex-iteration-2}compute the reduced costs \(\overline{c}_j\) of the non basic variables \(x_j\)
         \begin{itemize}[label=\(\rightarrow\)]
           \item if the reduced costs are all non negative, then the current solution is optimal and the algorithm terminates
@@ -2619,7 +2638,7 @@ A single iteration of the Simplex method consists of the following steps:
           \item if no component of \(u\) is negative, then \(\theta^\ast = \infty\), the optimal cost is \(-\infty\) and the algorithm terminates
         \end{itemize}
   \item \label{enum:simplex-iteration-4}some components of \(u\) are negative, so \(\theta^\ast\) can be computed
-        \[ \theta^\ast = \min_{i=1, \ldots, m} \left\{ - \dfrac{x_{B(i)}}{u_i} \,\middle\vert\, u_i < 0 \right\} \]
+        \[ \theta^\ast = \min_{i=1, \, \ldots \,, m} \left\{ - \dfrac{x_{B(i)}}{u_i} \,\middle\vert\, u_i < 0 \right\} \]
   \item \label{enum:simplex-iteration-5}let \(l\) be a minimizing index of Step~\ref{enum:simplex-iteration-4}; form a new basis replacing \(A_{B(l)}\) with \(A_j\).
         If \(y\) is the new basic feasible solution, then \(y_j = \theta^\ast\) and \(y_{B(i)} = x_{B(i)} + \theta^\ast u_i, i \neq l\)
 \end{enumerate}
@@ -2634,7 +2653,7 @@ the following Theorem \textit{(\ref{thm:simplex-iteration})} states that the alg
   at termination, there are two possibilities:
   \begin{enumerate}
     \item an optimal basis \(B\) and the optimal solution \(x\) is associated to it are found
-    \item a vector \(d\) satisfying \(Ad = 0, d \geq 0, c^\prime d < 0\) is found, and the optimal cost is \(-\infty\)
+    \item a vector \(d\) satisfying \(Ad = 0, d \geq 0, c^T d < 0\) is found, and the optimal cost is \(-\infty\)
   \end{enumerate}
   \label{thm:simplex-iteration}
 \end{theorem}
@@ -2648,9 +2667,9 @@ it's the same operation used in the Gaussian elimination method to solve systems
 Given \(Ax = b\):
 
 \begin{enumerate}
-  \item Select a coefficient \(\overline{a}_{rs} \neq 0\), the \textbf{pivot}
-  \item Divide the \(r\)-th row by \(\overline{a}_{rs}\)
-  \item For each row \(i \neq r\) with \(\overline{a}_{rs} \neq 0\), subtract the resulting \(r\)-th row multiplied by \(\overline{a}_{is}\)
+  \item \textbf{Select} a coefficient \(\overline{a}_{rs} \neq 0\), the \textbf{pivot}
+  \item \textbf{Divide} the \(r\)-th row by \(\overline{a}_{rs}\)
+  \item For each row \(i \neq r\) with \(\overline{a}_{rs} \neq 0\), \textbf{subtract the resulting \(r\)-th row multiplied by \(\overline{a}_{is}\)}
 \end{enumerate}
 
 This move does not affect the feasible solutions.
@@ -2809,10 +2828,13 @@ Note that a degenerate \BFS can arise from a non degenerate one:
 even if \(\theta^\ast > 0\), several basic variables may go to \(0\) when \(x_s\) is increased to \(\theta^\ast\).
 It's possible to cycle through a sequence of degenerate basis associated to the same vertex.
 
-\begin{definition}
-  Consider the standard form polyhedron \(P = \left\{ x \in \R^n \mid   Ax = b, x \geq 0 \right\}\), and let \(x\) be a basic solution.
+\begin{definition}[Degenerate Basic Solution]
+  Consider the standard form polyhedron
+  \[P = \left\{ x \in \R^n \mid   Ax = b, x \geq 0 \right\}\]
+  and let \(x\) be a basic solution.
   Let \(m\) be the number of rows of \(A\).
-  The vector \(x\) is a degenerate basic solution if more than \(n-m\) of the components of \(x\) are zero.
+
+  The vector \(x\) is a \textbf{degenerate basic solution} if more than \(n-m\) of the components of \(x\) are zero.
 \end{definition}
 \bigskip
 A geometrical example of degenerate solution is the one in Figure~\ref{fig:degenerate-solutions}.
@@ -2843,7 +2865,7 @@ The simplest one is the \textbf{Bland's rule}: among all candidate variables for
 The two phase simplex algorithm is a modification of the simplex algorithm that allows to solve the \LP problem with equality
 constraints.
 
-\begin{enumerate}[label=\textbf{Phase \arabic*:}, ref=\textbf{Phase \arabic*}]
+\begin{enumerate}[label=phase \arabic*:, ref=phase \arabic*, leftmargin=*, labelindent=1em, widest*=8]
   \item Determine an initial basic feasible solution
         \begin{itemize}
           \item given the problem with equality constraints
@@ -2886,8 +2908,8 @@ Despite having different spaces and objective functions, but in general the opti
       \text{s.t.} & \quad Ax \leq b \\
                   & \quad x \geq 0
     \end{aligned}
+    \label{eq:LP-duality-primal}
   \end{gather}
-  \label{eq:LP-duality-primal}
 \end{minipage}
 \hspace{0.3\textwidth}
 \begin{minipage}{0.3\textwidth}
@@ -2897,8 +2919,8 @@ Despite having different spaces and objective functions, but in general the opti
       \text{s.t.} & \quad A^T y \geq c \\
                   & \quad y \geq 0
     \end{aligned}
+    \label{eq:LP-duality-dual}
   \end{gather}
-  \label{eq:LP-duality-dual}
 \end{minipage}
 
 \bigskip
@@ -2906,9 +2928,9 @@ Despite having different spaces and objective functions, but in general the opti
   The problem in~\ref{eq:LP-duality-primal} is called the \textbf{primal problem} and the problem in~\ref{eq:LP-duality-dual} is called the \textbf{dual problem}.
 \end{definition}
 
-\begin{definition}
+\begin{property}
   The dual of the dual problem coincides with the primal problem.
-\end{definition}
+\end{property}
 
 \subsubsection{General transformation rules}
 
@@ -2935,7 +2957,7 @@ Table~\ref{tab:LP-duality-transformation-rules} summarizes the general transform
 
 \begin{theorem}[Weak duality]
   If \(x\) is a feasible solution to the primal problem \textit{(Equation~\ref{eq:LP-duality-primal})} and \(y\) is a feasible solution to the dual problem \textit{(Equation~\ref{eq:LP-duality-dual})}, then
-  \[ p^\prime b \leq c^\prime x \]
+  \[ p^T b \leq c^T x \]
 \end{theorem}
 
 \begin{proof}
@@ -2968,7 +2990,7 @@ The following corollaries are immediate consequences of the duality theorem.
 
 \begin{proof}
   Derive an optimal solution of the dual problem \textit{(\ref{eq:LP-duality-dual})} from one of the primal problem \textit{(\ref{eq:LP-duality-primal})} and
-  \[ x^\prime = \begin{bmatrix}
+  \[ x^T = \begin{bmatrix}
       x_B^\ast \\ x_N^\ast
     \end{bmatrix} \quad x^\ast_B = B^{-1} b, \ x_N^\ast = 0 \]
   as optimal feasible solution of the primal problem, provided by the Simplex algorithm with the Bland's rule.
@@ -3010,16 +3032,16 @@ all of them are shown in Table~\ref{tab:LP-duality-combinations}.
                                                        &                         & \SetCell[c=3]{c,b} \textit{dual}                                            \\
                                                        &                         & \textit{finite optimum}          & \textit{unbounded} & \textit{infeasible} \\
     \hline
-    \SetCell[r=3]{c,b} \rotatebox{90}{\textit{primal}} & \textit{finite optimum} & possible                         & impossible         & impossible          \\
-                                                       & \textit{unbounded}      & impossible                       & impossible         & possible            \\
-                                                       & \textit{infeasible}     & impossible                       & possible           & possible            \\
+    \SetCell[r=3]{c,b} \rotatebox{90}{\textit{primal}} & \textit{finite optimum} & \colorcmark                      & \colorxmark        & \colorxmark         \\
+                                                       & \textit{unbounded}      & \colorxmark                      & \colorxmark        & \colorcmark         \\
+                                                       & \textit{infeasible}     & \colorxmark                      & \colorcmark        & \colorcmark         \\
   \end{tblr}
   \bigskip
   \caption{Possible combinations of solutions of the primal and the dual}
   \label{tab:LP-duality-combinations}
 \end{table}
 
-\subsection{Complementary slackness conditions}
+\subsubsection{Complementary slackness conditions}
 
 An important relation between primal and dual optimal solutions is provided by the complementary slackness conditions, shown in Theorem~\ref{thm:LP-duality-complementary-slackness}.
 
@@ -3028,8 +3050,8 @@ An important relation between primal and dual optimal solutions is provided by t
   Then \(x\) and \(p\) are optimal for their respective problems if and only if
   \begin{gather*}
     \begin{aligned}
-      y_i^\ast \left( a^\prime_i x - b_i \right) = 0 \quad & \forall \, i \in \left\{ i = 1, \ldots, m \right\} \\
-      \left( c_j - p^\prime A_j \right) x_j^\ast = 0 \quad & \forall \, j \in \left\{ j = 1, \ldots, n \right\}
+      y_i^\ast \left( a^T_i x - b_i \right) = 0 \quad & \forall \, i \in \left\{ i = 1, \, \ldots \,, m \right\} \\
+      \left( c_j - p^T A_j \right) x_j^\ast = 0 \quad & \forall \, j \in \left\{ j = 1, \, \ldots \,, n \right\}
     \end{aligned}
   \end{gather*}
   where \(a_i\) denotes the \(i\)-th row of \(A\) and \(A_j\) the \(j\)-th column of \(A\).
@@ -3037,5 +3059,510 @@ An important relation between primal and dual optimal solutions is provided by t
 \end{theorem}
 
 At optimality, the product of each variable with the corresponding slack variable of the constraint of the relative dual problem must be zero.
+
+\subsection{Sensitivity analysis}
+
+The sensitivity analysis of a linear programming problem is the study of the effect of small changes in the data of the problem on the optimal solution:
+it evaluates the \inlinequote{sensitivity} of an optimal solution with respect to variations in the model parameters.
+
+\begin{definition}[Shadow Price]
+  The shadow price of the \(i\)-th resource is the maximum price the company is willing to pay to buy an additional unit of the \(i\)-th resource.
+\end{definition}
+
+\subsubsection{Algebraic Form}
+
+Evaluate the sensitivity of an optimal solution when the model parameters \(\left\langle c_j, a_{ij}, b_i \right\rangle\) vary.
+Given:
+
+\begin{gather*}
+  \begin{aligned}
+    \min \,        & c^T x    \\
+    \text{s.t.} \, & Ax = b   \\
+                   & x \geq 0
+  \end{aligned}
+\end{gather*}
+
+and optimal basic solution \(x^\ast\):
+
+\begin{gather*}
+  \begin{aligned}
+    x_B^\ast & = B^{-1} b \geq 0 \\
+    x_N^\ast & = 0
+  \end{aligned}
+\end{gather*}
+
+The objective is to evaluate the limits that allow \(B\) to \textbf{remain optimal}, under two conditions:
+
+\begin{enumerate}[itemsep=0.5ex]
+  \item \(B^{-1} b \geq 0\), \textbf{feasibility}
+  \item \(c_N^T = c_N^T - c_B^T B^{-1} N = 0^T\), \textbf{optimality}
+\end{enumerate}
+
+\paragraph[Changes in the requirement vector b]{Changes in the requirement vector \(b\)}
+
+Suppose that some component \(b_i\) of the requirements vector \(b\) is changed by a small amount \(\delta\).
+The new requirement vector is now:
+\[ b^T \coloneqq b + \delta e_k \]
+where \(e_k\) is the unitary vector equal to \(1\) on the \(k\)-th (\(1 \leq k \leq n\)) position and \(0\) elsewhere.
+
+The objective is to determine the range of values of \(\delta\) under which the current basis remains optimal;
+since the optimality conditions are not affected by the change, only the feasibility condition must be verified.
+
+The basis \(B\) with the basic solution
+\[ x^\ast = \begin{bmatrix} B^{-1} b^T \\ 0 \end{bmatrix} = \begin{bmatrix} B^{-1} \left( b + \delta e_k \right) \\ 0 \end{bmatrix} \]
+remains optimal as long as the following relation holds:
+\[ B^{-1} \left( b + \delta e_k \right) \geq 0 \Rightarrow B^{-1} b \geq - \delta B^{-1} e_k \]
+The latter are \(m\) inequalities that define an interval of values for \(\delta \).
+If \(\delta\) is outside the allowed range, then the current solution satisfies the optimality conditions, but is primal infeasible.
+
+The basis \(B\) remains optimal, but the optimal basic feasible solution \(x^\ast\) changes.
+The objective function value changes from \(c_B^T B^{-1} b\) to \(c_B^T B^{-1} \left( b + \delta e_k \right)\), and as such the optimal value of the dual variable is:
+\[ \Delta z^\ast = \overbrace{c_B^T B^{-1}}^{y^{\ast T}} \left( \delta e_k \right) = \delta  y_k^\ast = \delta  \dfrac{\partial z^\ast}{\partial b_k}\]
+where \(\Delta z^\ast\) is the \textbf{shadow price} of the \(k\)-th resource.
+
+\paragraph[Changes in the cost vector c]{Changes in the cost vector \(c\)}
+
+Suppose that some cost coefficient \(c_j\) of the objective function \(c\) is changed by a small amount \(\delta\).
+The new cost vector is now:
+\[ c^T \coloneqq c + \delta  e_j \]
+where \(e_j\) is the unitary vector equal to \(1\) on the \(j\)-th (\(1 \leq j \leq n\)) position and \(0\) elsewhere.
+The primal feasibility condition is not affected, so the only condition to verify is the optimality condition:
+\[ c^T_B B^{-1} A \leq c^T \]
+
+Two cases then arise:
+
+\begin{enumerate}
+  \item \(c_j\) is the cost of a basic variable: the optimal solution remains unchanged
+  \item \(c_j\) is the cost of a non-basic variable: the optimal solution changes
+\end{enumerate}
+
+However, the basic solution is does not change:
+\[ x_B^\ast = B^{-1} b \ \land x_N^\ast = 0 \]
+
+\subparagraph*{Cost associated to a non variable}
+If \(c_j\) is the cost coefficient of a \textbf{non basic variable} \(x\), then \(c_B\) is not affected and the only inequality affected is the one for the reduced cost of \(x_j\):
+\[ c^T_B B^{-1} A_j \leq c_j + \delta \]
+this inequality defines a lower bound of \(\delta\):
+\[ \delta \geq - c_j \]
+If this condition holds, the current basis is optimal.
+
+The reduced cost represents the max decrease of \(c_j\) for which \(B\) remains optimal.
+
+\subparagraph*{Cost associated to a basic variable}
+If \(c_j\) is the cost coefficient of the \(l\)-th \textbf{basic variable}, then \(c_B\) is affected by the change in \(c_j\):
+\[ c^T_B \coloneqq c_B + \delta  e_l \]
+All the optimality conditions are then affected by the change in \(c_j\):
+\[ \left( c_B + \delta e_l \right)^T B^{-1} A \leq c_i \quad \forall i \neq j \]
+The variable \(x_j\) is skipped as it is basic and its reduced cost stays at zero.
+The condition is equal to:
+\[ \delta_{q_{li}} \leq c_i \quad \forall i \neq j \]
+where \(q_{li}\) is the position of the \(l\)-th basic variable in the \(i\)-th row of \(A\).
+
+These inequalities determine the range of \(\delta\) for which the same basis remains optimal.
+
+\clearpage
+
+\section{Integer Linear Programming}
+
+\begin{definition}[Integer Linear Programming Problem]
+  \label{def:integer-linear-programming-problem}
+  An \textbf{Integer Linear Programming (\ILP) problem} is an optimization problem having form:
+  \begin{align*}
+    \min        & \quad c^T x      \\
+    \text{s.t.} & \quad Ax = b     \\
+                & \quad x \in \Z^n
+  \end{align*}
+
+  Furthermore:
+
+  \begin{itemize}
+    \item if \(x_j \in \left\{ 0, 1 \right\} \ \forall \, j\), the the problem is called \textbf{Binary LP}.
+    \item if \(\exists \, i \ \text{such that} \ x_i \notin \Z\), then the problem is called \textbf{Mixed Integer LP}.
+  \end{itemize}
+\end{definition}
+
+Note that the integrality condition \(x_i \in \Z\) is non linear, since it can be expressed as \(\sin(\pi x_j) = 0\).
+
+\begin{definition}[Linear Relaxation]
+  Let \(\ILP\) be an \ILP problem:
+  \begin{align*}
+    z_{\ILP} \coloneqq \max & \quad c^T x      \\
+    \text{s.t.}             & \quad Ax \leq b  \\
+                            & \quad x \in \Z^n \\
+                            & \quad x \leq 0
+  \end{align*}
+
+  Then the \LP problem:
+  \begin{align*}
+    z_{\LP} \coloneqq \max & \quad c^T x     \\
+    \text{s.t.}            & \quad Ax \leq b \\
+                           & \quad x \leq 0
+  \end{align*}
+
+  is the \textbf{linear (or continuous) relaxation} of \(\ILP\).
+\end{definition}
+
+\begin{property}[Bounds of \ILP solutions]
+  \label{prop:bounds-of-ilp-solutions}
+
+  For any \ILP with \(\max\), the optimal solution is bounded by the optimal solution of the \LP relaxation:
+  \[ z_{\ILP} \leq z_{\LP} \]
+
+  For any \ILP with \(\min\), the optimal solution is bounded by the optimal solution of the \LP relaxation:
+  \[ z_{\ILP} \geq z_{\LP} \]
+
+\end{property}
+
+\bigskip
+The feasible region of any \ILP is a lattice of points, either finite or infinite according to the type of problem;
+an illustration of this is given in Figure \ref{subfig:integer-lattice}.
+By deleting the integrality constraint, the \ILP problem becomes a \LP problem, and the optimal solution of the \ILP problem isn't always the optimal solution of the \LP problem; such case is shown in Figure~\ref{subfig:integer-lattice-relaxed}.
+
+\begin{figure}[htbp]
+  \centering
+  \bigskip
+  \begin{subfigure}[b]{0.495\textwidth}
+    \centering
+    \tikzfig{figure-23.tikz}
+    \caption{Lattice of integer points}
+    \label{subfig:integer-lattice}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.495\textwidth}
+    \centering
+    \tikzfig{figure-24.tikz}
+    \caption{Relaxed Lattice of integer points}
+    \label{subfig:integer-lattice-relaxed}
+  \end{subfigure}
+  \caption{Lattice of integer points}
+  \label{fig:integer-lattice}
+  \bigskip
+\end{figure}
+
+\subsection{Solutions of the \ILP problem}
+
+\subparagraph*{Solutions as Relaxation of the \LP problem}
+A plausible way to find a solution of the \ILP problem would be to find a solution of the \LP problem and then round it to the nearest integer point.
+If an optimal solution of the \LP problem is integer, then it is also an optimal solution of the \ILP problem.
+
+However, often the rounded optimal solutions of the \LP are either infeasible or
+
+\begin{itemize}
+  \item Infeasible solutions for the \ILP
+  \item Useless solutions for the \ILP, as they are very different from an optimal solution of the \ILP
+\end{itemize}
+
+An illustration of this is given in Figure~\ref{fig:solution-relaxation-ilp}.
+
+\begin{figure}[htbp]
+  \centering
+  \bigskip
+  \tikzfig{figure-25.tikz}
+  \caption{Solution of the \LP relaxation of the \ILP problem}
+  \label{fig:solution-relaxation-ilp}
+  \bigskip
+\end{figure}
+
+\subsubsection{Solution of Assignment and Transportation Problems}
+
+Two important \ILP problems, namely the Assignment and Transportation problems, have a solution that is the optimal solution of the \LP relaxation;
+they are described in Example~\ref{ex:assignment-problem} and Example~\ref{ex:transportation-problem} respectively.
+
+\begin{example}[Assignment Problem]
+  \label{ex:assignment-problem}
+
+  Given:
+  \begin{itemize}
+    \item \(m\) machines, \(i = 1, \dots, m\)
+    \item \(n\) jobs, \(j = 1, \dots, n\), \(n < m\)
+    \item \(c_{ij}\) cost of assigning job \(j\) to machine \(i\)
+  \end{itemize}
+  determine an \textbf{assignment} of jobs to the machines so at to minimize the total cost, while assigning at least one job per machine and at most one machine for each job.
+
+  Variables \(x_{ij}\) have value:
+  \[ x_{ij} = \begin{cases}
+      1 \quad & \text{if job } j \text{ is assigned to machine } i \\
+      0 \quad & \text{otherwise}
+    \end{cases} \]
+
+  The \textbf{assignment problem} is the following \ILP problem:
+
+  \begin{align*}
+    \min        & \quad \sum_{i=1}^m \sum_{j=1}^n c_{ij} x_{ij}                                                      \\
+    \text{s.t.} & \quad \sum_{i=1}^{m} x_{ij} = 1 \quad \forall \, j \quad \text{at most one machine for each job}   \\
+                & \quad \sum_{j=1}^{n} x_{ij} = 1 \quad \forall \, i  \quad \text{at least one job for each machine} \\
+                & \quad x_{ij} \in \left\{ 0, 1 \right\} \quad \forall \, i, j
+  \end{align*}
+\end{example}
+
+\begin{example}[Transportation Problem]
+  \label{ex:transportation-problem}
+  Given:
+  \begin{itemize}
+    \item \(m\) productions plant, \(i = 1, \dots, m\)
+    \item \(n\) clients, \(j = 1, \dots, n\), \(n > m\) by assumption
+    \item \(c_{ij}\) cost of shipping one unit from plant \(i\) to client \(j\)
+    \item \(p_i\) production capacity of plant \(i\)
+    \item \(d_j\) demand of client \(j\)
+    \item \(q_{ij} \geq 0\) quantity shipped from plant \(i\) to client \(j\)
+  \end{itemize}
+  determine a \textbf{transportation plan} that minimizes the total costs while satisfying the production and demand constraints.
+
+  Assumption: \(\displaystyle \sum_{i=1}^m p_i = \geq \sum_{j=1}^{n} d_j\)
+
+  Variables: \(x_{ij}\) quantity shipped from plant \(i\) to client \(j\)
+
+\end{example}
+
+The Assignment problem example contains a forcing constraint, while the Transportation problem adds a limit on the active number of variable;
+the formal definitions are shown in Definition~\ref{def:forcing-constraint} and Definition~\ref{def:constraints-on-binary-variables} respectively.
+
+\begin{definition}[Forcing constraint]
+  \label{def:forcing-constraint}
+  A constraint in the form
+  \[ \displaystyle x \leq y\]
+  is called a \textbf{forcing constraint} if both \(x\) and \(y\) are binary variables.
+\end{definition}
+
+\begin{definition}[Constraint on binary variables]
+  \label{def:constraints-on-binary-variables}
+  A constraint in the form
+  \[ \displaystyle \sum_{i=1}^n x_i \leq 1 \]
+  where all \(x_i\) are binary variables, implies that at most one of the variables \(x_i\) can be one.
+
+  Similarly, a constraint in the form
+  \[ \displaystyle \sum_{i=1}^n x_i = 1 \]
+  where all \(x_i\) are binary variables, implies that exactly one variable \(x_i\) must be one.
+\end{definition}
+
+\paragraph{Solution of the transportation problem}
+
+The Theorem~\ref{thm:transportation-problem} shows that the optimal solution of the \LP relaxation of the transportation problem is also the optimal solution of the \ILP problem.
+
+\begin{theorem}[Solution of the Transportation Problem]
+  \label{thm:transportation-problem}
+  If in a transportation problem \(p_i, \ d_{ij}, \ q_{ij}\) are all integers, all the basic feasible solutions \textit{(vertices)} of its linear relaxation are integer.
+\end{theorem}
+
+\begin{proof}
+  Let \(A\) be a integer constraint matrix of size \(\left( mn + n + m \right) \times \left( mn \right)\), where \(a_{ij} \in \left\{ -1, 0, 1 \right\}\).
+
+  The right hand side vector \(b\) is composed of integer elements;
+  the optimal solution of the linear relaxation is:
+
+  \[ x^\ast = \begin{bmatrix}
+      B^{-1} b \\ 0
+
+    \end{bmatrix}
+    \qquad
+    B^{-1} = \dfrac{1}{|B|}
+    \begin{bmatrix}
+      \alpha_{11} & \dots  & \alpha_{1n} \\
+      \ldots      & \ldots & \ldots      \\
+      \alpha_{m1} & \dots  & \alpha_{mn}
+    \end{bmatrix}
+  \]
+
+  where \(\alpha_{ij} = (-1)^{i+j} \det\left( M_{ij} \right)\), \(M_{ij}\) is the square submatrix obtained from \(B\) by deleting the \(i\)-th row and the \(j\)-th column.
+
+  Then:
+  \begin{itemize}
+    \item \(B\) integer \(\Rightarrow\) \(\alpha_{ij}\) integer
+    \item \(\det\left( B \right) = \pm 1 \ \Rightarrow \ B^{-1} \ \text{is integer} \ \Rightarrow \ x^\ast \ \text{is integer}\)
+    \item It can be shown that \(A\) is totally unimodular, \(\Rightarrow \ \det\left( Q \right) = \left\{ -1, 0, 1 \right\}\) for any square submatrix \(Q\) of \(A\)
+  \end{itemize}
+\end{proof}
+
+\paragraph{Complexity of the \ILP problem}
+
+Most of the \ILP problems are \(\mathcal{NP}\)-hard:
+an algorithm able to solve them and to prove that the solution is correct in polynomial time does not exists.
+
+Different methods to find the optimal solutions exist, divided in:
+
+\begin{itemize}
+  \item \textbf{Implicit enumeration} methods
+        \begin{itemize}
+          \item[\cmarkthin] they provide an exact solution \textit{(a global optimum)}
+          \item \textit{branch and bound} and \textit{dynamic programming} methods are part of this category
+        \end{itemize}
+  \item \textbf{Cutting planes} methods
+        \begin{itemize}
+          \item[\cmarkthin] they provide an exact solution \textit{(a global optimum)}
+        \end{itemize}
+  \item \textbf{Heuristic} algorithms
+        \begin{itemize}
+          \item[\xmarkthin] they provide an approximate solution \textit{(a local optimum)}
+          \item \textit{greedy} and \textit{local search} algorithms are part of this category
+        \end{itemize}
+\end{itemize}
+
+\subsection{Branch and Bound method}
+
+The Branch and Bound method uses a \inlinequote{divide and conquer} strategy to solve the a \ILP problem, exploring its set of feasible solutions.
+
+Let \(F\) be the set of feasible solution to the problem:
+\begin{align*}
+  \min       & c^T     \\
+  \text{s.t} & x \in F \\
+\end{align*}
+
+The method is split in two phases:
+
+\begin{enumerate}[label=phase \arabic*., ref=step \arabic*, leftmargin=*, widest*=8, labelindent=1em]
+  \item \textbf{branch}, the problem is partitioned in simpler subproblems
+  \item \textbf{bound}, the subproblems are solved and the optimal solution is found
+\end{enumerate}
+
+The two phases are applied recursively until a solution is found;
+if a problem is unsolvable in the bound phase, it is branched again until is simple enough to be solved.
+This technique can be applied to a wide range of problems, not limited to \ILP problems.
+
+\subparagraph*{Branching}
+
+The set of solutions \(F\) is partitioned in \(k\) subsets:
+\[ F = F_1 \cup \, \ldots \, \cup F_k \quad F_i \cap F_j = \emptyset \ \forall \, i \neq j \]
+Let \(z_i\) be:
+\[ z_i = \min\left\{ c(x) \,\middle\vert\, x \in F_i \right\} \quad i = 1, \, \ldots \, , k \]
+The solution \(z\) is finally found as:
+\[ z = \min\left\{ c(x) \,\middle\vert\, c \in F \right\} = \min\left\{ z_i, \, \ldots \,, z_k \right\} \]
+
+\subparagraph*{Bounding}
+
+For each subproblem \(\min\left\{ c(x) \,\middle\vert\, x \in F_i \right\}\), whose solution is found in the partition of \(F\), the optimal solution \(z_i\) is found by either:
+
+\begin{enumerate}
+  \item Determining an optimal solution of \(\min\left\{ c(x) \,\middle\vert\, x \in F_i \right\}\), \textbf{or}
+  \item Proving that \(F_i = \emptyset\), \textbf{or}
+  \item Proving that \(z_i \geq z\), where \(z\) is the optimal solution of the original problem found so far
+\end{enumerate}
+
+If the subproblem is not solved, it's mandatory to generate a new subproblem by branching it again.
+
+\subparagraph*{Generic Branch and Bound Method}
+
+If the lower bound \(b(F_i)\) of the optimal solution of the subproblem \(\min\left\{ c(x) \,\middle\vert\, x \in F_i \right\}\) is greater than the optimal solution \(z\) found so far, the subproblem is discarded, as it cannot contain a better solution than the one found so far.
+At any point, the algorithm keeps in memory a set of active subproblems and the cost \(U\) of the best feasible solution found so far;
+initially, \(U\) is either \(\infty\) or the cost of the best feasible solution found by the heuristic method (if any).
+
+A typical step of the algorithm is:
+
+\begin{enumerate}
+  \item Select an active subproblem \(F_i\) to be solved
+  \item If the subproblem is infeasible, delete it; otherwise, compute \(b(F_i)\) for the corresponding subproblem
+  \item If \(b(F_i) \geq U\), delete \(F_i\)
+  \item If \(F_i\) is feasible and \(b(F_i) < U\), either:
+        \begin{itemize}
+          \item obtain an optimal solution to the subproblem
+          \item break the corresponding subproblem into further subproblems, which are added to the set of active subproblems?
+        \end{itemize}
+\end{enumerate}
+
+\bigskip
+There are several parameters that can be arbitrarily chosen;
+there is not a fixed rule for many of them, as the best choice depends on the problem to be solved.
+
+\begin{enumerate}
+  \item There are multiple ways of choosing an active subproblem
+  \item There are multiple ways of breaking a subproblem into further subproblems
+  \item There are multiple ways of computing the lower bound \(b(F_i)\)
+\end{enumerate}
+
+\subsubsection{Branching Tree}
+
+The branching tree is a tree that represents the branching process of the \ILP problem.
+Each node of the tree represents a subproblem of the \ILP problem, and each edge represents a branching step.
+
+A branching tree may not contain all possible nodes or all possible leaves \(2^d\);
+a node of the tree has no child \textit{(is fathomed)} if:
+
+\begin{enumerate}
+  \item The initial constraint and those on the arcs from the root to the node are infeasible
+  \item The optimal solution of the linear relaxation is integer
+  \item The value \(C^T \overline{x}_{\text{LP}}\) of the optimal solution \(\overline{x}_{\text{LP}}\) of the linear relaxation is worse than the best feasible solution \(z\) found so far
+\end{enumerate}
+
+This criterion is called the \textbf{branching criterion}: it allows to discard a large number of nodes \textit{(subproblems)} that would not lead to a valid solution, thus reducing the size of the tree.
+
+\bigskip
+An example of a branching tree is shown in Figure~\ref{fig:branching-tree}: an edge represents a branching step, a node represents a subproblem of the \ILP problem, and the numbers on the second line  the node represent the values of the two variables \(x_1\) and \(x_2\).
+
+\begin{figure}[htbp]of
+  \centering
+  \bigskip
+  \tikzfig{figure-26.tikz}
+  \caption{Branching tree}
+  \label{fig:branching-tree}
+  \bigskip
+\end{figure}
+
+\subsubsection{Branch and Bound for the \ILP problem}
+
+Given an \ILP problem:
+\[ \min\left\{ c^T x \,\mid\vert\, Ax = b, \ x \in \N \right\} \]
+the Branch and Bound method can be applied to find the optimal solution \(z\).
+
+\subparagraph*{Branching}
+
+Partition \(F\) into subregions, let \(\overline{x}\) denote an optimal solution of the linear relaxation of the \ILP:
+\[ \min\left\{ c^T x \,\mid\vert\, Ax = b, \ x \geq 0, \ x \in \R \right\} \quad z_{\text{LP}} = c^T \overline{x} \]
+If \(\overline{x}\) is integer, then it's also optimal for the \ILP problem;
+otherwise, the \ILP is partitioned into two subproblems:
+
+\begin{gather}
+  \min\left\{ c^T x \,\middle\vert\, Ax = b, x \leq \left\lfloor \overline{x} \right\rfloor \right\} \label{eq:branch1}\tag{ILP 1} \\
+  \min\left\{ c^T x \,\middle\vert\, Ax = b, x \geq \left\lceil \overline{x} \right\rceil \right\} \label{eq:branch2}\tag{ILP 2}
+\end{gather}
+
+where the symbols \( \left\lfloor \overline{x} \right\rfloor \) and \( \left\lceil \overline{x} \right\rceil \) denote the floor and ceiling of the vector \(\overline{x}\).
+
+\bigskip
+Choosing the variable \(x_h\) whose fractional value is closest to \(0.5\), hoping to obtain two subproblems that are balanced is not always the best approach.
+The best solution is the \textbf{strong branching}:
+try to branch on some of the candidate variables (fractional basic ones) evaluating the corresponding objective function values and actually branch on the variable that yields the best improvement in the objective function value.
+
+\subparagraph*{Bounding}
+
+Determine a lower or upper bound, if the \ILP is respectively a minimization or a maximization problem on the optimal value \(z_i\) of a subproblem of \ILP by solving its linear relaxation.
+
+\bigskip
+In order to choose the node \textit{(subproblem)} to be solved, the following criteria can be used:
+
+\begin{itemize}
+  \item \textbf{Deeper nodes first} \textit{(depth-first search strategy)}: chooses the node with the greatest depth in the tree of subproblems
+        \begin{itemize}
+          \item[\cmarkthin] simple to implement, easy to optimize
+          \item[\xmarkthin] may lead to a large tree of subproblems if the wrong branching variable is chosen
+        \end{itemize}
+  \item More promising nodes first \textit{(best-bound first strategy)}: chooses the node with the best linear relaxation value \(b(F_i)\)
+        \begin{itemize}
+          \item[\cmarkthin] generates a small tree of subproblems
+          \item[\xmarkthin] the subproblems are less constrained, leading to longer times to find a feasible solution and improve it
+        \end{itemize}
+\end{itemize}
+
+\paragraph{Remarks on the Branch and Bound method}
+
+\subparagraph*{General remarks}
+\begin{itemize}
+  \item Branch and Bound is also applicable to mixed \ILP problems: at the branch step, just consider that the fractional variables are integer and the integer variables are continuous
+  \item Finding a good initial feasible solution with an heuristic algorithm may improve the method's performance by providing a better lower or upper bound for \textit{(respectively)} maximization or minimization problems.
+  \item Branch and Bound can also be used as a heuristic method for solving the \ILP problem: the algorithm stops when the best feasible solution found so far is better than the best integer solution found so far.
+\end{itemize}
+
+\subparagraph*{Efficient solution of the linear relaxation}
+\begin{itemize}
+  \item There's no need to solve the linear relaxations of the \ILP subproblem from scratch at each branching step: the solution of the linear relaxation of the parent node can be used as a starting point for the solution of the linear relaxation of the child node
+  \item An optimal solution of the linear relaxation with a single additional constraint can be found via a single iteration of the \textbf{Dual Simplex method} \textit{(the simplex method applied to the dual problem)} to the optimal Branch and Bound of the previous node \textit{(linear relaxation of the parent subproblem)}
+\end{itemize}
+
+\subparagraph*{Applicability of Branch and Bound approach}
+
+The Branch and Bound method can be adapted to solve any discrete optimization problem and many non linear optimization problems;
+two procedures need to be changed:
+
+\begin{itemize}
+  \item The partition of the feasible region into subregions \textit{(branch)}
+  \item The determination of a bound on the optimal value of the subproblem \textit{(bound)}
+\end{itemize}
 
 \end{document}

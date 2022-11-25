@@ -7,7 +7,7 @@
 		\node [style=none] (4) at (4.75, 8.5) {};
 		\node [style=none] (5) at (3, 3) {};
 		\node [style=top align] (6) at (4.75, 8.5) {\(A\)};
-		\node [style=right align] (7) at (0, 0) {\(B\)};
+		\node [style=left align] (7) at (0, 0) {\(B\)};
 	\end{pgfonlayer}
 	\begin{pgfonlayer}{edgelayer}
 		\draw [style=solid] (0.center) to (3.center);
