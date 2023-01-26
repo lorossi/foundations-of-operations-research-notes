@@ -1,13 +1,10 @@
 \documentclass[english]{article}
-\usepackage{notestemplate}
+\usepackage[title={Foundations of Operation Research}, date={2022/2023}]{notestemplate}
 \usepackage{for}
 
 \begin{document}
 
-\makecover{Foundations of Operations Research}{2022/2023}
-
-% TODO find a title for all the properties OR use a environment for each
-% https://www.overleaf.com/learn/latex/Theorems_and_proofs#Reference_guide
+\makecover
 
 \section{Introduction}
 
@@ -1487,6 +1484,8 @@ It has many indirect applications, such as:
   \item \textbf{Logistics}
 \end{itemize}
 
+\subparagraph*{Definitions
+}
 \begin{itemize}
   \item A \textbf{network} is a directed and connected graph \(G = (V, A)\) with a source \(s \in V\) and a sing \(t \in V\), with \(s \neq t\), and a capacity \(k_{ij} \geq 0\) for each arc \((i, j) \in A\).
   \item A \textbf{feasible flow} \(x\) from \(s\) to \(t\) is a vector \(x \in \R^m\) with a component \(x_{ij}\) for each arc \((i, j) \in A\) satisfying the capacity constraint \[0 \leq x_{ij} \leq k_{ij}, \quad \forall \, \left( i, j \right) \in A\]
@@ -1497,20 +1496,36 @@ It has many indirect applications, such as:
   \item Given a network and a feasible flow \(x\), an arc \(\left( i, j \right) \in A\) is \textbf{saturated} if \(x_{ij} = k_{ij}\) and \textbf{empty} if \(x_{ij} = 0\)
 \end{itemize}
 
-\bigskip
-A problem related to flow is defined as follows \textit{(Definition~\ref{def:flow-problem})}.
+The notation of the flow network graph is shown in Figure~\ref{fig:flow-graph-representation};
+a problem related to flow is defined as follows \textit{(Definition~\ref{def:flow-problem})}.
 
 \begin{definition}[Flow Problem]
   Given a network \(G = \left( V, A \right)\) with an integer capacity \(k_{ij}\) for each arc \((i, j) \in A\), find a feasible flow \(x\) from \(s\) to \(t\) with maximum value.
 
-  If multiple sources or sink are present while only one product is considered, dummy notes \(s^\ast\) and \(t^\ast\) can be added \textit{(as shown in Figure~\ref{fig:multiple-sources-sinks})}.
+  If multiple sources \textit{(\(s_1, s_2, \, \ldots \))} or sinks \textit{(\(t_1, t_2, \, \ldots \))} are present while only one product is considered, dummy notes \(s^\ast\) and \(t^\ast\) can be added \textit{(as shown in Figure~\ref{fig:multiple-sources-sinks})}.
   \label{def:flow-problem}
 \end{definition}
 
 \begin{figure}[htbp]
   \centering
   \bigskip
-  \
+  \begin{tikzpicture}[circle, minimum size = 0.75cm]
+    \node[draw] (s) at (0, 0) {\(s\)};
+    \node[draw] (i) at (2, 0) {\(i\)};
+    \node[draw] (j) at (5, 0) {\(j\)};
+    \node[draw] (t) at (7, 0) {\(t\)};
+
+    \path[->, dashed] (s) edge (i);
+    \path[->] (i) edge node[above] {\(x_{ij}, k_{ij}\)} (j);
+    \path[->, dashed] (j) edge (t);
+  \end{tikzpicture}
+  \caption{Graph representation of a flow}
+  \label{fig:flow-graph-representation}
+  \bigskip
+\end{figure}
+\begin{figure}[htbp]
+  \centering
+  \bigskip
   \begin{tikzpicture}[circle, minimum size = 0.75cm]
     \node[draw] (s) at (0, 0) {\(s^\ast\)};
     \node[draw] (s1) at (2, 1.41) {\(s_1\)};
@@ -1534,43 +1549,33 @@ A problem related to flow is defined as follows \textit{(Definition~\ref{def:flo
   \label{fig:multiple-sources-sinks}
   \bigskip
 \end{figure}
-\begin{figure}[htbp]
-  \centering
-  \bigskip
-  \begin{tikzpicture}[circle, minimum size = 0.75cm]
-    \node[draw] (s) at (0, 0) {\(s\)};
-    \node[draw] (i) at (2, 0) {\(i\)};
-    \node[draw] (j) at (5, 0) {\(j\)};
-    \node[draw] (t) at (7, 0) {\(t\)};
 
-    \path[->, dashed] (s) edge (i);
-    \path[->] (i) edge node[above] {\(x_{ij}, k_{ij}\)} (j);
-    \path[->, dashed] (j) edge (t);
-  \end{tikzpicture}
-  \caption{Graph representation of a flow}
-  \label{fig:flow-graph-representation}
-  \bigskip
-\end{figure}
 
 \subsubsection{Linear programming model}
 
-The linear programming model \textit{(refer to Section~\ref{sec:linear-programming} for a in dept explanation of linear programming)} of the network flow is defined as:
+The linear programming model \textit{(refer to Section~\ref{sec:linear-programming} for a in dept explanation of linear programming)} of the network flow is shown in \textit{Definition~\ref{def:network-flow-lp-model}}.
 
-\begin{gather*}
-  \begin{aligned}
-    \max \quad        & \phi                                                                                                                                                                                       \\
-    \text{s.t.} \quad & \displaystyle \sum_{\left( u, j \right) \in \delta^+(u)} x_{uj} + \displaystyle \sum_{\left( i, u \right) \in \delta^-(u)} x_{iu} & = \begin{cases}
-                                                                                                                                                                \phi \quad   & \text{if } u = s \\
-                                                                                                                                                                - \phi \quad & \text{if } u = t \\
-                                                                                                                                                                0 \quad      & \text{otherwise}
-                                                                                                                                                              \end{cases} \\
-                      & 0 \leq x_{ij} \leq k_{ij} \quad \forall \, \left( i, j \right) \in A                                                                                                                       \\
-                      & \phi \in \R, x_{ij} \in \R \quad \forall \, \left( i, j \right) \in A
-  \end{aligned}
-\end{gather*}
+\begin{definition}[Linear Programming Model of Network Flow]
+  \label{def:network-flow-lp-model}
 
-where \(\phi\) denotes the value of the \textbf{feasible flow} \(x\);
-\(\phi\) is also the amount of product extracted from the source \(s\).
+  The Network Flow problem can be modelled as a linear programming problem as follows:
+
+  \begin{gather*}
+    \begin{aligned}
+      \max \quad        & \phi                                                                                                                                                                                       \\
+      \text{s.t.} \quad & \displaystyle \sum_{\left( u, j \right) \in \delta^+(u)} x_{uj} + \displaystyle \sum_{\left( i, u \right) \in \delta^-(u)} x_{iu} & = \begin{cases}
+                                                                                                                                                                  \phi \quad   & \text{if } u = s \\
+                                                                                                                                                                  - \phi \quad & \text{if } u = t \\
+                                                                                                                                                                  0 \quad      & \text{otherwise}
+                                                                                                                                                                \end{cases} \\
+                        & 0 \leq x_{ij} \leq k_{ij} \quad \forall \, \left( i, j \right) \in A                                                                                                                       \\
+                        & \phi \in \R, \quad x_{ij} \in \R \quad \forall \, \left( i, j \right) \in A
+    \end{aligned}
+  \end{gather*}
+
+  where \(\phi\) denotes the value of the \textbf{feasible flow} \(x\);
+  \(\phi\) is also the amount of product extracted from the source \(s\).
+\end{definition}
 
 \begin{itemize}
   \item A \textbf{cut} separating \(s\) from \(t\) is \(\delta(S) \text{ of } G, \ s \in S, \ t \in V \setminus S\)
@@ -1581,6 +1586,7 @@ where \(\phi\) denotes the value of the \textbf{feasible flow} \(x\);
 \end{itemize}
 
 \subsubsection{Properties of the flows}
+
 \begin{property}
   Given a feasible flow \(x\) from \(s\) to \(t\), for each cut separating \(\delta(S)\) separating \(s\) from \(t\):
   \[ \phi(S) = \phi\left( \left\{ s \right\} \right) \]
@@ -1588,15 +1594,14 @@ where \(\phi\) denotes the value of the \textbf{feasible flow} \(x\);
   This Property is implied by the flow balance equations \(\forall \, v \ \in V \setminus \left\{ s, t \right\}\).
 \end{property}
 
-\bigskip
 \begin{property}[Weak duality]
   \label{prop:weak-duality}
-  For every feasible flow \(s\) from \(s\) to \(t\) and every cut \(\delta(S), \ s \in V\) separating \(s\) from \(t\):
-  \[ \phi(s) \leq k(S) \quad \left( \text{value of the flow } \leq \text{ capacity of the cut} \right)\]
+  For every feasible flow \(x\) from \(s\) to \(t\) and every cut \(\delta(S), \ S \subseteq V\) separating \(s\) from \(t\):
+  \[ \phi(s) \leq k(S) \quad \left( \text{value of the flow} \ \leq \ \text{capacity of the cut} \right)\]
 \end{property}
 
 \begin{proof}
-  By definition of value of the flow through the cut \(\delta(S\):
+  By definition of value of the flow through the cut \(\delta(S)\):
   \[ \phi(S) = \displaystyle \sum_{\left( i, j \right) \in \delta^+(S)} x_{ij} - \sum_{\left( i, j \right) \in \delta^-(S)} x_{ij} \]
   And, since \(0 \leq x_{ij} \leq k_{ij}\) for all \(\left( i, j \right) \in A\):
   \[ \displaystyle \sum_{\left( i, j \right) \in \delta^+(S)} x_{ij} - \sum_{\left( i, j \right) \in \delta^-(S)} x_{ij} \leq \displaystyle \sum_{\left( i, j \right) \in \delta^+(S)} k_{ij} = k(s) \]
@@ -1615,6 +1620,17 @@ The property \textit{(\ref{prop:weak-duality})} for any feasible flow \(x\) and 
 
 \subsubsection{Ford-Fulkerson algorithm}
 
+Before presenting the Ford-Fulkerson algorithm, it's necessary to introduce the concept of Forward and Backward arcs.
+
+\begin{property}[Forward and Backward arc]
+  \label{prop:forward-backward-arc}
+  An arc \(\left( i, j \right)\) in a \(s-t\) cut, where \(s \in S,\ t \in S^\prime\), is called:
+  \begin{itemize}
+    \item \textbf{forward} if \(s \in S, t \in S^\prime\)
+    \item \textbf{backward} if \(s \in S^\prime, t \in S\)
+  \end{itemize}
+\end{property}
+
 \subparagraph*{Idea}
 start from a feasible flow \(x\) and try to iteratively increase its value \(\phi\) by sending, at each iteration, an additional amount of product along a directed \textit{(or undirected)} path from \(s\) to \(t\) with a strictly positive residual capacity.
 
@@ -1623,20 +1639,13 @@ start from a feasible flow \(x\) and try to iteratively increase its value \(\ph
   \item If \(\left( i, j \right)\) is \textbf{not empty} \textit{(i.e. \(x_{ij} \geq 0\))}, then \(\left( i, j \right)\) is called a \textbf{reverse arc} and \(x_{ij}\) can be decreased while respecting the flow balance equations
 \end{itemize}
 
-\bigskip
-An arc \(\left( i, j \right)\) in a \(s-t\) cut, where \(s \in S,\ t \in S^\prime\), is called:
-\begin{itemize}
-  \item \textbf{forward} if \(s \in S, t \in S^\prime\)
-  \item \textbf{backward} if \(s \in S^\prime, t \in S\)
-\end{itemize}
-
 The following Property \textit{(\ref{prop:augmenting-path})} is the key to the Ford-Fulkerson algorithm.
-\begin{property}[augmenting path]
-  A path \(P\) from \(s\) to \(t\) is an \textbf{augmenting path} with respect to the current feasible flow \(x\) if \(x_{ij} <k_{ij}\) for any forward arc and \(x_{ij} > 0\) for any backward arc.
+\begin{property}[Augmenting Path]
   \label{prop:augmenting-path}
+  A path \(P\) from \(s\) to \(t\) is an \textbf{augmenting path} with respect to the current feasible flow \(x\) if \(x_{ij} <k_{ij}\) for any forward arc and \(x_{ij} > 0\) for any backward arc.
 \end{property}
 
-Then the algorithm works by sending \(\delta\) additional units of product can be sent from \(s\) to \(t\):
+The the algorithm works by sending \(\delta\) additional units of product can be sent from \(s\) to \(t\):
 
 \begin{itemize}
   \item \(+\delta\) along \textbf{forward} arcs
@@ -1656,11 +1665,11 @@ Given a feasible flow \(x\) for \(G = (V, A)\), a \textbf{residual network} \(\o
 
 At each iteration:
 
-\begin{itemize}
-  \item Find an augmenting path \(P\) from \(s\) to \(t\)
-  \item Send \(\delta\) units of product along \(P\)
-  \item Update the feasible flow \(x\) and the residual network \(\overline{G}\)
-\end{itemize}
+\begin{enumerate}[label=step \arabic*., ref=step \arabic*, leftmargin=*, labelindent=1em, widest*=8]
+  \item \textbf{Find} an augmenting path \(P\) from \(s\) to \(t\)
+  \item \textbf{Send} \(\delta\) units of product along \(P\)
+  \item \textbf{Update} the feasible flow \(x\) and the residual network \(\overline{G}\)
+\end{enumerate}
 
 \subparagraph*{Goal}
 \begin{itemize}[label=\(\rightarrow\)]
@@ -1684,9 +1693,9 @@ do
     phi := phi + delta
     for each arc (i, j) in P do
       if (i, j) is a forward arc then
-        $\texttt{x}_{\texttt{ij}}$ := $\texttt{x}_{\texttt{ij}}$ + delta
+        x_ij := x_ij + delta
       else
-        $\texttt{x}_{\texttt{ij}}$ := $\texttt{x}_{\texttt{ij}}$ - delta
+        x_ij := x_ij - delta
       end
     end
   end
@@ -1696,9 +1705,9 @@ until optimum = true
 \subparagraph*{Complexity}
 \begin{itemize}
   \item Since \(\delta > 0\), the value \(\phi\) increases at each iteration
-  \item If \(k_{ij} \in \N \, \forall \, i, j\), \(x \in \N\overline{k}_{ij} \in \N\), and`' \(\delta \geq 1\), then there are at most \(\phi^\ast\) increases
+  \item If \(k_{ij} \in \N \, \forall \, i, j\), \(x \in \N\overline{k}_{ij} \in \N\), and \(\delta \geq 1\), then there are at most \(\phi^\ast\) increases
   \item Since
-        \[ phi^\ast \leq k\left( \left\{ s \right\} \right) \leq m k_{max}, \quad m = |A|, \quad k_{max} = \max\left\{ k_{ij} \mid \left( i, j \right) \in A \right\} \]
+        \[ \phi^\ast \leq k\left( \left\{ s \right\} \right) \leq m k_{max}, \quad m = |A|, \quad k_{max} = \max\left\{ k_{ij} \mid \left( i, j \right) \in A \right\} \]
         and each cycle is \(\bigO{m}\), the overall complexity is \(\bigO{m k_{max}^2}\).
 \end{itemize}
 
@@ -1789,7 +1798,7 @@ An example is shown in Figure \ref{fig:assignment-example}.
   \label{def:matching}
 \end{definition}
 
-Thanks to Definition~\textit{(\ref{def:matching},)} the assignment problem can be solved by finding a maximum matching in the bipartite graph of competences;
+Thanks to Definition~\ref{def:matching} the assignment problem can be solved by finding a maximum matching in the bipartite graph of competences;
 this equates to finding a feasible flow of maximum value from \(s\) to \(t\) in the bipartite graph of competences.
 An example of this problem is shown in Figure \ref{fig:assignment-flow-example}.
 
@@ -1812,8 +1821,9 @@ There is a correspondence between the feasible flows from source to sink of valu
 \subsection{Optimization problems}
 
 \textbf{Optimization problems} are problems that require to find the best solution among a set of possible solutions.
-A formal definition is shown in \ref{def:instance-lp}.
+A formal definition is shown in \ref{def:instance-lp} and \ref{def:linear-programming-problem}.
 
+\bigskip
 \begin{definition}[Instance of a Linear Programming problem]
   \label{def:instance-lp}
   The \textbf{instance} of an optimization problem is a pair \(\left( F, c \right)\) where:
@@ -1829,9 +1839,9 @@ A formal definition is shown in \ref{def:instance-lp}.
   An \textbf{optimization problem} is a set of \(I\) instances of a given optimization problem.
 \end{definition}
 
-\bigskip
-\begin{definition}
-  A \textbf{linear programming} \textit{(or \LP)} problem is an optimization problem such as
+\begin{definition}[Linear Programming Problem]
+  \label{def:linear-programming-problem}
+  A \textbf{linear programming} \textit{(or \LP)} \textbf{problem} is an optimization problem such as
 
   \begin{gather*}
     \begin{aligned}
@@ -1872,35 +1882,24 @@ Two forms of \LP are commonly used:
   \item \textbf{Matrix notation} of a linear programming problem:
         \begin{gather*}
           \begin{aligned}
-            \min \         & z = \begin{bmatrix}
-                                   c1 & c2 & \cdots & cn
-                                 \end{bmatrix}
+            \min \          z = & \begin{bmatrix}
+                                    c_1 & c_2 & \cdots & c_n
+                                  \end{bmatrix}
             \begin{bmatrix}
-              x1     \\
-              x2     \\
-              \vdots \\
-              xn
-            \end{bmatrix}                                              \\
-            \text{s.t.} \  & \begin{bmatrix}
-                               a_{11} & a_{12} & \cdots & a_{1n} \\
-                               a_{21} & a_{22} & \cdots & a_{2n} \\
-                               \vdots & \vdots & \ddots & \vdots \\
-                               a_{m1} & a_{m2} & \cdots & a_{mn}
-                             \end{bmatrix}
+              x_1 \\ x_2 \\ \vdots \\ x_n
+            \end{bmatrix}                                                        \\
+            \text{s.t.} \       & \begin{bmatrix}
+                                    a_{11} & a_{12} & \cdots & a_{1n} \\
+                                    a_{21} & a_{22} & \cdots & a_{2n} \\
+                                    \vdots & \vdots & \ddots & \vdots \\
+                                    a_{m1} & a_{m2} & \cdots & a_{mn}
+                                  \end{bmatrix}
             \begin{bmatrix}
-              x^1    \\
-              x^2    \\
-              \vdots \\
-              x_n
-            \end{bmatrix} \left\{ \leq, =, \geq \right\} \begin{bmatrix}
-                                                           b_1    \\
-                                                           b_2    \\
-                                                           \vdots \\
-                                                           b_m
-                                                         \end{bmatrix} \\
-                           & \begin{bmatrix}
-                               x^1 \\ \vdots \\ x_n
-                             \end{bmatrix}
+              x_1 \\ x_2 \\ \vdots \\ x_n
+            \end{bmatrix} \left\{ \leq, =, \geq \right\}
+            \begin{bmatrix}
+              b_1 \\ b_2 \\ \vdots \\ b_m \end{bmatrix}                                          \\
+                                & \begin{bmatrix} x_1 \\ \vdots \\ x_n \end{bmatrix}
             \geq 0
           \end{aligned}
         \end{gather*}
@@ -1923,28 +1922,29 @@ The \LP model is based on the following \textbf{assumptions}:
                 \end{itemize}
         \end{itemize}
   \item \textbf{Divisibility} of the variables, as they can assume fractional \textit{(rational)} values
-  \item \textbf{Parameters} are assumed to be \textbf{constants} which can be estimated with a sufficient degree of accuracy
+  \item \textbf{Parameters} are assumed to be \textbf{constants} that can be estimated with a sufficient degree of accuracy
         \begin{itemize}[label=\xmarkthin]
           \item more complex mathematical programs are needed to account for uncertainty in the parameter values
         \end{itemize}
 \end{itemize}
 
-\LP \textbf{sensitivity analysis} allows to evaluate how \inlinequote{sensitive} an optimal solution is with respect to small changes in the parameters of the model. % TODO add reference
+The \textbf{sensitivity analysis} is a technique that allows to evaluate how \inlinequote{sensitive} an optimal solution is with respect to small changes in the parameters of the model;
+it will be introduced in Section~\ref{sec:sensitivity-analysis}.
 
 \subsection{Equivalent Forms}
 
-The \textbf{General Form} \textit{(or canonical form)} \textit{(Definition~\ref{def:linear-programming-general-form})} of a \LP can be expressed in the equivalent \textbf{Standard Form} \textit{(Definition~\ref{def:linear-programming-standard-form})}.
+The \textbf{General Form} \textit{(or canonical form)} \textit{(Definition~\ref{def:linear-programming-general-form}) of a \LP can be expressed in the equivalent \textbf{Standard Form} (Definition~\ref{def:linear-programming-standard-form})}.
 
 \begin{definition}[General form of a \LP problem]
   \label{def:linear-programming-general-form}
   The \textbf{General Form} of a \LP is:
   \begin{align*}
-    \min (\max) \  & z = c^T x                                                                                                      \\
-    \text{s.t.} \  & A_1 x \geq b_1 \quad                                                       & \text{inequality constraints}     \\
-                   & A_2 x \leq b_2 \quad                                                       & \text{inequality constraints}     \\
-                   & A_3 x = b_3 \quad                                                          & \text{equality constraints}       \\
-                   & x_j \geq 0,\ j \in J \subseteq \left\{ 1, \, \ldots \,, n \right\} \quad   & \text{non-negativity constraints} \\
-                   & x_j \ \text{free}, \ j \in \left\{ 1, \, \ldots \,, n \right\} \setminus J & \text{free variables}
+    \min\ (\max) \quad & z = c^T x                                                                                                      \\
+    \text{s.t.} \quad  & A_1 x \geq b_1 \quad                                                       & \text{inequality constraints}     \\
+                       & A_2 x \leq b_2 \quad                                                       & \text{inequality constraints}     \\
+                       & A_3 x = b_3 \quad                                                          & \text{equality constraints}       \\
+                       & x_j \geq 0,\ j \in J \subseteq \left\{ 1, \, \ldots \,, n \right\} \quad   & \text{non-negativity constraints} \\
+                       & x_j \ \text{free}, \ j \in \left\{ 1, \, \ldots \,, n \right\} \setminus J & \text{free variables}
   \end{align*}
 \end{definition}
 
@@ -1952,9 +1952,9 @@ The \textbf{General Form} \textit{(or canonical form)} \textit{(Definition~\ref{
   \label{def:linear-programming-standard-form}
   The \textbf{Standard Form} of a \LP is the following:
   \begin{align*}
-    \min \         & z = c^T x &                               \\
-    \text{s.t.} \  & Ax = b    & \text{equality constraints}   \\
-                   & x \geq 0  & \text{non negative variables}
+    \min\ (\max) \quad & z = c^T x &                               \\
+    \text{s.t.} \quad  & Ax = b    & \text{equality constraints}   \\
+                       & x \geq 0  & \text{non negative variables}
   \end{align*}
 \end{definition}
 
@@ -1981,8 +1981,8 @@ the transformations may involve adding and or deleting variables and constraints
         \begin{itemize}[label=\(\rightarrow\)]
           \item after the substitution, \(x_j\) is deleted from the problem
         \end{itemize}
-  \item \(a^T x \leq q \Leftrightarrow - a^T x \geq -b\)
-  \item \(a^T x \geq q \Leftrightarrow - a^T x \leq -b\)
+  \item \(a^T x \leq b \Leftrightarrow - a^T x \geq -b\)
+  \item \(a^T x \geq b \Leftrightarrow - a^T x \leq -b\)
   \item \(a^T x = b \Leftrightarrow \begin{cases}
           a^T x \leq b \\
           a^T x \geq b
@@ -2032,10 +2032,10 @@ Consider a \LP with inequality constraints \textit{(as it's easier to visualize)
           \item any \textbf{half space} is \textbf{convex}
           \item the \textbf{intersection} of a finite number of convex sets is also a \textbf{convex} set
         \end{itemize}
-  \item A \textbf{vertex of polyhedron} \(P\) is a point op \(P\) that cannot be expressed as a convex combination of other points of \(P\)
+  \item A \textbf{vertex of polyhedron} \(P\) is a point of \(P\) that cannot be expressed as a convex combination of other points of \(P\)
         \begin{itemize}
           \item \(x\) is a vertex \(P\) iff
-                \[ x = \alpha y^1 + (1 - \alpha) y^2, \alpha \in \left[ 0, 1 \right] \quad y^1, y^2 \in P \Rightarrow x = y^1 \lor x = y^2 \]
+                \[ x = \alpha y^1 + (1 - \alpha) y^2 \quad \alpha \in \left[ 0, 1 \right] \quad y^1, y^2 \in P \Rightarrow x = y^1 \lor x = y^2 \]
           \item a non empty polyhedron \(P = \left\{ x \in \R^n \mid  Ax = b, x \geq 0 \right\}\) has a finite number (\(n >1\)) of vertices
         \end{itemize}
   \item A \textbf{polytope} is a bounded polyhedron
@@ -2075,7 +2075,7 @@ Consider a \LP with inequality constraints \textit{(as it's easier to visualize)
     \centering
     \bigskip
     \tikzfig[0.75]{figure-5.tikz}
-    \caption{Not convex polyhedron}
+    \caption{Concave (not convex) polyhedron}
     \label{subfig:not-convex-hull}
     \bigskip
   \end{subfigure}
@@ -2087,7 +2087,7 @@ Consider a \LP with inequality constraints \textit{(as it's easier to visualize)
 \subsubsection{Weyl-Minkoswki Theorem}
 
 The \textbf{Weyl-Minkoswki Theorem} describes the representation of a polyhedron.
-Its formulation is expressed in the \textit{Theorem~\ref{thm:weyl-minkowski}}.
+Its formulation is expressed in Theorem~\ref{thm:weyl-minkowski}.
 
 \begin{theorem}[Weyl-Minkoswki]
   Every point \(x\) of a polyhedron \(P\) can be expressed as a convex combination of its vertices \(x^1, \, \ldots \,, x^k\) plus \textit{(if needed)} an unbounded \textbf{feasible direction} \(d\) of \(P\):
@@ -2124,8 +2124,8 @@ The unbounded feasible direction is needed if the polyhedron is unbounded; Figur
 \end{figure}
 
 \subparagraph*{Consequences of the theorem}
-Every point \(x\) of polytope \(P\) can be expressed as a convex combination of its vertices.
-Then the \textit{Weyl-Minkowski theorem} can be used to describe any point.
+Every point \(x\) of polytope \(P\) can be expressed as a convex combination of its vertices;
+the \textit{Weyl-Minkowski theorem} can be used to describe any point.
 An example of this is shown in Figure~\ref{fig:polytope-example}.
 
 \begin{figure}[htbp]
@@ -2323,7 +2323,7 @@ This is equivalent to assume that there are no redundant constraints.
 \subparagraph*{Solutions}
 \begin{itemize}
   \item If \(m = n\), there is a unique solution of \(Ax = b\) \textit{(\(x = A^{-1} b)\)}
-  \item If \(m < n\), there are \(\infty^{m-n}\) solutions of \(Ax = b\)
+  \item If \(m < n\), there are \(\infty^{n-m}\) solutions of \(Ax = b\)
         \begin{itemize}
           \item the system has \(n-m\) \textbf{degrees of freedom}
           \item by fixing the degrees of freedom to \(0\), a \textbf{vertex} is obtained
@@ -2331,7 +2331,7 @@ This is equivalent to assume that there are no redundant constraints.
 
         The \textbf{basis} of matrix \(A\) is a subset of \(m\) columns of \(A\) that are linearly independent and form an \(m \times m\) non singular matrix \(B\).
         \[ A = [\, B \mid N \, ] \]
-        where
+        where:
         \begin{align*}
           B \quad & \text{has} \ m \ \text{columns}   \\
           N \quad & \text{has} \ n-m \ \text{columns}
@@ -2459,8 +2459,9 @@ At the same time, the vector \(x_B\) changes to \(x_B + \theta d_B\), where \(d_
 Given that only the feasible solutions are relevant, it's necessary true that \(A \left( x + \theta d \right) = b\) and since \(x\) is feasible, \(A x = b\).
 At the same time, since \(\theta > 0\), it must hold
 \begin{equation}
-  A d = 0
   \label{eq:feasible-direction-1}
+  A d = 0
+  \tag{A}
 \end{equation}
 
 Since \(d_j = 1\) and \(d_i = 0 \, \forall \, i \neq j\):
@@ -2468,9 +2469,11 @@ Since \(d_j = 1\) and \(d_i = 0 \, \forall \, i \neq j\):
 due to the invertibility of the basis matrix \(B\):
 
 \begin{equation}
-  d_B = - B^{-1} A_j
   \label{eq:feasible-direction-2}
+  d_B = - B^{-1} A_j
+  \tag{B}
 \end{equation}
+
 The direction vector \(d\) will be referred thereon to as the \(j\)-th basic direction.
 
 While the equality constraints are respected, the non negativity constraints are not.
@@ -2500,7 +2503,7 @@ intuitively, \(c_j\) is the cost per unit increase in the variable \(x_j\), and 
 \end{definition}
 
 \bigskip
-Consider \textit{Definition~\ref{def:reduced-cost}} for the case of a basic variable.
+Consider Definition~\ref{def:reduced-cost} for the case of a basic variable.
 Since \(B\) is the matrix \(\left[ A_{B(1)}, \, \ldots \,, A_{B(m)} \right]\), then \(B^{-1}[A_{B(1)}, \, \ldots \,, A_{B(m)}] = I\) \textit{(is the identity matrix)}.
 In particular, \(B^{-1} A_{B(i)}\) is the \(i\)-th column of the identity matrix, which is the \(i\)-th unit vector\(e_i\).
 
@@ -2525,7 +2528,7 @@ Note that Theorem~\ref{thm:reduced-cost} allows the possibility that \(x\) is a 
 Furthermore, it states that in order to decide whether a non degenerate basic feasible solution is optimal, it's sufficient to check whether all the reduced costs are non negative, which is the same as examining \(n-m\) basic directions;
 checking if the degenerate basic feasible solution \(x\) is optimal is not as simple.
 
-Finally, the Definition~\ref{def:optimal-matrix} states the requirements for a matrix to be optimal.
+Finally Definition~\ref{def:optimal-matrix} states the requirements for a matrix to be optimal.
 
 \begin{definition}[Optimal matrix]
   A matrix \(B\) is \textbf{optimal} if and only if it is a basis matrix for an optimal basic feasible solution, i.e. the following conditions are both satisfied:
@@ -2865,7 +2868,7 @@ The simplest one is the \textbf{Bland's rule}: among all candidate variables for
 The two phase simplex algorithm is a modification of the simplex algorithm that allows to solve the \LP problem with equality
 constraints.
 
-\begin{enumerate}[label=phase \arabic*:, ref=phase \arabic*, leftmargin=*, labelindent=1em, widest*=8]
+\begin{enumerate}[label=Phase \arabic*:, ref=phase \arabic*, leftmargin=*, labelindent=1em, widest*=8]
   \item Determine an initial basic feasible solution
         \begin{itemize}
           \item given the problem with equality constraints
@@ -2925,7 +2928,7 @@ Despite having different spaces and objective functions, but in general the opti
 
 \bigskip
 \begin{definition}
-  The problem in~\ref{eq:LP-duality-primal} is called the \textbf{primal problem} and the problem in~\ref{eq:LP-duality-dual} is called the \textbf{dual problem}.
+  The problem in Equation~\ref{eq:LP-duality-primal} is called the \textbf{primal problem} and the problem in Equation~\ref{eq:LP-duality-dual} is called the \textbf{dual problem}.
 \end{definition}
 
 \begin{property}
@@ -3061,6 +3064,7 @@ An important relation between primal and dual optimal solutions is provided by t
 At optimality, the product of each variable with the corresponding slack variable of the constraint of the relative dual problem must be zero.
 
 \subsection{Sensitivity analysis}
+\label{sec:sensitivity-analysis}
 
 The sensitivity analysis of a linear programming problem is the study of the effect of small changes in the data of the problem on the optimal solution:
 it evaluates the \inlinequote{sensitivity} of an optimal solution with respect to variations in the model parameters.
@@ -3094,8 +3098,8 @@ and optimal basic solution \(x^\ast\):
 The objective is to evaluate the limits that allow \(B\) to \textbf{remain optimal}, under two conditions:
 
 \begin{enumerate}[itemsep=0.5ex]
-  \item \(B^{-1} b \geq 0\), \textbf{feasibility}
-  \item \(c_N^T = c_N^T - c_B^T B^{-1} N = 0^T\), \textbf{optimality}
+  \item \textbf{feasibility}: \(B^{-1} b \geq 0\)
+  \item \textbf{optimality}: \(c_N^T = c_N^T - c_B^T B^{-1} N = 0^T\)
 \end{enumerate}
 
 \paragraph[Changes in the requirement vector b]{Changes in the requirement vector \(b\)}
@@ -3402,13 +3406,13 @@ The Branch and Bound method uses a \inlinequote{divide and conquer} strategy to 
 
 Let \(F\) be the set of feasible solution to the problem:
 \begin{align*}
-  \min       & c^T     \\
-  \text{s.t} & x \in F \\
+  \min       \quad & c^T     \\
+  \text{s.t} \quad & x \in F \\
 \end{align*}
 
 The method is split in two phases:
 
-\begin{enumerate}[label=phase \arabic*., ref=step \arabic*, leftmargin=*, widest*=8, labelindent=1em]
+\begin{enumerate}[label=Phase \arabic*., ref=step \arabic*, leftmargin=*, widest*=8, labelindent=1em]
   \item \textbf{branch}, the problem is partitioned in simpler subproblems
   \item \textbf{bound}, the subproblems are solved and the optimal solution is found
 \end{enumerate}
