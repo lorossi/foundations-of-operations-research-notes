@@ -2,24 +2,39 @@
   "latex-workshop.latex.recipes": [
     {
       "name": "build with externalized images",
-      "tools": ["cleanstyles", "pdflatex", "pdflatex"]
+      "tools": [
+        "cleanstyles",
+        "pdflatex",
+        "pdflatex"
+      ]
     },
     {
       "name": "clean and build with externalized images",
-      "tools": ["cleanfiles", "cleanstyles", "pdflatex", "pdflatex"]
+      "tools": [
+        "cleanfiles",
+        "cleanstyles",
+        "pdflatex",
+        "pdflatex"
+      ]
     }
   ],
   "latex-workshop.latex.tools": [
     {
       "name": "cleanstyles",
       "command": "python3",
-      "args": ["envsetup.py", "cleanstyle"],
+      "args": [
+        "envsetup.py",
+        "cleanstyle"
+      ],
       "env": {}
     },
     {
       "name": "cleanfiles",
       "command": "python3",
-      "args": ["envsetup.py", "deletetemp"],
+      "args": [
+        "envsetup.py",
+        "deletetemp"
+      ],
       "env": {}
     },
     {
@@ -60,16 +75,26 @@
   "cSpell.words": [
     "abovesep",
     "argmin",
+    "asmmath",
     "auxlock",
     "belowsep",
+    "citecolor",
     "cleanstyle",
+    "constr",
+    "datetime",
     "deletetemp",
     "Fulkerson",
+    "Gomory",
     "integrality",
     "invertibility",
+    "linkcolor",
+    "lstlisting",
     "Minkoswki",
+    "morecomment",
     "polytope",
     "pred",
+    "subcaptions",
+    "subfigures",
     "submatrix",
     "subproblem",
     "subproblems",
@@ -80,7 +105,15 @@
     "unimodular",
     "valign",
     "vline",
-    "Warshall's"
+    "Warshall's",
+    "xsum"
   ],
-  "liveServer.settings.port": 5501
+  "liveServer.settings.port": 5501,
+  "grammarly.selectors": [
+    {
+      "language": "latex",
+      "scheme": "file",
+      "pattern": "foundations-of-operations-research-notes.tex"
+    }
+  ]
 }
