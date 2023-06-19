@@ -2087,6 +2087,8 @@ Consider a \LP with inequality constraints \textit{(as it's easier to visualize)
 \subsubsection{Weyl-Minkoswki Theorem}
 
 The \textbf{Weyl-Minkoswki Theorem} describes the representation of a polyhedron.
+This theorem is also known as the fundamental theorem of Linear Programming.
+
 Its formulation is expressed in Theorem~\ref{thm:weyl-minkowski}.
 
 \begin{theorem}[Weyl-Minkoswki]
@@ -2433,7 +2435,7 @@ Given a \LP:
                     & x \geq 0
 \end{align*}
 
-Suppose that \(x \in P\) is a basic feasible solution and move away from it in the direction of a vector \(d \in \R^n\);
+Suppose that \(x \in P\), where \(P\) is a polyhedron, is a basic feasible solution and move away from it in the direction of a vector \(d \in \R^n\);
 clearly, \(d\) should not immediately lead to a point outside \(P\), otherwise, the solution would not be feasible any more.
 
 \begin{definition}[Feasible direction]
@@ -2496,9 +2498,9 @@ intuitively, \(c_j\) is the cost per unit increase in the variable \(x_j\), and 
 
 \begin{definition}[Reduced costs]
   Let \(x\) be a basic solution with an associated basis matrix \(B\).
-  Let \(c_B\) be the vector of the costs of the basic variables.
+  Let \(c_B\) be the vector of the costs of the basic variables and \(c_N\) the vector of the costs of the non-basic variables.
   For each \(j\), the \textbf{reduced costs} \(\overline{c}_j\) of the non basic variable \(x_j\) are defined as
-  \[ \overline{c}_j = c_j - c^T_B B^{-1} A_j \]
+  \[ \overline{c}_j = c^T_N - c^T_B B^{-1} A_j \]
   \label{def:reduced-cost}
 \end{definition}
 
@@ -2535,7 +2537,7 @@ Finally Definition~\ref{def:optimal-matrix} states the requirements for a matrix
 
   \begin{itemize}
     \item \(B^{-1} b \geq 0\)
-    \item \(\overline{c}^T = c^T - c^T_B B^{-1} A \geq 0\)
+    \item \(\overline{c}^T = c^T_N - c^T_B B^{-1} A \geq 0\)
   \end{itemize}
   \label{def:optimal-matrix}
 \end{definition}
@@ -2960,7 +2962,7 @@ Table~\ref{tab:LP-duality-transformation-rules} summarizes the general transform
 
 \begin{theorem}[Weak duality]
   If \(x\) is a feasible solution to the primal problem \textit{(Equation~\ref{eq:LP-duality-primal})} and \(y\) is a feasible solution to the dual problem \textit{(Equation~\ref{eq:LP-duality-dual})}, then
-  \[ p^T b \leq c^T x \]
+  \[ \max b^T y \leq \min c^T x \]
 \end{theorem}
 
 \begin{proof}
@@ -2988,7 +2990,7 @@ The following corollaries are immediate consequences of the duality theorem.
 \paragraph{Strong duality}
 
 \begin{theorem}[Strong duality]
-  If \(X = \left\{ x \mid Ax \geq b, x \geq 0 \right\} \neq \emptyset\) and \(\min\left\{ c^T \mid x \in X \right\}\) is finite, there exists \(x^\ast \in X, \, y^\ast \in Y\) such that \(c^T x^\ast = b^T y^\ast\).
+  If \(X = \left\{ x \mid Ax \geq b, x \geq 0 \right\} \neq \emptyset\) and \(\min\left\{ c^T x, \mid x \in X \right\}\) is finite, there exists \(x^\ast \in X, \, y^\ast \in Y\) such that \(c^T x^\ast = b^T y^\ast\).
 \end{theorem}
 
 \begin{proof}
@@ -3054,7 +3056,7 @@ An important relation between primal and dual optimal solutions is provided by t
   \begin{gather*}
     \begin{aligned}
       y_i^\ast \left( a^T_i x - b_i \right) = 0 \quad & \forall \, i \in \left\{ i = 1, \, \ldots \,, m \right\} \\
-      \left( c_j - p^T A_j \right) x_j^\ast = 0 \quad & \forall \, j \in \left\{ j = 1, \, \ldots \,, n \right\}
+      \left( c_j - y^T A_j \right) x_j^\ast = 0 \quad & \forall \, j \in \left\{ j = 1, \, \ldots \,, n \right\}
     \end{aligned}
   \end{gather*}
   where \(a_i\) denotes the \(i\)-th row of \(A\) and \(A_j\) the \(j\)-th column of \(A\).
@@ -3630,7 +3632,7 @@ The corresponding row of the optimal tableau is:
 
 \begin{definition}[Gomory Cut]
   The \textbf{Gomory Cut} with respect to the fractional basic variable \(x_{B{r}}\) is the inequality:
-  \[ \displaystyle \sum_{j \vert x_j \in \N} \left( \overline{a}_{rj} - \lfloor \overline{a}_{rj} \rfloor \right) x_j \leq \overline{b}_r - \lfloor \overline{b}_r \rfloor \]
+  \[ \displaystyle \sum_{j \vert x_j \in \N} \left( \overline{a}_{rj} - \lfloor \overline{a}_{rj} \rfloor \right) x_j \geq \overline{b}_r - \lfloor \overline{b}_r \rfloor \]
 \end{definition}
 
 \begin{property}[Equality of integer and fractional forms of the Gomory cut]
@@ -3724,7 +3726,7 @@ model.objective = mip.minimize(
 # declare constraints
 for i in I:
   model.add_constr(
-    mip.xsum(y[i * N + j] <= x[i] if j != 1)
+    mip.xsum(y[i * N + j] <= x[i] if j != i else 0)
   )
 
 # optimize the model
@@ -3743,15 +3745,15 @@ model = mip.Model(name="", sense=mip.MINIMIZE, solver_name=mip.CBC)
         \end{itemize}
   \item senses:
         \begin{itemize}
-          \item minimize: \texttt{mip.MINIMIZE} or "min"
-          \item maximize: \texttt{mip.MAXIMIZE} or "max"
-          \item knapsack: \texttt{mip.KNAPSACK} or "knap"
+          \item minimize: \texttt{mip.MINIMIZE} or \texttt{"min"}
+          \item maximize: \texttt{mip.MAXIMIZE} or \texttt{"max"}
+          \item knapsack: \texttt{mip.KNAPSACK} or \texttt{"knap"}
         \end{itemize}
   \item variable and constraints types
         \begin{itemize}
-          \item binary variable: \texttt{mip.BINARY} or "B"
-          \item integer variable: \texttt{mip.INTEGER} or "I"
-          \item continuous variable: \texttt{mip.CONTINUOUS} or "C"
+          \item binary variable: \texttt{mip.BINARY} or "\texttt{B"}
+          \item integer variable: \texttt{mip.INTEGER} or \texttt{"I"}
+          \item continuous variable: \texttt{mip.CONTINUOUS} or \texttt{"C"}
         \end{itemize}
   \item variable declaration:
         \begin{verbatim}
